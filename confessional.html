@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychezone | Anonymous Confessional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==== GLOBAL STYLES ==== */
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --light-bg: #F8F9FF;
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==== HEADER ==== */
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--primary-soul);
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(93, 63, 211, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ==== CONFESSIONAL HERO ==== */
+        .confessional-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1) 0%, transparent 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, white, var(--primary-soul));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .safety-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(106, 192, 192, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            margin-top: 1rem;
+            color: var(--calm-mind);
+        }
+
+        /* ==== CONFESSIONAL CONTAINER ==== */
+        .confessional-container {
+            padding: 4rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            min-height: 500px;
+        }
+
+        @media (max-width: 992px) {
+            .confessional-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==== INPUT SECTION ==== */
+        .input-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: fit-content;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .emotion-selector {
+            margin: 1.5rem 0;
+        }
+
+        .emotion-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .emotion-tag {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .emotion-tag:hover, .emotion-tag.active {
+            background: var(--primary-soul);
+        }
+
+        .confession-input {
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            color: white;
+            font-size: 1.1rem;
+            resize: none;
+            margin: 1.5rem 0;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .confession-input:focus {
+            outline: none;
+            border-color: var(--primary-soul);
+            background: rgba(93, 63, 211, 0.1);
+        }
+
+        .character-count {
+            text-align: right;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-confess {
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+        }
+
+        .btn-confess:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(93, 63, 211, 0.3);
+        }
+
+        .btn-confess:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* ==== VISUALIZATION SECTION ==== */
+        .visualization-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: fit-content;
+        }
+
+        .art-container {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .art-placeholder {
+            text-align: center;
+            color: #666;
+        }
+
+        .art-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .art-canvas {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .transformation-text {
+            font-style: italic;
+            color: var(--calm-mind);
+            text-align: center;
+            margin: 1rem 0;
+            min-height: 24px;
+        }
+
+        .share-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .share-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .share-btn:hover {
+            background: rgba(93, 63, 211, 0.3);
+        }
+
+        /* ==== COMMUNITY WALL ==== */
+        .community-section {
+            padding: 6rem 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .community-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .community-description {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: #ccc;
+        }
+
+        .community-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .community-art {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .community-art:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .art-preview {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .art-message {
+            font-style: italic;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .art-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* ==== STATS ==== */
+        .stats-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--hope-glow);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==== FOOTER ==== */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-title {
+            color: var(--calm-mind);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-soul);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+
+        /* ==== ANIMATIONS ==== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* ==== RESPONSIVE ==== */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-sanctuary);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .main-nav.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .share-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <div class="logo-text">PSYCHEZONE</div>
+                </a>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <nav class="main-nav" id="mainNav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="therapies.html" class="nav-link">Therapies</a>
+                    <a href="workshops.html" class="nav-link">Workshops</a>
+                    <a href="confessional.html" class="nav-link active">Confessional</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONFESSIONAL HERO -->
+    <section class="confessional-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">ANONYMOUS RELEASE</h1>
+                <p class="hero-subtitle">Release what weighs on your heart. Watch it transform into abstract art. Find peace in letting go.</p>
+                <div class="safety-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>100% Anonymous • No Data Stored • Therapeutic Release</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFESSIONAL CONTAINER -->
+    <section class="confessional-container container">
+        <!-- INPUT SECTION -->
+        <div class="input-section">
+            <h2 class="section-title">What's On Your Heart?</h2>
+            <p>Type what you need to release. This is a safe, judgment-free space.</p>
+            
+            <div class="emotion-selector">
+                <p>How are you feeling?</p>
+                <div class="emotion-tags">
+                    <button class="emotion-tag">Anxious</button>
+                    <button class="emotion-tag">Sad</button>
+                    <button class="emotion-tag">Angry</button>
+                    <button class="emotion-tag">Overwhelmed</button>
+                    <button class="emotion-tag">Lost</button>
+                    <button class="emotion-tag">Hopeful</button>
+                </div>
+            </div>
+
+            <textarea 
+                class="confession-input" 
+                placeholder="Write what you need to release... This space is completely anonymous. No names, no tracking, just release."
+                id="confessionText"
+                maxlength="500"
+            ></textarea>
+
+            <div class="character-count">
+                <span id="charCount">0</span>/500 characters
+            </div>
+
+            <button class="btn btn-confess" id="releaseBtn">
+                <i class="fas fa-feather-alt"></i> Release & Transform
+            </button>
+
+            <p class="disclaimer">
+                <i class="fas fa-lock"></i> Your text is never stored. It transforms into art and is released forever.
+            </p>
+        </div>
+
+        <!-- VISUALIZATION SECTION -->
+        <div class="visualization-section">
+            <h2 class="section-title">Watch It Transform</h2>
+            <p>Your words become healing art</p>
+            
+            <div class="art-container">
+                <div class="art-placeholder" id="artPlaceholder">
+                    <i class="fas fa-paint-brush"></i>
+                    <p>Your art will appear here</p>
+                </div>
+                <div class="art-canvas" id="artCanvas"></div>
+            </div>
+
+            <div class="transformation-text" id="transformationText">
+                Type something to begin the transformation...
+            </div>
+
+            <div class="share-options">
+                <button class="share-btn" id="saveArtBtn" disabled>
+                    <i class="fas fa-download"></i>
+                    <span>Save Art</span>
+                </button>
+                <button class="share-btn" id="shareArtBtn" disabled>
+                    <i class="fas fa-share-alt"></i>
+                    <span>Share</span>
+                </button>
+                <button class="share-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>New Release</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY WALL -->
+    <section class="community-section">
+        <div class="container">
+            <h2 class="community-title">Collective Healing Wall</h2>
+            <p class="community-description">
+                Every release contributes to our community healing art. These are visual representations of burdens released by others.
+            </p>
+
+            <div class="community-wall">
+                <div class="community-art">
+                    <div class="art-preview" style="background: linear-gradient(45deg, #5D3FD3, #6AC0C0);"></div>
+                    <p class="art-message">"Released the weight of expectations"</p>
+                    <p class="art-date">Released 2 days ago</p>
+                </div>
+
+                <div class="community-art">
+                    <div class="art-preview" style="background: linear-gradient(45deg, #FF9A76, #6AC0C0);"></div>
+                    <p class="art-message">"Let go of past regrets"</p>
+                    <p class="art-date">Released 3 days ago</p>
+                </div>
+
+                <div class="community-art">
+                    <div class="art-preview" style="background: linear-gradient(45deg, #5D3FD3, #FF9A76);"></div>
+                    <p class="art-message">"Found peace with uncertainty"</p>
+                    <p class="art-date">Released 5 days ago</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">Healing in Numbers</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="releasesCount">1,247</div>
+                    <p>Anonymous Releases</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="artCreated">892</div>
+                    <p>Healing Art Pieces Created</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number pulse">100%</div>
+                    <p>Confidential & Safe</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Psychezone International</h3>
+                    <p>Mabatini Rd, Dar es Salaam</p>
+                    <p>Mon-Sat: 8AM - 6PM</p>
+                    <p>⭐ 5.0 (12+ reviews)</p>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Need More Support?</h3>
+                    <p>The anonymous confessional is for release. For ongoing support:</p>
+                    <a href="therapies.html" class="btn" style="background: var(--primary-soul); color: white; margin-top: 1rem; padding: 0.8rem 1.5rem;">
+                        Explore Therapy Options
+                    </a>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 Psychezone International. Mental health clinic & counseling services.</p>
+                <p>The Confessional is a therapeutic tool for emotional release. In crisis? Call +255 123 456 789</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const confessionText = document.getElementById('confessionText');
+        const charCount = document.getElementById('charCount');
+        const releaseBtn = document.getElementById('releaseBtn');
+        const artPlaceholder = document.getElementById('artPlaceholder');
+        const artCanvas = document.getElementById('artCanvas');
+        const transformationText = document.getElementById('transformationText');
+        const saveArtBtn = document.getElementById('saveArtBtn');
+        const shareArtBtn = document.getElementById('shareArtBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const emotionTags = document.querySelectorAll('.emotion-tag');
+        const releasesCount = document.getElementById('releasesCount');
+        const artCreated = document.getElementById('artCreated');
+
+        // Character Counter
+        confessionText.addEventListener('input', function() {
+            const length = this.value.length;
+            charCount.textContent = length;
+            releaseBtn.disabled = length < 10;
+        });
+
+        // Emotion Tags
+        emotionTags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                emotionTags.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Release Button
+        releaseBtn.addEventListener('click', function() {
+            const text = confessionText.value.trim();
+            if (text.length < 10) return;
+
+            // Disable input and button
+            confessionText.disabled = true;
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Transforming...';
+
+            // Generate art
+            setTimeout(() => {
+                // Hide placeholder, show canvas
+                artPlaceholder.style.display = 'none';
+                artCanvas.style.display = 'block';
+                
+                // Generate simple art
+                generateArt(text);
+                
+                // Update transformation text
+                const emotions = ['peace', 'release', 'freedom', 'healing', 'transformation'];
+                const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+                transformationText.textContent = `Your words have transformed into ${randomEmotion}.`;
+                
+                // Enable share buttons
+                saveArtBtn.disabled = false;
+                shareArtBtn.disabled = false;
+                
+                // Update button text
+                this.innerHTML = '<i class="fas fa-check"></i> Released';
+                this.style.background = 'var(--calm-mind)';
+                
+                // Update stats
+                updateStats();
+                
+                // Show success message
+                showNotification('Released successfully! Your burden is now healing art.');
+            }, 1500);
+        });
+
+        // Generate Art Function
+        function generateArt(text) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const container = artCanvas;
+            
+            // Set canvas size
+            canvas.width = 400;
+            canvas.height = 300;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Generate color based on text
+            const hash = text.split('').reduce((a, b) => {
+                a = ((a << 5) - a) + b.charCodeAt(0);
+                return a & a;
+            }, 0);
+            
+            // Create gradient based on text hash
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            const hue1 = Math.abs(hash) % 360;
+            const hue2 = (hue1 + 150) % 360;
+            
+            gradient.addColorStop(0, `hsl(${hue1}, 70%, 50%)`);
+            gradient.addColorStop(1, `hsl(${hue2}, 70%, 50%)`);
+            
+            // Draw shapes based on text
+            const words = text.split(' ').length;
+            const chars = text.length;
+            
+            // Draw circles for words
+            for (let i = 0; i < words && i < 20; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = Math.min(chars / 100, 30) + Math.random() * 20;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = i % 2 === 0 ? gradient : `rgba(255, 255, 255, 0.1)`;
+                ctx.fill();
+            }
+            
+            // Add to container
+            container.innerHTML = '';
+            container.appendChild(canvas);
+        }
+
+        // Update Stats
+        function updateStats() {
+            // Animate counting up
+            animateCount(releasesCount, 1247, 1248, 500);
+            animateCount(artCreated, 892, 893, 500);
+        }
+
+        function animateCount(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Save Art
+        saveArtBtn.addEventListener('click', function() {
+            const canvas = artCanvas.querySelector('canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = 'psychezone-healing-art.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                showNotification('Art saved to your device!');
+            }
+        });
+
+        // Share Art
+        shareArtBtn.addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Healing Art from Psychezone',
+                    text: 'I released my burden and created healing art.',
+                    url: window.location.href
+                });
+            } else {
+                showNotification('Share your art by saving it and sharing the image!');
+            }
+        });
+
+        // Reset
+        resetBtn.addEventListener('click', function() {
+            confessionText.value = '';
+            confessionText.disabled = false;
+            charCount.textContent = '0';
+            releaseBtn.disabled = true;
+            releaseBtn.innerHTML = '<i class="fas fa-feather-alt"></i> Release & Transform';
+            releaseBtn.style.background = '';
+            
+            artPlaceholder.style.display = 'flex';
+            artCanvas.style.display = 'none';
+            artCanvas.innerHTML = '';
+            
+            transformationText.textContent = 'Type something to begin the transformation...';
+            
+            saveArtBtn.disabled = true;
+            shareArtBtn.disabled = true;
+            
+            emotionTags.forEach(tag => tag.classList.remove('active'));
+            
+            showNotification('Ready for a new release. What would you like to let go of today?');
+        });
+
+        // Notification Function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--primary-soul);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Initialize with sample data
+        setTimeout(() => {
+            if (!localStorage.getItem('visitedConfessional')) {
+                showNotification('Welcome to the Anonymous Confessional. Your words are safe here.');
+                localStorage.setItem('visitedConfessional', 'true');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
