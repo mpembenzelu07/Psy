@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychezone International | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==== GLOBAL STYLES ==== */
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --light-bg: #F8F9FF;
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==== HEADER & NAVIGATION ==== */
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--primary-soul);
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(93, 63, 211, 0.2);
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lang-btn.active {
+            background: var(--primary-soul);
+            border-color: var(--primary-soul);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ==== HERO SECTION ==== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(93, 63, 211, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(106, 192, 192, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, white, var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(93, 63, 211, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--calm-mind);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(106, 192, 192, 0.1);
+        }
+
+        /* ==== FEATURES SECTION ==== */
+        .features {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-soul);
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-soul);
+            margin-bottom: 1rem;
+        }
+
+        /* ==== TESTIMONIALS ==== */
+        .testimonials {
+            padding: 6rem 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            color: var(--calm-mind);
+            font-weight: 600;
+        }
+
+        .rating {
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==== QUICK LINKS ==== */
+        .quick-links {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .link-card:hover {
+            background: rgba(93, 63, 211, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* ==== FOOTER ==== */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-title {
+            color: var(--calm-mind);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-soul);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+
+        /* ==== RESPONSIVE ==== */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-sanctuary);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .main-nav.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <div class="logo-text">PSYCHEZONE</div>
+                </a>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <nav class="main-nav" id="mainNav">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="therapies.html" class="nav-link">Therapies</a>
+                    <a href="workshops.html" class="nav-link">Workshops</a>
+                    <a href="confessional.html" class="nav-link">Confessional</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="language-switcher">
+                    <button class="lang-btn active">EN</button>
+                    <button class="lang-btn">SW</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">WHERE MINDS HEAL & SPIRITS SOAR</h1>
+                <p class="hero-subtitle">Dar es Salaam's premier mental health sanctuary, blending modern psychotherapy with culturally-aware healing practices in English and Swahili.</p>
+                
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">
+                        <i class="fas fa-calendar-check"></i> Book Your Session
+                    </a>
+                    <a href="therapies.html" class="btn btn-secondary">
+                        <i class="fas fa-compass"></i> Explore Therapies
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">WHY PSYCHEZONE IS DIFFERENT</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-language feature-icon"></i>
+                    <h3>Bilingual Healing</h3>
+                    <p>Full therapy sessions in English & Swahili. Your healing journey in the language of your heart.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-hands-helping feature-icon"></i>
+                    <h3>Culturally-Rooted</h3>
+                    <p>Western psychotherapy meets Tanzanian wisdom for truly relevant healing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>Safe & Confidential</h3>
+                    <p>Your privacy is sacred. Anonymous options available for complete confidentiality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">HEALING VOICES</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"After years of struggling alone, Psychezone gave me tools to heal in my own language. Revolutionary!"</p>
+                    <p class="testimonial-author">- Aisha M., Dar es Salaam</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The bilingual approach made all the difference. Finally, therapy that understands my cultural context."</p>
+                    <p class="testimonial-author">- John P., Corporate Client</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK LINKS -->
+    <section class="quick-links">
+        <div class="container">
+            <h2 class="section-title">YOUR HEALING JOURNEY STARTS HERE</h2>
+            
+            <div class="link-grid">
+                <a href="therapies.html" class="link-card">
+                    <i class="fas fa-brain" style="font-size: 2rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
+                    <h3>Therapy Sessions</h3>
+                    <p>One-on-one healing journeys</p>
+                </a>
+                
+                <a href="workshops.html" class="link-card">
+                    <i class="fas fa-users" style="font-size: 2rem; color: var(--calm-mind); margin-bottom: 1rem;"></i>
+                    <h3>Group Workshops</h3>
+                    <p>Community healing circles</p>
+                </a>
+                
+                <a href="confessional.html" class="link-card">
+                    <i class="fas fa-feather-alt" style="font-size: 2rem; color: var(--hope-glow); margin-bottom: 1rem;"></i>
+                    <h3>Anonymous Release</h3>
+                    <p>Release burdens safely</p>
+                </a>
+                
+                <a href="contact.html" class="link-card">
+                    <i class="fas fa-phone-alt" style="font-size: 2rem; color: var(--calm-mind); margin-bottom: 1rem;"></i>
+                    <h3>Contact Us</h3>
+                    <p>Begin your journey today</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Psychezone International</h3>
+                    <p>Mabatini Rd, Dar es Salaam</p>
+                    <p>Mon-Sat: 8AM - 6PM</p>
+                    <p>⭐ 5.0 (12+ reviews)</p>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Quick Links</h3>
+                    <p><a href="index.html" style="color: white; text-decoration: none;">Home</a></p>
+                    <p><a href="therapies.html" style="color: white; text-decoration: none;">Services</a></p>
+                    <p><a href="contact.html" style="color: white; text-decoration: none;">Book Appointment</a></p>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 Psychezone International. Mental health clinic & counseling services.</p>
+                <p>In Tanzania, mental health services are limited. We're changing that narrative.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Language Switcher
+        const langButtons = document.querySelectorAll('.lang-btn');
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                langButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In production, this would trigger language change
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
