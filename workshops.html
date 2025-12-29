@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychezone | Workshops & Training</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==== GLOBAL STYLES ==== */
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==== HEADER (Same as previous) ==== */
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--primary-soul);
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(93, 63, 211, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ==== WORKSHOP HERO ==== */
+        .workshop-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            background: linear-gradient(135deg, rgba(255, 154, 118, 0.1) 0%, transparent 100%);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, white, var(--hope-glow));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ==== WORKSHOP GRID ==== */
+        .workshops-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .workshop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .workshop-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .workshop-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--hope-glow);
+        }
+
+        .workshop-badge {
+            background: var(--hope-glow);
+            color: var(--dark-sanctuary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .workshop-date {
+            color: var(--calm-mind);
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .workshop-features li {
+            padding: 0.3rem 0;
+            color: #ccc;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-workshop {
+            background: linear-gradient(45deg, var(--hope-glow), #FFB896);
+            color: var(--dark-sanctuary);
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .btn-workshop:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 154, 118, 0.3);
+        }
+
+        /* ==== CORPORATE SECTION ==== */
+        .corporate-section {
+            padding: 6rem 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .corporate-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* ==== CALENDAR PREVIEW ==== */
+        .calendar-section {
+            padding: 4rem 0;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .calendar-day {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .calendar-day:hover {
+            background: rgba(106, 192, 192, 0.2);
+        }
+
+        .day-highlight {
+            background: rgba(93, 63, 211, 0.2);
+            border: 1px solid var(--primary-soul);
+        }
+
+        /* ==== FOOTER (Same as previous) ==== */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .main-nav { 
+                display: none; 
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-sanctuary);
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .main-nav.active { display: flex; }
+            .hero-title { font-size: 2.5rem; }
+            .workshop-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <div class="logo-text">PSYCHEZONE</div>
+                </a>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <nav class="main-nav" id="mainNav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="therapies.html" class="nav-link">Therapies</a>
+                    <a href="workshops.html" class="nav-link active">Workshops</a>
+                    <a href="confessional.html" class="nav-link">Confessional</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="workshop-hero">
+        <div class="container">
+            <h1 class="hero-title">WORKSHOPS & GROUP HEALING</h1>
+            <p>Community-based healing experiences in Dar es Salaam</p>
+        </div>
+    </section>
+
+    <section class="workshops-section">
+        <div class="container">
+            <h2 class="section-title">UPCOMING WORKSHOPS</h2>
+            
+            <div class="workshop-grid">
+                <div class="workshop-card">
+                    <div style="padding: 2rem;">
+                        <div class="workshop-badge">IN-PERSON</div>
+                        <h3>Anxiety Management Circle</h3>
+                        <div class="workshop-date">
+                            <i class="far fa-calendar"></i> Every Tuesday, 5-7 PM
+                        </div>
+                        <p>Learn evidence-based techniques to manage anxiety in a supportive group setting.</p>
+                        
+                        <ul class="workshop-features">
+                            <li>Breathing & mindfulness exercises</li>
+                            <li>Cognitive restructuring techniques</li>
+                            <li>Group support & sharing</li>
+                            <li>Take-home toolkit</li>
+                        </ul>
+                        
+                        <div style="color: var(--hope-glow); font-weight: 700; margin: 1rem 0;">
+                            TZS 25,000 per session
+                        </div>
+                        
+                        <a href="contact.html" class="btn btn-workshop">
+                            <i class="fas fa-user-plus"></i> Join Circle
+                        </a>
+                    </div>
+                </div>
+
+                <div class="workshop-card">
+                    <div style="padding: 2rem;">
+                        <div class="workshop-badge">ONLINE</div>
+                        <h3>Digital Detox & Mental Clarity</h3>
+                        <div class="workshop-date">
+                            <i class="far fa-calendar"></i> Saturday, Dec 15 | 10 AM-1 PM
+                        </div>
+                        <p>Reclaim your focus and reduce digital overwhelm in our immersive workshop.</p>
+                        
+                        <ul class="workshop-features">
+                            <li>Digital addiction awareness</li>
+                            <li>Focus restoration techniques</li>
+                            <li>Healthy tech boundaries</li>
+                            <li>30-day challenge</li>
+                        </ul>
+                        
+                        <div style="color: var(--hope-glow); font-weight: 700; margin: 1rem 0;">
+                            TZS 40,000 (includes workbook)
+                        </div>
+                        
+                        <a href="contact.html" class="btn btn-workshop">
+                            <i class="fas fa-laptop-house"></i> Register Online
+                        </a>
+                    </div>
+                </div>
+
+                <div class="workshop-card">
+                    <div style="padding: 2rem;">
+                        <div class="workshop-badge">CORPORATE</div>
+                        <h3>Workplace Resilience Training</h3>
+                        <div class="workshop-date">
+                            <i class="far fa-calendar"></i> Custom scheduling
+                        </div>
+                        <p>Build mental fitness and resilience within your organization.</p>
+                        
+                        <ul class="workshop-features">
+                            <li>Stress management strategies</li>
+                            <li>Team communication skills</li>
+                            <li>Burnout prevention</li>
+                            <li>Leadership mental wellness</li>
+                        </ul>
+                        
+                        <div style="color: var(--hope-glow); font-weight: 700; margin: 1rem 0;">
+                            Custom pricing for organizations
+                        </div>
+                        
+                        <a href="contact.html" class="btn btn-workshop">
+                            <i class="fas fa-building"></i> Inquire for Company
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="corporate-section">
+        <div class="container">
+            <h2 class="section-title">FOR ORGANIZATIONS</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: #ccc;">
+                We offer customized mental wellness programs for Tanzanian businesses, schools, and institutions.
+            </p>
+            
+            <div class="corporate-features">
+                <div style="text-align: center;">
+                    <i class="fas fa-users" style="font-size: 3rem; color: var(--calm-mind); margin-bottom: 1rem;"></i>
+                    <h3>Team Workshops</h3>
+                    <p>Half-day or full-day sessions for your entire team</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
+                    <h3>Leadership Training</h3>
+                    <p>Mental fitness for managers and executives</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <i class="fas fa-handshake" style="font-size: 3rem; color: var(--hope-glow); margin-bottom: 1rem;"></i>
+                    <h3>EAP Programs</h3>
+                    <p>Employee Assistance Programs for ongoing support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div style="text-align: center;">
+                <h3 style="color: var(--calm-mind); margin-bottom: 1rem;">Ready to host a workshop?</h3>
+                <a href="contact.html" class="btn" style="background: var(--primary-soul); color: white;">
+                    <i class="fas fa-envelope"></i> Contact Our Team
+                </a>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; color: #888;">
+                <p>© 2023 Psychezone International | Mabatini Rd, Dar es Salaam</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+    </script>
+</body>
+</html>
