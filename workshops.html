@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychezone | Workshops & Training</title>
+    <title>Workshops & Programs | Psychezone International</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ==== GLOBAL STYLES ==== */
         :root {
             --primary-soul: #5D3FD3;
             --calm-mind: #6AC0C0;
             --hope-glow: #FF9A76;
             --dark-sanctuary: #0A0A1A;
-            --transition: all 0.4s ease;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -25,31 +24,27 @@
         body {
             background: var(--dark-sanctuary);
             color: white;
+            min-height: 100vh;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ==== HEADER (Same as previous) ==== */
+        /* Header */
         header {
             background: rgba(10, 10, 26, 0.95);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .logo {
@@ -59,11 +54,7 @@
             text-decoration: none;
         }
 
-        .logo-icon {
-            color: var(--primary-soul);
-            font-size: 2rem;
-        }
-
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
@@ -73,368 +64,1003 @@
             color: transparent;
         }
 
-        .main-nav {
-            display: flex;
-            gap: 2rem;
-        }
-
+        .nav-links { display: flex; gap: 1.5rem; }
         .nav-link {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 30px;
             transition: var(--transition);
         }
-
         .nav-link:hover, .nav-link.active {
             background: rgba(93, 63, 211, 0.2);
+            transform: translateY(-2px);
         }
 
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+        /* Main Content */
+        .workshops-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 4rem;
         }
 
-        /* ==== WORKSHOP HERO ==== */
-        .workshop-hero {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            padding-top: 120px;
-            background: linear-gradient(135deg, rgba(255, 154, 118, 0.1) 0%, transparent 100%);
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, white, var(--hope-glow));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        /* ==== WORKSHOP GRID ==== */
-        .workshops-section {
-            padding: 4rem 0;
-        }
-
-        .section-title {
+        /* Hero Section */
+        .workshops-hero {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: white;
+            padding: 3rem 1rem;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .workshop-grid {
+        .hero-icon {
+            font-size: 4rem;
+            color: var(--primary-soul);
+            margin-bottom: 1.5rem;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Workshop Categories */
+        .categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .category-btn.active {
+            background: rgba(93, 63, 211, 0.3);
+            border-color: var(--primary-soul);
+            transform: translateY(-3px);
+        }
+
+        .category-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Workshop Grid */
+        .workshops-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
 
         .workshop-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
-            border: 1px solid transparent;
+            position: relative;
         }
 
         .workshop-card:hover {
             transform: translateY(-10px);
-            border-color: var(--hope-glow);
+            border-color: var(--primary-soul);
+            box-shadow: 0 20px 40px rgba(93, 63, 211, 0.2);
+        }
+
+        .workshop-header {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, rgba(93, 63, 211, 0.3), rgba(106, 192, 192, 0.3));
+            position: relative;
         }
 
         .workshop-badge {
-            background: var(--hope-glow);
-            color: var(--dark-sanctuary);
-            padding: 0.5rem 1rem;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 0.3rem 1rem;
             border-radius: 20px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
-        .workshop-date {
-            color: var(--calm-mind);
-            margin: 1rem 0;
+        .badge-live { background: rgba(255, 87, 87, 0.2); color: #ff5757; }
+        .badge-upcoming { background: rgba(106, 192, 192, 0.2); color: var(--calm-mind); }
+        .badge-online { background: rgba(93, 63, 211, 0.2); color: #b19eff; }
+
+        .workshop-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .workshop-content {
+            padding: 1.5rem;
+        }
+
+        .workshop-meta {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .meta-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .meta-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            display: block;
+        }
+
+        .meta-value {
+            font-weight: bold;
+            color: var(--calm-mind);
+        }
+
+        .workshop-features {
+            list-style: none;
+            margin: 1rem 0;
         }
 
         .workshop-features li {
-            padding: 0.3rem 0;
-            color: #ccc;
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
+        .workshop-features li:before {
+            content: '✓';
+            color: var(--calm-mind);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .workshop-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin-top: 1.5rem;
             transition: var(--transition);
         }
 
-        .btn-workshop {
-            background: linear-gradient(45deg, var(--hope-glow), #FFB896);
-            color: var(--dark-sanctuary);
-            width: 100%;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .btn-workshop:hover {
+        .workshop-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 154, 118, 0.3);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
         }
 
-        /* ==== CORPORATE SECTION ==== */
-        .corporate-section {
-            padding: 6rem 0;
-            background: rgba(0, 0, 0, 0.3);
+        /* AI Matching */
+        .ai-matching {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            text-align: center;
+            border: 2px dashed var(--primary-soul);
         }
 
-        .corporate-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        /* ==== CALENDAR PREVIEW ==== */
+        /* Calendar View */
         .calendar-section {
-            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
         }
 
         .calendar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
         }
 
         .calendar-day {
-            background: rgba(255, 255, 255, 0.05);
             padding: 1rem;
-            border-radius: 10px;
             text-align: center;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
             transition: var(--transition);
         }
 
         .calendar-day:hover {
-            background: rgba(106, 192, 192, 0.2);
-        }
-
-        .day-highlight {
             background: rgba(93, 63, 211, 0.2);
-            border: 1px solid var(--primary-soul);
         }
 
-        /* ==== FOOTER (Same as previous) ==== */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 3rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .calendar-day.has-workshop {
+            background: rgba(106, 192, 192, 0.2);
+            border: 2px solid var(--calm-mind);
         }
 
+        .calendar-day.today {
+            background: rgba(255, 154, 118, 0.2);
+            border: 2px solid var(--hope-glow);
+        }
+
+        /* Workshop Modal */
+        .workshop-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--dark-sanctuary);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 100;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .lang-option {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lang-option.active {
+            background: rgba(93, 63, 211, 0.3);
+            border-color: var(--primary-soul);
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-soul), var(--calm-mind));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-btn { display: block; }
-            .main-nav { 
-                display: none; 
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--dark-sanctuary);
-                flex-direction: column;
-                padding: 1rem;
+            .workshops-grid {
+                grid-template-columns: 1fr;
             }
-            .main-nav.active { display: flex; }
-            .hero-title { font-size: 2.5rem; }
-            .workshop-grid { grid-template-columns: 1fr; }
+            
+            .categories {
+                flex-direction: column;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.9rem;
+            }
+            
+            .calendar-day {
+                padding: 0.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-brain logo-icon"></i>
-                    <div class="logo-text">PSYCHEZONE</div>
-                </a>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <nav class="main-nav" id="mainNav">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="therapies.html" class="nav-link">Therapies</a>
-                    <a href="workshops.html" class="nav-link active">Workshops</a>
-                    <a href="confessional.html" class="nav-link">Confessional</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
-                </nav>
-            </div>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="therapies.html" class="nav-link">Therapies</a>
+                <a href="workshops.html" class="nav-link active">Workshops</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="ai-intake.html" class="nav-link">AI Assistant</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <section class="workshop-hero">
-        <div class="container">
-            <h1 class="hero-title">WORKSHOPS & GROUP HEALING</h1>
-            <p>Community-based healing experiences in Dar es Salaam</p>
-        </div>
-    </section>
-
-    <section class="workshops-section">
-        <div class="container">
-            <h2 class="section-title">UPCOMING WORKSHOPS</h2>
-            
-            <div class="workshop-grid">
-                <div class="workshop-card">
-                    <div style="padding: 2rem;">
-                        <div class="workshop-badge">IN-PERSON</div>
-                        <h3>Anxiety Management Circle</h3>
-                        <div class="workshop-date">
-                            <i class="far fa-calendar"></i> Every Tuesday, 5-7 PM
-                        </div>
-                        <p>Learn evidence-based techniques to manage anxiety in a supportive group setting.</p>
-                        
-                        <ul class="workshop-features">
-                            <li>Breathing & mindfulness exercises</li>
-                            <li>Cognitive restructuring techniques</li>
-                            <li>Group support & sharing</li>
-                            <li>Take-home toolkit</li>
-                        </ul>
-                        
-                        <div style="color: var(--hope-glow); font-weight: 700; margin: 1rem 0;">
-                            TZS 25,000 per session
-                        </div>
-                        
-                        <a href="contact.html" class="btn btn-workshop">
-                            <i class="fas fa-user-plus"></i> Join Circle
-                        </a>
-                    </div>
-                </div>
-
-                <div class="workshop-card">
-                    <div style="padding: 2rem;">
-                        <div class="workshop-badge">ONLINE</div>
-                        <h3>Digital Detox & Mental Clarity</h3>
-                        <div class="workshop-date">
-                            <i class="far fa-calendar"></i> Saturday, Dec 15 | 10 AM-1 PM
-                        </div>
-                        <p>Reclaim your focus and reduce digital overwhelm in our immersive workshop.</p>
-                        
-                        <ul class="workshop-features">
-                            <li>Digital addiction awareness</li>
-                            <li>Focus restoration techniques</li>
-                            <li>Healthy tech boundaries</li>
-                            <li>30-day challenge</li>
-                        </ul>
-                        
-                        <div style="color: var(--hope-glow); font-weight: 700; margin: 1rem 0;">
-                            TZS 40,000 (includes workbook)
-                        </div>
-                        
-                        <a href="contact.html" class="btn btn-workshop">
-                            <i class="fas fa-laptop-house"></i> Register Online
-                        </a>
-                    </div>
-                </div>
-
-                <div class="workshop-card">
-                    <div style="padding: 2rem;">
-                        <div class="workshop-badge">CORPORATE</div>
-                        <h3>Workplace Resilience Training</h3>
-                        <div class="workshop-date">
-                            <i class="far fa-calendar"></i> Custom scheduling
-                        </div>
-                        <p>Build mental fitness and resilience within your organization.</p>
-                        
-                        <ul class="workshop-features">
-                            <li>Stress management strategies</li>
-                            <li>Team communication skills</li>
-                            <li>Burnout prevention</li>
-                            <li>Leadership mental wellness</li>
-                        </ul>
-                        
-                        <div style="color: var(--hope-glow); font-weight: 700; margin: 1rem 0;">
-                            Custom pricing for organizations
-                        </div>
-                        
-                        <a href="contact.html" class="btn btn-workshop">
-                            <i class="fas fa-building"></i> Inquire for Company
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="corporate-section">
-        <div class="container">
-            <h2 class="section-title">FOR ORGANIZATIONS</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: #ccc;">
-                We offer customized mental wellness programs for Tanzanian businesses, schools, and institutions.
+    <main class="workshops-container">
+        <!-- Hero Section -->
+        <section class="workshops-hero">
+            <i class="fas fa-users hero-icon"></i>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, white, var(--calm-mind));
+               -webkit-background-clip: text; background-clip: text; color: transparent;">
+                Group Healing & Growth
+            </h1>
+            <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.8); max-width: 800px; margin: 0 auto 2rem;">
+                Join our community workshops and programs designed for collective healing. 
+                Available in-person in Dar es Salaam and online.
             </p>
             
-            <div class="corporate-features">
-                <div style="text-align: center;">
-                    <i class="fas fa-users" style="font-size: 3rem; color: var(--calm-mind); margin-bottom: 1rem;"></i>
-                    <h3>Team Workshops</h3>
-                    <p>Half-day or full-day sessions for your entire team</p>
+            <div class="language-toggle">
+                <div class="lang-option active">English Workshops</div>
+                <div class="lang-option">Kiswahili Workshops</div>
+                <div class="lang-option">Bilingual Sessions</div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All Workshops</button>
+            <button class="category-btn" data-category="anxiety">Anxiety Management</button>
+            <button class="category-btn" data-category="stress">Stress Reduction</button>
+            <button class="category-btn" data-category="mindfulness">Mindfulness</button>
+            <button class="category-btn" data-category="trauma">Trauma Support</button>
+            <button class="category-btn" data-category="youth">Youth Programs</button>
+        </div>
+
+        <!-- Workshop Grid -->
+        <div class="workshops-grid">
+            <!-- Workshop 1 -->
+            <div class="workshop-card" data-category="anxiety">
+                <div class="workshop-header">
+                    <i class="fas fa-wind workshop-icon"></i>
+                    <h3>Calm Collective: Anxiety Management</h3>
+                    <span class="workshop-badge badge-live">Live Now</span>
                 </div>
-                
-                <div style="text-align: center;">
-                    <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
-                    <h3>Leadership Training</h3>
-                    <p>Mental fitness for managers and executives</p>
+                <div class="workshop-content">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">
+                        Weekly group sessions for anxiety relief using CBT techniques in a supportive environment.
+                    </p>
+                    
+                    <div class="workshop-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Duration</span>
+                            <span class="meta-value">8 Weeks</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Language</span>
+                            <span class="meta-value">EN/SW</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Format</span>
+                            <span class="meta-value">Hybrid</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="workshop-features">
+                        <li>CBT group exercises</li>
+                        <li>Breathing techniques</li>
+                        <li>Peer support circles</li>
+                        <li>Digital workbook included</li>
+                    </ul>
+                    
+                    <button class="workshop-btn" onclick="openWorkshopModal('calm-collective')">
+                        <i class="fas fa-calendar-plus"></i> Join Workshop
+                    </button>
                 </div>
-                
-                <div style="text-align: center;">
-                    <i class="fas fa-handshake" style="font-size: 3rem; color: var(--hope-glow); margin-bottom: 1rem;"></i>
-                    <h3>EAP Programs</h3>
-                    <p>Employee Assistance Programs for ongoing support</p>
+            </div>
+
+            <!-- Workshop 2 -->
+            <div class="workshop-card" data-category="mindfulness">
+                <div class="workshop-header" style="background: linear-gradient(45deg, rgba(106, 192, 192, 0.3), rgba(255, 154, 118, 0.3));">
+                    <i class="fas fa-spa workshop-icon"></i>
+                    <h3>Mindful Mornings</h3>
+                    <span class="workshop-badge badge-online">Online</span>
+                </div>
+                <div class="workshop-content">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">
+                        Daily 30-minute mindfulness sessions to start your day with intention and peace.
+                    </p>
+                    
+                    <div class="workshop-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Time</span>
+                            <span class="meta-value">6:30 AM</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Days</span>
+                            <span class="meta-value">Mon-Fri</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Cost</span>
+                            <span class="meta-value">Free</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="workshop-features">
+                        <li>Guided meditation</li>
+                        <li>Journaling prompts</li>
+                        <li>Morning intention setting</li>
+                        <li>Community sharing</li>
+                    </ul>
+                    
+                    <button class="workshop-btn" onclick="openWorkshopModal('mindful-mornings')">
+                        <i class="fas fa-play-circle"></i> Start Tomorrow
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 3 -->
+            <div class="workshop-card" data-category="trauma">
+                <div class="workshop-header" style="background: linear-gradient(45deg, rgba(255, 154, 118, 0.3), rgba(157, 78, 221, 0.3));">
+                    <i class="fas fa-hands-helping workshop-icon"></i>
+                    <h3>Healing Together</h3>
+                    <span class="workshop-badge badge-upcoming">Starting Soon</span>
+                </div>
+                <div class="workshop-content">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">
+                        Safe space for trauma survivors to share experiences and learn coping strategies together.
+                    </p>
+                    
+                    <div class="workshop-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Duration</span>
+                            <span class="meta-value">12 Weeks</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Group Size</span>
+                            <span class="meta-value">6-8 People</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Screening</span>
+                            <span class="meta-value">Required</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="workshop-features">
+                        <li>Trauma-informed facilitators</li>
+                        <li>Confidential environment</li>
+                        <li>Art therapy exercises</li>
+                        <li>Gradual exposure techniques</li>
+                    </ul>
+                    
+                    <button class="workshop-btn" onclick="openWorkshopModal('healing-together')">
+                        <i class="fas fa-shield-alt"></i> Learn More
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 4 -->
+            <div class="workshop-card" data-category="youth">
+                <div class="workshop-header" style="background: linear-gradient(45deg, rgba(157, 78, 221, 0.3), rgba(93, 63, 211, 0.3));">
+                    <i class="fas fa-child workshop-icon"></i>
+                    <h3>Teen Tribe</h3>
+                    <span class="workshop-badge badge-online">Online</span>
+                </div>
+                <div class="workshop-content">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">
+                        Support group for teenagers dealing with school stress, social anxiety, and identity exploration.
+                    </p>
+                    
+                    <div class="workshop-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Ages</span>
+                            <span class="meta-value">13-18</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">When</span>
+                            <span class="meta-value">Saturdays</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Parent Session</span>
+                            <span class="meta-value">Included</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="workshop-features">
+                        <li>Age-appropriate discussions</li>
+                        <li>Creative expression</li>
+                        <li>Peer mentoring</li>
+                        <li>Digital safety education</li>
+                    </ul>
+                    
+                    <button class="workshop-btn" onclick="openWorkshopModal('teen-tribe')">
+                        <i class="fas fa-user-plus"></i> Register Teen
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 5 -->
+            <div class="workshop-card" data-category="stress">
+                <div class="workshop-header" style="background: linear-gradient(45deg, rgba(93, 63, 211, 0.3), rgba(106, 192, 192, 0.3));">
+                    <i class="fas fa-briefcase workshop-icon"></i>
+                    <h3>Workplace Wellness</h3>
+                    <span class="workshop-badge badge-live">Corporate</span>
+                </div>
+                <div class="workshop-content">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">
+                        Stress management and burnout prevention for professionals and organizations.
+                    </p>
+                    
+                    <div class="workshop-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Format</span>
+                            <span class="meta-value">In-Person</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Duration</span>
+                            <span class="meta-value">6 Hours</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Group Size</span>
+                            <span class="meta-value">10-30</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="workshop-features">
+                        <li>Stress assessment tools</li>
+                        <li>Time management techniques</li>
+                        <li>Team building exercises</li>
+                        <li>Corporate rates available</li>
+                    </ul>
+                    
+                    <button class="workshop-btn" onclick="openWorkshopModal('workplace-wellness')">
+                        <i class="fas fa-building"></i> Book for Company
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 6 -->
+            <div class="workshop-card" data-category="mindfulness">
+                <div class="workshop-header" style="background: linear-gradient(45deg, rgba(106, 192, 192, 0.3), rgba(255, 154, 118, 0.3));">
+                    <i class="fas fa-moon workshop-icon"></i>
+                    <h3>Sleep Sanctuary</h3>
+                    <span class="workshop-badge badge-upcoming">New</span>
+                </div>
+                <div class="workshop-content">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">
+                        Evening workshops to improve sleep quality through relaxation and routine building.
+                    </p>
+                    
+                    <div class="workshop-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Time</span>
+                            <span class="meta-value">8:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Duration</span>
+                            <span class="meta-value">4 Weeks</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Tools</span>
+                            <span class="meta-value">Provided</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="workshop-features">
+                        <li>Sleep hygiene education</li>
+                        <li>Bedtime meditation</li>
+                        <li>Dream journaling</li>
+                        <li>Sleep tracking app</li>
+                    </ul>
+                    
+                    <button class="workshop-btn" onclick="openWorkshopModal('sleep-sanctuary')">
+                        <i class="fas fa-bed"></i> Join Waitlist
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <footer>
-        <div class="container">
-            <div style="text-align: center;">
-                <h3 style="color: var(--calm-mind); margin-bottom: 1rem;">Ready to host a workshop?</h3>
-                <a href="contact.html" class="btn" style="background: var(--primary-soul); color: white;">
-                    <i class="fas fa-envelope"></i> Contact Our Team
-                </a>
+        <!-- AI Matching Section -->
+        <section class="ai-matching">
+            <i class="fas fa-robot" style="font-size: 3rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
+            <h3 style="margin-bottom: 1rem;">Not Sure Which Workshop is Right?</h3>
+            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">
+                Our AI assistant can match you with the perfect workshop based on your needs, schedule, and preferences.
+            </p>
+            <a href="ai-intake.html" class="workshop-btn" style="width: auto; display: inline-block;">
+                <i class="fas fa-magic"></i> Get AI Workshop Recommendation
+            </a>
+        </section>
+
+        <!-- Calendar Section -->
+        <section class="calendar-section">
+            <div class="calendar-header">
+                <h3 style="color: var(--calm-mind);">December 2024 Workshop Calendar</h3>
+                <div style="display: flex; gap: 1rem;">
+                    <button onclick="prevMonth()" style="background: rgba(255,255,255,0.1); border: none; 
+                           color: white; padding: 0.5rem 1rem; border-radius: 10px; cursor: pointer;">
+                        ← Prev
+                    </button>
+                    <button onclick="nextMonth()" style="background: rgba(255,255,255,0.1); border: none; 
+                           color: white; padding: 0.5rem 1rem; border-radius: 10px; cursor: pointer;">
+                        Next →
+                    </button>
+                </div>
             </div>
             
-            <div style="text-align: center; margin-top: 3rem; color: #888;">
-                <p>© 2023 Psychezone International | Mabatini Rd, Dar es Salaam</p>
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Calendar days will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Progress Tracker -->
+        <div class="progress-tracker">
+            <h4 style="color: var(--calm-mind); margin-bottom: 1rem;">
+                <i class="fas fa-chart-line"></i> Your Workshop Progress
+            </h4>
+            <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 0.5rem;">
+                You've attended 3 of 8 sessions in your current workshop
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="workshopProgress" style="width: 37.5%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                <span style="font-size: 0.9rem;">37% Complete</span>
+                <a href="dashboard.html" style="color: var(--primary-soul); text-decoration: none;">
+                    View Details →
+                </a>
             </div>
         </div>
-    </footer>
+    </main>
+
+    <!-- Workshop Modal -->
+    <div class="workshop-modal" id="workshopModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWorkshopModal()">×</button>
+            <div id="modalContent">
+                <!-- Dynamic content will go here -->
+            </div>
+        </div>
+    </div>
 
     <script>
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+        // Category filtering
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter workshops
+                const category = this.getAttribute('data-category');
+                const workshops = document.querySelectorAll('.workshop-card');
+                
+                workshops.forEach(workshop => {
+                    if (category === 'all' || workshop.getAttribute('data-category') === category) {
+                        workshop.style.display = 'block';
+                        setTimeout(() => {
+                            workshop.style.opacity = '1';
+                            workshop.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        workshop.style.opacity = '0';
+                        workshop.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            workshop.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Language toggle
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                
+                // In a real app, this would filter workshops by language
+                showNotification(`Showing ${this.textContent}`);
+            });
+        });
+
+        // Workshop data
+        const workshopsData = {
+            'calm-collective': {
+                title: 'Calm Collective: Anxiety Management',
+                description: 'Weekly group sessions for anxiety relief using CBT techniques in a supportive environment.',
+                duration: '8 Weeks',
+                schedule: 'Every Tuesday, 6:00 PM - 7:30 PM',
+                language: 'Bilingual (English & Swahili)',
+                format: 'Hybrid (In-person & Online)',
+                facilitator: 'Dr. Aisha Mwamba',
+                price: 'TZS 320,000 for full program',
+                features: [
+                    'CBT group exercises',
+                    'Breathing techniques',
+                    'Peer support circles',
+                    'Digital workbook',
+                    'Weekly check-ins',
+                    'Progress tracking'
+                ]
+            },
+            'mindful-mornings': {
+                title: 'Mindful Mornings',
+                description: 'Daily 30-minute mindfulness sessions to start your day with intention and peace.',
+                duration: 'Ongoing',
+                schedule: 'Monday-Friday, 6:30 AM - 7:00 AM',
+                language: 'English & Swahili available',
+                format: 'Online Only',
+                facilitator: 'Mindfulness Coach Jamila',
+                price: 'Free for first month, then TZS 50,000/month',
+                features: [
+                    'Guided meditation',
+                    'Journaling prompts',
+                    'Morning intention setting',
+                    'Community sharing',
+                    'Recorded sessions',
+                    'Weekly themes'
+                ]
+            }
+        };
+
+        // Modal functions
+        function openWorkshopModal(workshopId) {
+            const modal = document.getElementById('workshopModal');
+            const content = document.getElementById('modalContent');
+            const workshop = workshopsData[workshopId];
+            
+            if (workshop) {
+                content.innerHTML = `
+                    <div style="padding: 2rem;">
+                        <div style="background: linear-gradient(45deg, rgba(93, 63, 211, 0.3), rgba(106, 192, 192, 0.3)); 
+                             padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem; font-size: 1.8rem;">${workshop.title}</h3>
+                            <p style="color: rgba(255, 255, 255, 0.8);">${workshop.description}</p>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <div style="color: var(--calm-mind); font-weight: bold;">Duration</div>
+                                <div>${workshop.duration}</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <div style="color: var(--calm-mind); font-weight: bold;">Schedule</div>
+                                <div>${workshop.schedule}</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <div style="color: var(--calm-mind); font-weight: bold;">Language</div>
+                                <div>${workshop.language}</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <div style="color: var(--calm-mind); font-weight: bold;">Facilitator</div>
+                                <div>${workshop.facilitator}</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--calm-mind); margin-bottom: 1rem;">What's Included:</h4>
+                            <ul style="list-style: none;">
+                                ${workshop.features.map(feature => `
+                                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                        <i class="fas fa-check" style="color: var(--calm-mind); margin-right: 0.5rem;"></i>
+                                        ${feature}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(93, 63, 211, 0.1); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 1.2rem; font-weight: bold;">${workshop.price}</div>
+                                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Per person</div>
+                                </div>
+                                <button onclick="bookWorkshop('${workshopId}')" 
+                                        style="background: linear-gradient(45deg, var(--primary-soul), #7B5FE8); 
+                                        color: white; border: none; padding: 1rem 2rem; border-radius: 25px; 
+                                        cursor: pointer; font-weight: bold;">
+                                    Book Now
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem; text-align: center;">
+                            <i class="fas fa-lock"></i> Secure booking | Free cancellation up to 48 hours before
+                        </div>
+                    </div>
+                `;
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeWorkshopModal() {
+            document.getElementById('workshopModal').style.display = 'none';
+        }
+
+        function bookWorkshop(workshopId) {
+            // Save booking to localStorage
+            const booking = {
+                workshop: workshopId,
+                date: new Date().toISOString(),
+                status: 'pending'
+            };
+            
+            const bookings = JSON.parse(localStorage.getItem('workshopBookings') || '[]');
+            bookings.push(booking);
+            localStorage.setItem('workshopBookings', JSON.stringify(bookings));
+            
+            closeWorkshopModal();
+            showNotification(`Workshop booking added! Check your dashboard for details.`);
+            window.location.href = 'dashboard.html';
+        }
+
+        // Calendar functions
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+            
+            // Day headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.style.fontWeight = 'bold';
+                dayEl.style.color = 'var(--calm-mind)';
+                dayEl.textContent = day;
+                calendarGrid.appendChild(dayEl);
+            });
+            
+            // Today's date
+            const today = new Date();
+            const currentDate = today.getDate();
+            const currentMonth = today.getMonth();
+            
+            // Workshop dates (simulated)
+            const workshopDates = [5, 7, 12, 14, 19, 21, 26, 28];
+            
+            // Generate days
+            const daysInMonth = 31; // December
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = i;
+                
+                // Check if today
+                if (i === currentDate && currentMonth === 11) { // December is month 11
+                    dayEl.classList.add('today');
+                }
+                
+                // Check if workshop day
+                if (workshopDates.includes(i)) {
+                    dayEl.classList.add('has-workshop');
+                    dayEl.onclick = () => {
+                        showNotification(`Workshops available on December ${i}!`);
+                        document.querySelectorAll('.category-btn')[0].click(); // Show all
+                    };
+                }
+                
+                calendarGrid.appendChild(dayEl);
+            }
+        }
+
+        function prevMonth() {
+            showNotification('Showing November workshops');
+            // In a real app, this would load previous month's data
+        }
+
+        function nextMonth() {
+            showNotification('January workshops coming soon');
+            // In a real app, this would load next month's data
+        }
+
+        // Helper functions
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(10, 10, 26, 0.95);
+                backdrop-filter: blur(10px);
+                color: var(--calm-mind);
+                padding: 1rem 1.5rem;
+                border-radius: 15px;
+                border-left: 4px solid var(--primary-soul);
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCalendar();
+            
+            // Load user's workshop progress
+            const userProgress = localStorage.getItem('workshopProgress');
+            if (userProgress) {
+                document.getElementById('workshopProgress').style.width = userProgress + '%';
+            }
+            
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('workshopModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWorkshopModal();
+            }
         });
     </script>
 </body>
