@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Intake Assistant | Psychezone International</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* AI Chat Container */
+        .ai-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .ai-disclaimer {
+            background: rgba(255, 154, 118, 0.1);
+            border-left: 4px solid var(--hope-glow);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-message {
+            background: rgba(93, 63, 211, 0.2);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background: rgba(106, 192, 192, 0.2);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+
+        .lang-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .lang-btn.active {
+            background: rgba(93, 63, 211, 0.3);
+            border-color: var(--primary-soul);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Quick Options */
+        .quick-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .quick-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quick-option:hover {
+            background: rgba(93, 63, 211, 0.2);
+            transform: translateY(-3px);
+            border-color: var(--primary-soul);
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 1rem;
+            background: rgba(10, 10, 26, 0.8);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 1rem 1.5rem;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary-soul);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .send-btn {
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(93, 63, 211, 0.5);
+        }
+
+        /* Voice Input */
+        .voice-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .voice-btn {
+            background: rgba(255, 154, 118, 0.2);
+            border: 2px solid var(--hope-glow);
+            color: var(--hope-glow);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .voice-btn.listening {
+            animation: pulse 1s infinite;
+            background: rgba(255, 154, 118, 0.4);
+        }
+
+        /* Progress */
+        .intake-progress {
+            margin: 2rem 0;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .progress-steps:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .step-circle.active {
+            background: var(--primary-soul);
+            transform: scale(1.2);
+        }
+
+        .step-circle.completed {
+            background: var(--calm-mind);
+        }
+
+        /* Results */
+        .results-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .recommendation-card {
+            background: rgba(93, 63, 211, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary-soul);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 400px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .quick-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+        </div>
+    </header>
+
+    <main class="ai-container">
+        <div class="ai-header">
+            <div class="ai-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h1>AI Intake Assistant</h1>
+            <p>Gentle, confidential conversation to understand your needs</p>
+            
+            <div class="ai-disclaimer">
+                <i class="fas fa-exclamation-circle"></i>
+                This AI assistant does NOT provide diagnosis or treatment. 
+                It helps match you with appropriate services and professionals.
+            </div>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <button class="lang-btn active" data-lang="en">
+                <i class="fas fa-language"></i> English
+            </button>
+            <button class="lang-btn" data-lang="sw">
+                <i class="fas fa-language"></i> Kiswahili
+            </button>
+            <button class="lang-btn" data-lang="mix">
+                <i class="fas fa-exchange-alt"></i> Mix Both
+            </button>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="intake-progress">
+            <div class="progress-steps">
+                <div class="progress-step">
+                    <div class="step-circle active">1</div>
+                    <div style="font-size: 0.8rem;">Welcome</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle">2</div>
+                    <div style="font-size: 0.8rem;">How You Feel</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle">3</div>
+                    <div style="font-size: 0.8rem;">Background</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle">4</div>
+                    <div style="font-size: 0.8rem;">Goals</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle">5</div>
+                    <div style="font-size: 0.8rem;">Recommendations</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be added here -->
+                <div class="message ai-message">
+                    <div class="message-header">
+                        <i class="fas fa-robot" style="color: var(--primary-soul);"></i>
+                        <span>Psychezone AI</span>
+                    </div>
+                    <p>Hello! I'm here to help you find the right mental health support. This conversation is completely confidential.</p>
+                    <p>What language would you prefer for our conversation?</p>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="messageInput" placeholder="Type your message...">
+                <button class="send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Response Options -->
+        <div class="quick-options" id="quickOptions">
+            <div class="quick-option" data-response="I'm feeling anxious or stressed">
+                <i class="fas fa-anxiety"></i>
+                <div>Anxious/Stressed</div>
+            </div>
+            <div class="quick-option" data-response="I've been feeling sad or depressed">
+                <i class="fas fa-sad-tear"></i>
+                <div>Sad/Depressed</div>
+            </div>
+            <div class="quick-option" data-response="I need help with relationships">
+                <i class="fas fa-heart"></i>
+                <div>Relationship Issues</div>
+            </div>
+            <div class="quick-option" data-response="I'm not sure what I need">
+                <i class="fas fa-search"></i>
+                <div>Not Sure</div>
+            </div>
+        </div>
+
+        <!-- Voice Controls -->
+        <div class="voice-controls">
+            <button class="voice-btn" id="voiceBtn">
+                <i class="fas fa-microphone"></i>
+                Speak Instead
+            </button>
+            <div id="voiceStatus" style="color: var(--calm-mind); font-size: 0.9rem;">
+                Click to start speaking
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <h3 style="color: var(--calm-mind); margin-bottom: 1rem;">
+                <i class="fas fa-clipboard-check"></i> Your Personalized Recommendations
+            </h3>
+            
+            <div class="recommendation-card">
+                <h4>💆 Cognitive Behavioral Therapy (CBT)</h4>
+                <p>Based on your conversation, CBT could help you manage thought patterns and develop coping strategies.</p>
+                <a href="therapies.html" style="color: var(--primary-soul); text-decoration: none;">
+                    Learn more about CBT →
+                </a>
+            </div>
+
+            <div class="recommendation-card">
+                <h4>🤝 Therapist Match</h4>
+                <p>We've found 3 therapists who specialize in anxiety management and speak both English and Swahili.</p>
+                <a href="therapist-match.html" style="color: var(--primary-soul); text-decoration: none;">
+                    View matches →
+                </a>
+            </div>
+
+            <div class="recommendation-card">
+                <h4>🎧 Immediate Support</h4>
+                <p>Try our guided breathing exercises while you wait for your first session.</p>
+                <a href="voice-tools.html" style="color: var(--primary-soul); text-decoration: none;">
+                    Start breathing exercise →
+                </a>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="contact.html" style="display: inline-block; background: linear-gradient(45deg, var(--primary-soul), #7B5FE8); 
+                   color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold;">
+                    Book Your First Session
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 1;
+        let selectedLanguage = 'en';
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const voiceBtn = document.getElementById('voiceBtn');
+        const voiceStatus = document.getElementById('voiceStatus');
+        const resultsSection = document.getElementById('resultsSection');
+        const quickOptions = document.querySelectorAll('.quick-option');
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const stepCircles = document.querySelectorAll('.step-circle');
+
+        // Language selection
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                langButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedLanguage = this.getAttribute('data-lang');
+                
+                addMessage('ai', `Language set to ${selectedLanguage === 'en' ? 'English' : 
+                    selectedLanguage === 'sw' ? 'Kiswahili' : 'Mixed languages'}. How can I help you today?`);
+                
+                updateStep(2);
+            });
+        });
+
+        // Quick options
+        quickOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const response = this.getAttribute('data-response');
+                addMessage('user', response);
+                simulateAIResponse(response);
+            });
+        });
+
+        // Send message
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                addMessage('user', message);
+                messageInput.value = '';
+                simulateAIResponse(message);
+            }
+        }
+
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <i class="fas fa-${sender === 'ai' ? 'robot' : 'user'}" 
+                       style="color: ${sender === 'ai' ? 'var(--primary-soul)' : 'var(--calm-mind)'};"></i>
+                    <span>${sender === 'ai' ? 'Psychezone AI' : 'You'}</span>
+                </div>
+                <p>${text}</p>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function simulateAIResponse(userMessage) {
+            setTimeout(() => {
+                let response = '';
+                
+                if (currentStep === 2) {
+                    response = "Thank you for sharing that. How long have you been feeling this way?";
+                    updateStep(3);
+                } else if (currentStep === 3) {
+                    response = "I understand. Have you spoken to anyone about how you're feeling?";
+                    updateStep(4);
+                } else if (currentStep === 4) {
+                    response = "What would you like to achieve through therapy? For example: better sleep, less anxiety, or improved relationships?";
+                    updateStep(5);
+                } else if (currentStep === 5) {
+                    response = "Thank you for sharing. Based on our conversation, I have some recommendations for you.";
+                    showResults();
+                }
+                
+                addMessage('ai', response);
+            }, 1000);
+        }
+
+        function updateStep(step) {
+            currentStep = step;
+            stepCircles.forEach((circle, index) => {
+                circle.classList.remove('active', 'completed');
+                if (index + 1 < step) {
+                    circle.classList.add('completed');
+                } else if (index + 1 === step) {
+                    circle.classList.add('active');
+                }
+            });
+        }
+
+        function showResults() {
+            setTimeout(() => {
+                resultsSection.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+                
+                // Save intake data
+                const intakeData = {
+                    language: selectedLanguage,
+                    step: currentStep,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('aiIntake', JSON.stringify(intakeData));
+            }, 1500);
+        }
+
+        // Voice input simulation
+        voiceBtn.addEventListener('click', function() {
+            if (!this.classList.contains('listening')) {
+                this.classList.add('listening');
+                voiceStatus.textContent = 'Listening... Speak now';
+                voiceStatus.style.color = 'var(--hope-glow)';
+                
+                // Simulate voice input
+                setTimeout(() => {
+                    const voiceResponses = [
+                        "I've been feeling anxious for about two weeks",
+                        "I need help with stress management",
+                        "I'm having trouble sleeping",
+                        "I want to talk to someone about my feelings"
+                    ];
+                    const randomResponse = voiceResponses[Math.floor(Math.random() * voiceResponses.length)];
+                    
+                    addMessage('user', randomResponse);
+                    simulateAIResponse(randomResponse);
+                    
+                    this.classList.remove('listening');
+                    voiceStatus.textContent = 'Voice input complete';
+                    setTimeout(() => {
+                        voiceStatus.textContent = 'Click to start speaking';
+                    }, 2000);
+                }, 2000);
+            }
+        });
+
+        // Initialize with first AI message
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStep(1);
+        });
+    </script>
+</body>
+</html>
