@@ -126,10 +126,11 @@
         }
 
         .message {
-            max-width: 80%;
+            max-width: 85%;
             padding: 1rem 1.5rem;
             border-radius: 20px;
             animation: slideIn 0.3s ease;
+            position: relative;
         }
 
         @keyframes slideIn {
@@ -355,6 +356,30 @@
             border-left: 4px solid var(--primary-soul);
         }
 
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-soul);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .chat-container {
@@ -367,6 +392,11 @@
             
             .quick-options {
                 grid-template-columns: 1fr;
+            }
+            
+            .language-selector {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -398,14 +428,11 @@
 
         <!-- Language Selector -->
         <div class="language-selector">
-            <button class="lang-btn active" data-lang="en">
+            <button class="lang-btn active" id="englishBtn">
                 <i class="fas fa-language"></i> English
             </button>
-            <button class="lang-btn" data-lang="sw">
+            <button class="lang-btn" id="swahiliBtn">
                 <i class="fas fa-language"></i> Kiswahili
-            </button>
-            <button class="lang-btn" data-lang="mix">
-                <i class="fas fa-exchange-alt"></i> Mix Both
             </button>
         </div>
 
@@ -413,23 +440,23 @@
         <div class="intake-progress">
             <div class="progress-steps">
                 <div class="progress-step">
-                    <div class="step-circle active">1</div>
+                    <div class="step-circle active" id="step1">1</div>
                     <div style="font-size: 0.8rem;">Welcome</div>
                 </div>
                 <div class="progress-step">
-                    <div class="step-circle">2</div>
+                    <div class="step-circle" id="step2">2</div>
                     <div style="font-size: 0.8rem;">How You Feel</div>
                 </div>
                 <div class="progress-step">
-                    <div class="step-circle">3</div>
+                    <div class="step-circle" id="step3">3</div>
                     <div style="font-size: 0.8rem;">Background</div>
                 </div>
                 <div class="progress-step">
-                    <div class="step-circle">4</div>
+                    <div class="step-circle" id="step4">4</div>
                     <div style="font-size: 0.8rem;">Goals</div>
                 </div>
                 <div class="progress-step">
-                    <div class="step-circle">5</div>
+                    <div class="step-circle" id="step5">5</div>
                     <div style="font-size: 0.8rem;">Recommendations</div>
                 </div>
             </div>
@@ -438,19 +465,19 @@
         <!-- Chat Interface -->
         <div class="chat-container">
             <div class="chat-messages" id="chatMessages">
-                <!-- Messages will be added here -->
-                <div class="message ai-message">
-                    <div class="message-header">
-                        <i class="fas fa-robot" style="color: var(--primary-soul);"></i>
-                        <span>Psychezone AI</span>
-                    </div>
-                    <p>Hello! I'm here to help you find the right mental health support. This conversation is completely confidential.</p>
-                    <p>What language would you prefer for our conversation?</p>
-                </div>
+                <!-- Initial AI message will be added by JavaScript -->
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <span style="color: rgba(255,255,255,0.7); margin-left: 0.5rem;">AI is typing...</span>
             </div>
 
             <div class="chat-input-area">
-                <input type="text" class="chat-input" id="messageInput" placeholder="Type your message...">
+                <input type="text" class="chat-input" id="messageInput" placeholder="Type your message..." autocomplete="off">
                 <button class="send-btn" id="sendBtn">
                     <i class="fas fa-paper-plane"></i>
                 </button>
@@ -459,22 +486,7 @@
 
         <!-- Quick Response Options -->
         <div class="quick-options" id="quickOptions">
-            <div class="quick-option" data-response="I'm feeling anxious or stressed">
-                <i class="fas fa-anxiety"></i>
-                <div>Anxious/Stressed</div>
-            </div>
-            <div class="quick-option" data-response="I've been feeling sad or depressed">
-                <i class="fas fa-sad-tear"></i>
-                <div>Sad/Depressed</div>
-            </div>
-            <div class="quick-option" data-response="I need help with relationships">
-                <i class="fas fa-heart"></i>
-                <div>Relationship Issues</div>
-            </div>
-            <div class="quick-option" data-response="I'm not sure what I need">
-                <i class="fas fa-search"></i>
-                <div>Not Sure</div>
-            </div>
+            <!-- Quick options will be dynamically generated -->
         </div>
 
         <!-- Voice Controls -->
@@ -496,7 +508,7 @@
             
             <div class="recommendation-card">
                 <h4>💆 Cognitive Behavioral Therapy (CBT)</h4>
-                <p>Based on your conversation, CBT could help you manage thought patterns and develop coping strategies.</p>
+                <p id="cbtRecommendation">Based on your conversation, CBT could help you manage thought patterns and develop coping strategies.</p>
                 <a href="therapies.html" style="color: var(--primary-soul); text-decoration: none;">
                     Learn more about CBT →
                 </a>
@@ -504,7 +516,7 @@
 
             <div class="recommendation-card">
                 <h4>🤝 Therapist Match</h4>
-                <p>We've found 3 therapists who specialize in anxiety management and speak both English and Swahili.</p>
+                <p id="therapistMatch">We've found therapists who specialize in your specific needs and speak your preferred language.</p>
                 <a href="therapist-match.html" style="color: var(--primary-soul); text-decoration: none;">
                     View matches →
                 </a>
@@ -512,7 +524,7 @@
 
             <div class="recommendation-card">
                 <h4>🎧 Immediate Support</h4>
-                <p>Try our guided breathing exercises while you wait for your first session.</p>
+                <p id="immediateSupport">Try our guided breathing exercises while you wait for your first session.</p>
                 <a href="voice-tools.html" style="color: var(--primary-soul); text-decoration: none;">
                     Start breathing exercise →
                 </a>
@@ -528,54 +540,318 @@
     </main>
 
     <script>
-        let currentStep = 1;
-        let selectedLanguage = 'en';
-        const chatMessages = document.getElementById('chatMessages');
-        const messageInput = document.getElementById('messageInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const voiceBtn = document.getElementById('voiceBtn');
-        const voiceStatus = document.getElementById('voiceStatus');
-        const resultsSection = document.getElementById('resultsSection');
-        const quickOptions = document.querySelectorAll('.quick-option');
-        const langButtons = document.querySelectorAll('.lang-btn');
-        const stepCircles = document.querySelectorAll('.step-circle');
+        // ================== CONFIGURATION ==================
+        const CONFIG = {
+            currentStep: 1,
+            selectedLanguage: 'english',
+            userAnswers: {},
+            conversationHistory: [],
+            isProcessing: false
+        };
 
-        // Language selection
-        langButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                langButtons.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                selectedLanguage = this.getAttribute('data-lang');
-                
-                addMessage('ai', `Language set to ${selectedLanguage === 'en' ? 'English' : 
-                    selectedLanguage === 'sw' ? 'Kiswahili' : 'Mixed languages'}. How can I help you today?`);
-                
-                updateStep(2);
+        // English conversation flow
+        const ENGLISH_FLOW = {
+            welcome: {
+                question: "Hello! I'm here to help you find the right mental health support. This conversation is completely confidential. What language would you prefer for our conversation?",
+                quickOptions: [
+                    { text: "English", value: "english" },
+                    { text: "Kiswahili", value: "swahili" },
+                    { text: "Both languages", value: "both" }
+                ]
+            },
+            feelings: {
+                question: "Thank you. How have you been feeling recently?",
+                quickOptions: [
+                    { text: "Anxious or stressed", value: "anxious" },
+                    { text: "Sad or depressed", value: "sad" },
+                    { text: "Overwhelmed", value: "overwhelmed" },
+                    { text: "Angry or irritable", value: "angry" },
+                    { text: "Lonely", value: "lonely" },
+                    { text: "Just need someone to talk to", value: "talk" }
+                ]
+            },
+            duration: {
+                question: "How long have you been feeling this way?",
+                quickOptions: [
+                    { text: "A few days", value: "days" },
+                    { text: "A few weeks", value: "weeks" },
+                    { text: "Several months", value: "months" },
+                    { text: "More than a year", value: "year" }
+                ]
+            },
+            support: {
+                question: "Have you spoken to anyone about how you're feeling?",
+                quickOptions: [
+                    { text: "Yes, friends or family", value: "friends" },
+                    { text: "Yes, a professional", value: "professional" },
+                    { text: "No, I haven't told anyone", value: "no_one" },
+                    { text: "Not yet, but I want to", value: "want_to" }
+                ]
+            },
+            goals: {
+                question: "What would you like to achieve through therapy?",
+                quickOptions: [
+                    { text: "Reduce anxiety", value: "reduce_anxiety" },
+                    { text: "Improve sleep", value: "sleep" },
+                    { text: "Better relationships", value: "relationships" },
+                    { text: "Coping skills", value: "coping" },
+                    { text: "Self-understanding", value: "understanding" },
+                    { text: "Not sure yet", value: "unsure" }
+                ]
+            },
+            preferences: {
+                question: "What are your preferences for therapy?",
+                quickOptions: [
+                    { text: "In-person sessions", value: "in_person" },
+                    { text: "Online therapy", value: "online" },
+                    { text: "Either works", value: "either" },
+                    { text: "Group workshops", value: "group" },
+                    { text: "Male therapist", value: "male_therapist" },
+                    { text: "Female therapist", value: "female_therapist" }
+                ]
+            }
+        };
+
+        // Swahili conversation flow
+        const SWAHILI_FLOW = {
+            welcome: {
+                question: "Hujambo! Mimi ni hapa kukusaidia kupata usaidizi unaofaa kwa afya ya akili. Mazungumzo haya ni ya siri kabisa. Ungependa lugha gani kwa mazungumzo yetu?",
+                quickOptions: [
+                    { text: "Kiingereza", value: "english" },
+                    { text: "Kiswahili", value: "swahili" },
+                    { text: "Lugha zote mbili", value: "both" }
+                ]
+            },
+            feelings: {
+                question: "Asante. Umekuwa ukihisi vipi hivi karibuni?",
+                quickOptions: [
+                    { text: "Wasiwasi au mkazo", value: "anxious" },
+                    { text: "Huzuni au unyogovu", value: "sad" },
+                    { text: "Kuzidiwa", value: "overwhelmed" },
+                    { text: "Hasira", value: "angry" },
+                    { text: "Upweke", value: "lonely" },
+                    { text: "Nahitaji tu mtu wa kuongea naye", value: "talk" }
+                ]
+            },
+            duration: {
+                question: "Umekuwa ukihisi hivi kwa muda gani?",
+                quickOptions: [
+                    { text: "Siku chache", value: "days" },
+                    { text: "Wiki chache", value: "weeks" },
+                    { text: "Miezi kadhaa", value: "months" },
+                    { text: "Zaidi ya mwaka", value: "year" }
+                ]
+            },
+            support: {
+                question: "Umeongea na mtu yeyote kuhusu unavyohisi?",
+                quickOptions: [
+                    { text: "Ndiyo, marafiki au familia", value: "friends" },
+                    { text: "Ndiyo, mtaalamu", value: "professional" },
+                    { text: "Hapana, sijawaambia mtu yeyote", value: "no_one" },
+                    { text: "Bado, lakini nataka", value: "want_to" }
+                ]
+            },
+            goals: {
+                question: "Ungependa kufikia nini kupitia tiba?",
+                quickOptions: [
+                    { text: "Kupunguza wasiwasi", value: "reduce_anxiety" },
+                    { text: "Kuboresha usingizi", value: "sleep" },
+                    { text: "Uhusiano bora", value: "relationships" },
+                    { text: "Ujuzi wa kukabiliana", value: "coping" },
+                    { text: "Kujielewa", value: "understanding" },
+                    { text: "Sijui bado", value: "unsure" }
+                ]
+            },
+            preferences: {
+                question: "Ni upendeleo gani unao kuhusu tiba?",
+                quickOptions: [
+                    { text: "Mikutano ya uso kwa uso", value: "in_person" },
+                    { text: "Tiba mtandaoni", value: "online" },
+                    { text: "Yoyote inafaa", value: "either" },
+                    { text: "Warsha za kikundi", value: "group" },
+                    { text: "Mtaalamu wa kiume", value: "male_therapist" },
+                    { text: "Mtaalamu wa kike", value: "female_therapist" }
+                ]
+            }
+        };
+
+        // ================== DOM ELEMENTS ==================
+        const elements = {
+            chatMessages: document.getElementById('chatMessages'),
+            messageInput: document.getElementById('messageInput'),
+            sendBtn: document.getElementById('sendBtn'),
+            voiceBtn: document.getElementById('voiceBtn'),
+            voiceStatus: document.getElementById('voiceStatus'),
+            resultsSection: document.getElementById('resultsSection'),
+            quickOptions: document.getElementById('quickOptions'),
+            englishBtn: document.getElementById('englishBtn'),
+            swahiliBtn: document.getElementById('swahiliBtn'),
+            typingIndicator: document.getElementById('typingIndicator'),
+            step1: document.getElementById('step1'),
+            step2: document.getElementById('step2'),
+            step3: document.getElementById('step3'),
+            step4: document.getElementById('step4'),
+            step5: document.getElementById('step5')
+        };
+
+        // ================== INITIALIZATION ==================
+        function init() {
+            // Set up event listeners
+            elements.sendBtn.addEventListener('click', sendMessage);
+            elements.messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !CONFIG.isProcessing) {
+                    sendMessage();
+                }
             });
-        });
 
-        // Quick options
-        quickOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const response = this.getAttribute('data-response');
-                addMessage('user', response);
-                simulateAIResponse(response);
+            elements.voiceBtn.addEventListener('click', toggleVoiceInput);
+            
+            // Language buttons
+            elements.englishBtn.addEventListener('click', () => setLanguage('english'));
+            elements.swahiliBtn.addEventListener('click', () => setLanguage('swahili'));
+
+            // Start conversation
+            setTimeout(() => {
+                showTypingIndicator();
+                setTimeout(() => {
+                    askQuestion('welcome');
+                }, 1000);
+            }, 500);
+        }
+
+        // ================== CORE FUNCTIONS ==================
+        function setLanguage(lang) {
+            CONFIG.selectedLanguage = lang;
+            
+            // Update UI
+            elements.englishBtn.classList.toggle('active', lang === 'english');
+            elements.swahiliBtn.classList.toggle('active', lang === 'swahili');
+            
+            // Clear and restart conversation
+            clearChat();
+            CONFIG.currentStep = 1;
+            updateProgressSteps();
+            
+            showTypingIndicator();
+            setTimeout(() => {
+                askQuestion('welcome');
+            }, 1000);
+        }
+
+        function askQuestion(step) {
+            const flow = CONFIG.selectedLanguage === 'english' ? ENGLISH_FLOW : SWAHILI_FLOW;
+            const questionData = flow[step];
+            
+            if (!questionData) {
+                showResults();
+                return;
+            }
+            
+            addMessage('ai', questionData.question);
+            
+            // Clear and update quick options
+            elements.quickOptions.innerHTML = '';
+            questionData.quickOptions.forEach(option => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'quick-option';
+                optionEl.textContent = option.text;
+                optionEl.setAttribute('data-value', option.value);
+                optionEl.addEventListener('click', () => handleQuickOption(option.value, option.text));
+                elements.quickOptions.appendChild(optionEl);
             });
-        });
+        }
 
-        // Send message
-        sendBtn.addEventListener('click', sendMessage);
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+        function handleQuickOption(value, text) {
+            if (CONFIG.isProcessing) return;
+            
+            // Add user's response
+            addMessage('user', text);
+            
+            // Store answer
+            const stepName = getCurrentStepName();
+            CONFIG.userAnswers[stepName] = value;
+            
+            // Move to next step
+            CONFIG.currentStep++;
+            updateProgressSteps();
+            
+            // Get next question
+            const nextStep = getNextStepName();
+            
+            if (nextStep) {
+                showTypingIndicator();
+                setTimeout(() => {
+                    askQuestion(nextStep);
+                }, 1000);
+            } else {
+                showResults();
+            }
+        }
 
         function sendMessage() {
-            const message = messageInput.value.trim();
-            if (message) {
-                addMessage('user', message);
-                messageInput.value = '';
-                simulateAIResponse(message);
-            }
+            const message = elements.messageInput.value.trim();
+            if (!message || CONFIG.isProcessing) return;
+            
+            // Add user message
+            addMessage('user', message);
+            elements.messageInput.value = '';
+            
+            // Store in history
+            CONFIG.conversationHistory.push({ role: 'user', content: message });
+            
+            // Process response
+            processUserMessage(message);
+        }
+
+        function processUserMessage(message) {
+            CONFIG.isProcessing = true;
+            showTypingIndicator();
+            
+            // Simple keyword-based response system
+            setTimeout(() => {
+                const stepName = getCurrentStepName();
+                CONFIG.userAnswers[stepName] = message.toLowerCase();
+                
+                // Move to next step
+                CONFIG.currentStep++;
+                updateProgressSteps();
+                
+                // Get next question or show results
+                const nextStep = getNextStepName();
+                
+                if (nextStep) {
+                    setTimeout(() => {
+                        askQuestion(nextStep);
+                    }, 500);
+                } else {
+                    setTimeout(() => {
+                        showResults();
+                    }, 500);
+                }
+            }, 1500);
+        }
+
+        // ================== HELPER FUNCTIONS ==================
+        function getCurrentStepName() {
+            const steps = ['welcome', 'feelings', 'duration', 'support', 'goals', 'preferences'];
+            return steps[CONFIG.currentStep - 1];
+        }
+
+        function getNextStepName() {
+            const steps = ['welcome', 'feelings', 'duration', 'support', 'goals', 'preferences'];
+            return steps[CONFIG.currentStep];
+        }
+
+        function updateProgressSteps() {
+            // Reset all steps
+            [elements.step1, elements.step2, elements.step3, elements.step4, elements.step5].forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < CONFIG.currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === CONFIG.currentStep) {
+                    step.classList.add('active');
+                }
+            });
         }
 
         function addMessage(sender, text) {
@@ -589,92 +865,210 @@
                 </div>
                 <p>${text}</p>
             `;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            elements.chatMessages.appendChild(messageDiv);
+            elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+            
+            // Add to conversation history
+            if (sender === 'user') {
+                CONFIG.conversationHistory.push({ role: 'user', content: text });
+            }
+            
+            hideTypingIndicator();
         }
 
-        function simulateAIResponse(userMessage) {
-            setTimeout(() => {
-                let response = '';
+        function showTypingIndicator() {
+            elements.typingIndicator.style.display = 'flex';
+            elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            elements.typingIndicator.style.display = 'none';
+            CONFIG.isProcessing = false;
+        }
+
+        function clearChat() {
+            elements.chatMessages.innerHTML = '';
+            elements.quickOptions.innerHTML = '';
+            CONFIG.conversationHistory = [];
+            CONFIG.userAnswers = {};
+        }
+
+        // ================== VOICE INPUT ==================
+        function toggleVoiceInput() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Speech recognition is not supported in your browser. Please use Chrome or Edge.');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            
+            recognition.lang = CONFIG.selectedLanguage === 'swahili' ? 'sw-TZ' : 'en-US';
+            recognition.interimResults = false;
+            recognition.continuous = false;
+            
+            if (elements.voiceBtn.classList.contains('listening')) {
+                // Stop listening
+                recognition.stop();
+                elements.voiceBtn.classList.remove('listening');
+                elements.voiceStatus.textContent = CONFIG.selectedLanguage === 'english' 
+                    ? 'Click to start speaking' 
+                    : 'Bofya kuanza kuongea';
+            } else {
+                // Start listening
+                elements.voiceBtn.classList.add('listening');
+                elements.voiceStatus.textContent = CONFIG.selectedLanguage === 'english' 
+                    ? 'Listening... Speak now' 
+                    : 'Inasikiliza... Ongea sasa';
+                elements.voiceStatus.style.color = 'var(--hope-glow)';
                 
-                if (currentStep === 2) {
-                    response = "Thank you for sharing that. How long have you been feeling this way?";
-                    updateStep(3);
-                } else if (currentStep === 3) {
-                    response = "I understand. Have you spoken to anyone about how you're feeling?";
-                    updateStep(4);
-                } else if (currentStep === 4) {
-                    response = "What would you like to achieve through therapy? For example: better sleep, less anxiety, or improved relationships?";
-                    updateStep(5);
-                } else if (currentStep === 5) {
-                    response = "Thank you for sharing. Based on our conversation, I have some recommendations for you.";
-                    showResults();
+                recognition.start();
+                
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    addMessage('user', transcript);
+                    processUserMessage(transcript);
+                    
+                    elements.voiceBtn.classList.remove('listening');
+                    elements.voiceStatus.textContent = CONFIG.selectedLanguage === 'english' 
+                        ? 'Voice input complete' 
+                        : 'Usemi umekamilika';
+                    
+                    setTimeout(() => {
+                        elements.voiceStatus.textContent = CONFIG.selectedLanguage === 'english' 
+                            ? 'Click to start speaking' 
+                            : 'Bofya kuanza kuongea';
+                        elements.voiceStatus.style.color = 'var(--calm-mind)';
+                    }, 2000);
+                };
+                
+                recognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                    elements.voiceBtn.classList.remove('listening');
+                    elements.voiceStatus.textContent = CONFIG.selectedLanguage === 'english' 
+                        ? 'Error: Try again' 
+                        : 'Hitilafu: Jaribu tena';
+                    
+                    setTimeout(() => {
+                        elements.voiceStatus.textContent = CONFIG.selectedLanguage === 'english' 
+                            ? 'Click to start speaking' 
+                            : 'Bofya kuanza kuongea';
+                        elements.voiceStatus.style.color = 'var(--calm-mind)';
+                    }, 2000);
+                };
+                
+                recognition.onend = () => {
+                    elements.voiceBtn.classList.remove('listening');
+                };
+            }
+        }
+
+        // ================== RESULTS ==================
+        function showResults() {
+            // Generate personalized recommendations
+            const primaryFeeling = CONFIG.userAnswers.feelings || 'anxious';
+            const duration = CONFIG.userAnswers.duration || 'weeks';
+            const hasSupport = CONFIG.userAnswers.support || 'no_one';
+            const goals = CONFIG.userAnswers.goals || 'coping';
+            
+            // Update recommendation text based on user answers
+            let cbtText = "Based on your conversation, CBT could help you manage thought patterns and develop coping strategies.";
+            let therapistText = "We've found therapists who specialize in your specific needs and speak your preferred language.";
+            let supportText = "Try our guided breathing exercises while you wait for your first session.";
+            
+            // Customize based on feelings
+            if (primaryFeeling === 'anxious') {
+                cbtText = "For anxiety management, CBT is particularly effective. It can help identify and challenge anxious thought patterns.";
+                therapistText = "We recommend therapists who specialize in anxiety disorders and panic management.";
+            } else if (primaryFeeling === 'sad') {
+                cbtText = "For feelings of sadness, CBT can help restructure negative thought patterns and build positive activities.";
+                therapistText = "Our therapists specialize in depression and mood disorders with gentle, supportive approaches.";
+            }
+            
+            // Customize based on support level
+            if (hasSupport === 'no_one') {
+                supportText = "Starting with our guided exercises can help you feel more comfortable before your first therapy session.";
+            }
+            
+            // Update the results section
+            document.getElementById('cbtRecommendation').textContent = cbtText;
+            document.getElementById('therapistMatch').textContent = therapistText;
+            document.getElementById('immediateSupport').textContent = supportText;
+            
+            // Show results
+            elements.resultsSection.style.display = 'block';
+            elements.resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Save intake data
+            const intakeData = {
+                language: CONFIG.selectedLanguage,
+                answers: CONFIG.userAnswers,
+                conversation: CONFIG.conversationHistory,
+                timestamp: new Date().toISOString(),
+                recommendations: {
+                    cbt: cbtText,
+                    therapist: therapistText,
+                    immediate: supportText
                 }
+            };
+            
+            localStorage.setItem('aiIntakeData', JSON.stringify(intakeData));
+            localStorage.setItem('userFeeling', primaryFeeling);
+            
+            // Show completion message
+            showTypingIndicator();
+            setTimeout(() => {
+                const completionMessage = CONFIG.selectedLanguage === 'english' 
+                    ? "Thank you for sharing with me. I've analyzed your responses and created personalized recommendations above. Remember, I'm here to help you find the right support, not to provide treatment."
+                    : "Asante kwa kushiriki na mimi. Nimechambua majibu yako na kuunda mapendekezo ya kibinafsi hapo juu. Kumbuka, niko hapa kukusaidia kupata usaidizi unaofaa, si kutoa matibabu.";
                 
-                addMessage('ai', response);
+                addMessage('ai', completionMessage);
             }, 1000);
         }
 
-        function updateStep(step) {
-            currentStep = step;
-            stepCircles.forEach((circle, index) => {
-                circle.classList.remove('active', 'completed');
-                if (index + 1 < step) {
-                    circle.classList.add('completed');
-                } else if (index + 1 === step) {
-                    circle.classList.add('active');
-                }
-            });
-        }
+        // ================== START THE APP ==================
+        document.addEventListener('DOMContentLoaded', init);
 
-        function showResults() {
-            setTimeout(() => {
-                resultsSection.style.display = 'block';
-                resultsSection.scrollIntoView({ behavior: 'smooth' });
-                
-                // Save intake data
-                const intakeData = {
-                    language: selectedLanguage,
-                    step: currentStep,
-                    timestamp: new Date().toISOString()
-                };
-                localStorage.setItem('aiIntake', JSON.stringify(intakeData));
-            }, 1500);
-        }
-
-        // Voice input simulation
-        voiceBtn.addEventListener('click', function() {
-            if (!this.classList.contains('listening')) {
-                this.classList.add('listening');
-                voiceStatus.textContent = 'Listening... Speak now';
-                voiceStatus.style.color = 'var(--hope-glow)';
-                
-                // Simulate voice input
-                setTimeout(() => {
-                    const voiceResponses = [
-                        "I've been feeling anxious for about two weeks",
-                        "I need help with stress management",
-                        "I'm having trouble sleeping",
-                        "I want to talk to someone about my feelings"
-                    ];
-                    const randomResponse = voiceResponses[Math.floor(Math.random() * voiceResponses.length)];
-                    
-                    addMessage('user', randomResponse);
-                    simulateAIResponse(randomResponse);
-                    
-                    this.classList.remove('listening');
-                    voiceStatus.textContent = 'Voice input complete';
-                    setTimeout(() => {
-                        voiceStatus.textContent = 'Click to start speaking';
-                    }, 2000);
-                }, 2000);
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
             }
-        });
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
 
-        // Initialize with first AI message
-        document.addEventListener('DOMContentLoaded', () => {
-            updateStep(1);
-        });
+        // Notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(10, 10, 26, 0.95);
+                backdrop-filter: blur(10px);
+                color: var(--calm-mind);
+                padding: 1rem 1.5rem;
+                border-radius: 15px;
+                border-left: 4px solid var(--primary-soul);
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
