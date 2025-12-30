@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychezone | Contact & Booking</title>
+    <title>Contact & Booking | Psychezone International</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ==== GLOBAL STYLES ==== */
         :root {
             --primary-soul: #5D3FD3;
             --calm-mind: #6AC0C0;
             --hope-glow: #FF9A76;
             --dark-sanctuary: #0A0A1A;
-            --light-bg: #F8F9FF;
-            --transition: all 0.4s ease;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -26,32 +24,23 @@
         body {
             background: var(--dark-sanctuary);
             color: white;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ==== HEADER ==== */
+        /* Header */
         header {
             background: rgba(10, 10, 26, 0.95);
             backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .logo {
@@ -61,11 +50,7 @@
             text-decoration: none;
         }
 
-        .logo-icon {
-            color: var(--primary-soul);
-            font-size: 2rem;
-        }
-
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
@@ -75,904 +60,1140 @@
             color: transparent;
         }
 
-        .main-nav {
-            display: flex;
-            gap: 2rem;
+        /* Main Container */
+        .contact-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(93, 63, 211, 0.2);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ==== CONTACT HERO ==== */
+        /* Contact Hero */
         .contact-hero {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            padding-top: 120px;
-            background: linear-gradient(135deg, rgba(106, 192, 192, 0.1) 0%, transparent 100%);
-            position: relative;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, white, var(--calm-mind));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: #aaa;
-            max-width: 600px;
-        }
-
-        /* ==== CONTACT GRID ==== */
-        .contact-section {
-            padding: 4rem 0;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        /* ==== CONTACT INFO ==== */
-        .contact-info {
-            background: rgba(255, 255, 255, 0.05);
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
             border-radius: 20px;
-            padding: 2.5rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .info-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: white;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(93, 63, 211, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 4rem;
             color: var(--primary-soul);
-            font-size: 1.2rem;
-            flex-shrink: 0;
+            margin-bottom: 1.5rem;
+            animation: float 3s infinite ease-in-out;
         }
 
-        .contact-details h4 {
-            margin-bottom: 0.5rem;
-            color: var(--calm-mind);
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
-        .contact-details p {
-            color: #ccc;
-            line-height: 1.6;
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #25D366;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 0.5rem;
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
         }
 
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-soul);
+            box-shadow: 0 20px 40px rgba(93, 63, 211, 0.2);
         }
 
-        /* ==== BOOKING FORM ==== */
-        .booking-form {
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(93, 63, 211, 0.2);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-soul);
+        }
+
+        .contact-info {
+            margin: 1rem 0;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Booking Section */
+        .booking-section {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 2.5rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .form-title {
-            font-size: 2rem;
+        .booking-tabs {
+            display: flex;
+            gap: 1rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .booking-tab {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 25px;
             color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .booking-tab.active {
+            background: rgba(93, 63, 211, 0.3);
+            border-color: var(--primary-soul);
+        }
+
+        .booking-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .booking-form {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .booking-form.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #ccc;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .form-input, .form-select, .form-textarea {
+        .form-control {
             width: 100%;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             color: white;
             font-size: 1rem;
             transition: var(--transition);
         }
 
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
+        .form-control:focus {
             border-color: var(--primary-soul);
-            background: rgba(93, 63, 211, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
         }
 
-        .form-textarea {
-            min-height: 120px;
+        textarea.form-control {
+            min-height: 150px;
             resize: vertical;
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .btn-submit {
-            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
-            color: white;
-            margin-top: 1rem;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(93, 63, 211, 0.3);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* ==== FAQ SECTION ==== */
-        .faq-section {
-            padding: 6rem 0;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: white;
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
+        /* Calendar */
+        .calendar-container {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            border: 1px solid transparent;
-            transition: var(--transition);
-        }
-
-        .faq-item:hover {
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .faq-question {
+            border-radius: 15px;
             padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-day {
+            padding: 0.8rem;
+            text-align: center;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
             cursor: pointer;
-            font-weight: 600;
+            transition: var(--transition);
         }
 
-        .faq-answer {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            color: #ccc;
-            line-height: 1.6;
+        .calendar-day:hover {
+            background: rgba(93, 63, 211, 0.2);
         }
 
-        .faq-item.active .faq-answer {
-            padding-bottom: 1.5rem;
-            max-height: 500px;
+        .calendar-day.available {
+            background: rgba(106, 192, 192, 0.2);
+            border: 2px solid var(--calm-mind);
         }
 
-        .faq-toggle {
-            color: var(--primary-soul);
-            transition: transform 0.3s ease;
+        .calendar-day.selected {
+            background: rgba(93, 63, 211, 0.3);
+            border: 2px solid var(--primary-soul);
+            transform: scale(1.1);
         }
 
-        .faq-item.active .faq-toggle {
-            transform: rotate(45deg);
+        .calendar-day.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
-        /* ==== MAP SECTION ==== */
-        .map-section {
-            padding: 4rem 0;
+        /* Time Slots */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
         }
 
-        .map-container {
+        .time-slot {
+            padding: 1rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .time-slot:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .time-slot.selected {
+            background: rgba(93, 63, 211, 0.3);
+            border-color: var(--primary-soul);
+        }
+
+        .time-slot.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            border: 2px dashed var(--primary-soul);
+        }
+
+        /* Emergency Section */
+        .emergency-section {
+            background: rgba(255, 87, 87, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 2px solid rgba(255, 87, 87, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { border-color: rgba(255, 87, 87, 0.3); }
+            50% { border-color: rgba(255, 87, 87, 0.6); }
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .payment-method {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .payment-method:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-method.selected {
+            background: rgba(93, 63, 211, 0.2);
+            border-color: var(--primary-soul);
+        }
+
+        /* Location Map */
+        .location-map {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            overflow: hidden;
-            height: 400px;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
         }
 
         .map-placeholder {
             width: 100%;
-            height: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, rgba(93, 63, 211, 0.3), rgba(106, 192, 192, 0.3));
+            border-radius: 15px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(45deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            font-size: 2rem;
+            color: white;
+            margin: 1rem 0;
         }
 
-        .map-placeholder i {
-            font-size: 4rem;
-            color: var(--primary-soul);
-            margin-bottom: 1rem;
+        /* Confirmation Modal */
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
 
-        /* ==== HOURS SECTION ==== */
-        .hours-section {
-            padding: 4rem 0;
-        }
-
-        .hours-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .hours-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
+        .modal-content {
+            background: var(--dark-sanctuary);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            padding: 3rem;
             text-align: center;
-            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        .hours-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .hours-icon {
-            font-size: 2.5rem;
-            color: var(--hope-glow);
-            margin-bottom: 1rem;
-        }
-
-        .hours-highlight {
-            background: rgba(93, 63, 211, 0.2);
-            border: 1px solid var(--primary-soul);
-        }
-
-        /* ==== FOOTER ==== */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 3rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-title {
-            color: var(--calm-mind);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-link {
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
             color: white;
-            text-decoration: none;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
             transition: var(--transition);
+            margin-top: 2rem;
         }
 
-        .social-link:hover {
-            background: var(--primary-soul);
+        .submit-btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
         }
 
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
-        }
-
-        /* ==== RESPONSIVE ==== */
+        /* Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .main-nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--dark-sanctuary);
-                flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .main-nav.active {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
             .contact-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.9rem;
+            }
+            
+            .calendar-day {
+                padding: 0.5rem;
+            }
+            
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .payment-methods {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header>
-        <div class="container">
-            <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-brain logo-icon"></i>
-                    <div class="logo-text">PSYCHEZONE</div>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="dashboard.html" style="color: white; text-decoration: none; padding: 0.5rem 1rem;">
+                    Dashboard
                 </a>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <nav class="main-nav" id="mainNav">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="therapies.html" class="nav-link">Therapies</a>
-                    <a href="workshops.html" class="nav-link">Workshops</a>
-                    <a href="confessional.html" class="nav-link">Confessional</a>
-                    <a href="contact.html" class="nav-link active">Contact</a>
-                </nav>
             </div>
         </div>
     </header>
 
-    <!-- CONTACT HERO -->
-    <section class="contact-hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">BEGIN YOUR HEALING JOURNEY</h1>
-                <p class="hero-subtitle">Reach out today. We're here to listen, understand, and guide you toward mental wellness.</p>
+    <main class="contact-container">
+        <!-- Contact Hero -->
+        <section class="contact-hero">
+            <i class="fas fa-headset contact-icon"></i>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, white, var(--calm-mind));
+               -webkit-background-clip: text; background-clip: text; color: transparent;">
+                We're Here For You
+            </h1>
+            <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.8); max-width: 600px; margin: 0 auto 2rem;">
+                Contact us, book sessions, or get emergency support. Available in English and Swahili.
+            </p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#booking" style="background: linear-gradient(45deg, var(--primary-soul), #7B5FE8); 
+                   color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-calendar-plus"></i> Book Now
+                </a>
+                <a href="#emergency" style="background: rgba(255, 87, 87, 0.2); color: #ff5757; 
+                   padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-phone-alt"></i> Emergency
+                </a>
+                <a href="ai-intake.html" style="background: rgba(93, 63, 211, 0.2); color: white; 
+                   padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-robot"></i> AI Assistant
+                </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CONTACT SECTION -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-grid">
-                <!-- Contact Information -->
+        <!-- Contact Grid -->
+        <div class="contact-grid">
+            <!-- Contact Card 1 -->
+            <div class="contact-card">
+                <div class="card-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem;">Phone Support</h3>
                 <div class="contact-info">
-                    <h2 class="info-title">Get In Touch</h2>
+                    <div class="info-item">
+                        <i class="fas fa-phone" style="color: var(--calm-mind);"></i>
+                        <span style="font-weight: bold;">+255 789 456 123</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock" style="color: var(--calm-mind);"></i>
+                        <span>Mon-Sat: 8AM-8PM</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-language" style="color: var(--calm-mind);"></i>
+                        <span>EN / SW Available</span>
+                    </div>
+                </div>
+                <button onclick="callNumber('+255789456123')" style="background: var(--primary-soul); 
+                       color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; 
+                       cursor: pointer; width: 100%; margin-top: 1rem;">
+                    Call Now
+                </button>
+            </div>
+
+            <!-- Contact Card 2 -->
+            <div class="contact-card">
+                <div class="card-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem;">WhatsApp Chat</h3>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                        <span style="font-weight: bold;">+255 789 456 123</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock" style="color: var(--calm-mind);"></i>
+                        <span>24/7 Available</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-comments" style="color: var(--calm-mind);"></i>
+                        <span>Text & Voice</span>
+                    </div>
+                </div>
+                <button onclick="openWhatsApp()" style="background: #25D366; color: white; 
+                       border: none; padding: 0.8rem 1.5rem; border-radius: 25px; 
+                       cursor: pointer; width: 100%; margin-top: 1rem;">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </button>
+            </div>
+
+            <!-- Contact Card 3 -->
+            <div class="contact-card">
+                <div class="card-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem;">Email</h3>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-at" style="color: var(--calm-mind);"></i>
+                        <span style="font-weight: bold;">contact@psychezone.co.tz</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock" style="color: var(--calm-mind);"></i>
+                        <span>Response: 24 hours</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-shield-alt" style="color: var(--calm-mind);"></i>
+                        <span>Encrypted</span>
+                    </div>
+                </div>
+                <button onclick="openEmail()" style="background: rgba(255, 255, 255, 0.1); 
+                       color: white; border: 2px solid var(--calm-mind); padding: 0.8rem 1.5rem; 
+                       border-radius: 25px; cursor: pointer; width: 100%; margin-top: 1rem;">
+                    <i class="fas fa-paper-plane"></i> Send Email
+                </button>
+            </div>
+        </div>
+
+        <!-- Booking Section -->
+        <section class="booking-section" id="booking">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--calm-mind);">
+                <i class="fas fa-calendar-check"></i> Book Your Session
+            </h2>
+            
+            <div class="booking-tabs">
+                <div class="booking-tab active" data-tab="therapy">Therapy Session</div>
+                <div class="booking-tab" data-tab="workshop">Workshop</div>
+                <div class="booking-tab" data-tab="consultation">Free Consultation</div>
+                <div class="booking-tab" data-tab="emergency">Emergency</div>
+            </div>
+
+            <!-- Therapy Booking Form -->
+            <div class="booking-form active" id="therapyForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="therapyName" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="therapyEmail" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="therapyPhone" placeholder="+255 123 456 789">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preferred Language</label>
+                        <select class="form-control" id="therapyLanguage">
+                            <option value="">Select language</option>
+                            <option value="en">English</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="both">Both English & Swahili</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Therapist Selection -->
+                <div class="form-group">
+                    <label class="form-label">Select Therapist (Optional)</label>
+                    <select class="form-control" id="therapyTherapist">
+                        <option value="">I'll be matched by AI</option>
+                        <option value="aisha">Dr. Aisha Mwamba - Anxiety & Trauma</option>
+                        <option value="jamila">Jamila Kondo - Mindfulness & Stress</option>
+                        <option value="david">Dr. David Masika - Men's Health</option>
+                        <option value="any">Any available therapist</option>
+                    </select>
+                </div>
+
+                <!-- Calendar -->
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <h4 style="color: var(--calm-mind);">Select Date</h4>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button onclick="prevWeek()" style="background: rgba(255,255,255,0.1); border: none; 
+                                   color: white; padding: 0.5rem; border-radius: 5px; cursor: pointer;">
+                                ←
+                            </button>
+                            <button onclick="nextWeek()" style="background: rgba(255,255,255,0.1); border: none; 
+                                   color: white; padding: 0.5rem; border-radius: 5px; cursor: pointer;">
+                                →
+                            </button>
+                        </div>
+                    </div>
                     
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Our Location</h4>
-                            <p>Mabatini Road<br>Dar es Salaam, Tanzania</p>
-                            <p style="color: var(--calm-mind); margin-top: 0.5rem;">
-                                <i class="fas fa-star"></i> In-person & Online Sessions Available
-                            </p>
-                        </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated by JavaScript -->
                     </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Call Us</h4>
-                            <p>+255 123 456 789</p>
-                            <p style="color: #ccc; font-size: 0.9rem;">Monday - Saturday, 8AM - 6PM</p>
-                            <a href="tel:+255123456789" class="whatsapp-btn">
-                                <i class="fab fa-whatsapp"></i> Call Now
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Email Us</h4>
-                            <p>hello@psychezone.co.tz</p>
-                            <p style="color: #ccc; font-size: 0.9rem;">Response within 24 hours</p>
-                            <a href="mailto:hello@psychezone.co.tz" class="whatsapp-btn" style="background: var(--primary-soul);">
-                                <i class="fas fa-paper-plane"></i> Send Email
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item" style="border-bottom: none; padding-bottom: 0;">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>WhatsApp</h4>
-                            <p>Quick messaging for appointments</p>
-                            <a href="https://wa.me/255123456789" class="whatsapp-btn">
-                                <i class="fab fa-whatsapp"></i> Message on WhatsApp
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Booking Form -->
-                <div class="booking-form">
-                    <h2 class="form-title">Book Appointment</h2>
                     
-                    <form id="bookingForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">First Name *</label>
-                                <input type="text" class="form-input" id="firstName" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Last Name *</label>
-                                <input type="text" class="form-input" id="lastName" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Email *</label>
-                                <input type="email" class="form-input" id="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Phone *</label>
-                                <input type="tel" class="form-input" id="phone" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Preferred Language *</label>
-                            <select class="form-select" id="language" required>
-                                <option value="">Select language</option>
-                                <option value="english">English</option>
-                                <option value="swahili">Swahili</option>
-                                <option value="both">Both (Code-switching)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Service Interested In *</label>
-                                <select class="form-select" id="service" required>
-                                    <option value="">Select service</option>
-                                    <option value="cbt">Cognitive Behavioral Therapy</option>
-                                    <option value="trauma">Trauma Healing</option>
-                                    <option value="family">Family Therapy</option>
-                                    <option value="corporate">Corporate Wellness</option>
-                                    <option value="workshop">Workshop</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Preferred Session Type</label>
-                                <select class="form-select" id="sessionType">
-                                    <option value="">Select type</option>
-                                    <option value="in-person">In-person</option>
-                                    <option value="online">Online</option>
-                                    <option value="hybrid">Hybrid</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">What brings you to therapy? *</label>
-                            <textarea class="form-textarea" id="message" placeholder="Briefly describe what you'd like to work on..." required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Preferred Days/Times</label>
-                            <input type="text" class="form-input" id="preferredTime" placeholder="e.g., Weekdays after 4PM, Saturday mornings">
-                        </div>
-
-                        <button type="submit" class="btn btn-submit" id="submitBtn">
-                            <i class="fas fa-paper-plane"></i> Submit Booking Request
-                        </button>
-
-                        <p style="text-align: center; margin-top: 1rem; color: #888; font-size: 0.9rem;">
-                            We'll contact you within 24 hours to confirm your appointment.
-                        </p>
-                    </form>
+                    <div style="text-align: center; margin-top: 1rem; color: rgba(255,255,255,0.7);">
+                        <span id="selectedDate">No date selected</span>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- HOURS SECTION -->
-    <section class="hours-section">
-        <div class="container">
-            <h2 class="section-title">Our Hours</h2>
+                <!-- Time Slots -->
+                <div id="timeSlotsContainer" style="display: none;">
+                    <h4 style="color: var(--calm-mind); margin-bottom: 1rem;">Available Time Slots</h4>
+                    <div class="time-slots" id="timeSlots">
+                        <!-- Time slots will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Session Type -->
+                <div class="form-group">
+                    <label class="form-label">Session Type</label>
+                    <select class="form-control" id="sessionType">
+                        <option value="cbt">Cognitive Behavioral Therapy (CBT) - $80</option>
+                        <option value="trauma">Trauma Therapy - $95</option>
+                        <option value="couples">Couples Therapy - $120</option>
+                        <option value="youth">Youth Therapy - $70</option>
+                        <option value="consultation">Free 15-min Consultation</option>
+                    </select>
+                </div>
+
+                <!-- Payment Methods -->
+                <div style="margin: 2rem 0;">
+                    <h4 style="color: var(--calm-mind); margin-bottom: 1rem;">Payment Method</h4>
+                    <div class="payment-methods">
+                        <div class="payment-method selected" data-method="mpesa">
+                            <i class="fas fa-mobile-alt" style="font-size: 2rem; margin-bottom: 1rem; color: #6C1D45;"></i>
+                            <div style="font-weight: bold;">M-Pesa</div>
+                            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+                                Instant confirmation
+                            </div>
+                        </div>
+                        <div class="payment-method" data-method="card">
+                            <i class="fas fa-credit-card" style="font-size: 2rem; margin-bottom: 1rem; color: var(--calm-mind);"></i>
+                            <div style="font-weight: bold;">Credit/Debit Card</div>
+                            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+                                Secure payment
+                            </div>
+                        </div>
+                        <div class="payment-method" data-method="cash">
+                            <i class="fas fa-money-bill-wave" style="font-size: 2rem; margin-bottom: 1rem; color: var(--hope-glow);"></i>
+                            <div style="font-weight: bold;">Cash at Clinic</div>
+                            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+                                Pay in person
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="form-group">
+                    <label class="form-label">Additional Notes (Optional)</label>
+                    <textarea class="form-control" id="therapyNotes" 
+                              placeholder="Any specific concerns or requests..."></textarea>
+                </div>
+
+                <button class="submit-btn" onclick="submitTherapyBooking()">
+                    <i class="fas fa-paper-plane"></i> Book Therapy Session
+                </button>
+            </div>
+
+            <!-- Other forms would go here -->
+        </section>
+
+        <!-- AI Assistant -->
+        <section class="ai-assistant">
+            <i class="fas fa-robot" style="font-size: 3rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
+            <h3 style="margin-bottom: 1rem;">Need Help Choosing?</h3>
+            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">
+                Our AI assistant can help you choose the right therapist, find the perfect time, 
+                and answer any questions about the process.
+            </p>
+            <a href="ai-intake.html" style="background: rgba(255, 255, 255, 0.2); color: white; 
+               padding: 1rem 2rem; border-radius: 25px; text-decoration: none; display: inline-block;">
+                <i class="fas fa-comments"></i> Chat with AI Assistant
+            </a>
+        </section>
+
+        <!-- Emergency Section -->
+        <section class="emergency-section" id="emergency">
+            <h2 style="text-align: center; margin-bottom: 1rem; color: #ff5757;">
+                <i class="fas fa-exclamation-triangle"></i> Emergency Support
+            </h2>
+            <p style="text-align: center; color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem;">
+                If you're in crisis or having thoughts of harming yourself or others:
+            </p>
             
-            <div class="hours-grid">
-                <div class="hours-card">
-                    <i class="fas fa-calendar-day hours-icon"></i>
-                    <h3>Weekdays</h3>
-                    <p>Monday - Friday</p>
-                    <p style="color: var(--calm-mind); font-weight: 600;">8:00 AM - 6:00 PM</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚑</div>
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">Emergency Hotline</div>
+                    <div style="font-size: 1.5rem; color: #ff5757; font-weight: bold;">+255 789 456 123</div>
                 </div>
                 
-                <div class="hours-card hours-highlight">
-                    <i class="fas fa-calendar-alt hours-icon"></i>
-                    <h3>Saturdays</h3>
-                    <p>Available by appointment</p>
-                    <p style="color: var(--hope-glow); font-weight: 600;">8:00 AM - 4:00 PM</p>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏥</div>
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">Nearest Hospital</div>
+                    <div>Aga Khan Hospital Dar</div>
+                    <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">+255 22 366 6000</div>
                 </div>
                 
-                <div class="hours-card">
-                    <i class="fas fa-calendar-times hours-icon"></i>
-                    <h3>Sundays</h3>
-                    <p>Emergency sessions only</p>
-                    <p style="color: #888;">By special arrangement</p>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">Crisis Text Line</div>
+                    <div>Text "HELP" to 741741</div>
+                    <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Free 24/7 support</div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- MAP SECTION -->
-    <section class="map-section">
-        <div class="container">
-            <h2 class="section-title">Find Us</h2>
+        <!-- Location -->
+        <section class="location-map">
+            <h2 style="margin-bottom: 1rem; color: var(--calm-mind);">
+                <i class="fas fa-map-marker-alt"></i> Our Location
+            </h2>
+            <div class="map-placeholder">
+                <i class="fas fa-map"></i>
+            </div>
+            <div style="margin-top: 1rem;">
+                <h4 style="color: var(--primary-soul); margin-bottom: 0.5rem;">Psychezone International</h4>
+                <div style="color: rgba(255,255,255,0.8); margin-bottom: 0.5rem;">
+                    Mabatini Road, Dar es Salaam, Tanzania
+                </div>
+                <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                    <i class="fas fa-clock"></i> Mon-Sat: 8AM-6PM | Sun: Emergency Only
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
             
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h3>Mabatini Road, Dar es Salaam</h3>
-                    <p style="text-align: center; max-width: 400px; color: #ccc; margin-top: 1rem;">
-                        Easy access from city center. Private, comfortable counseling spaces.
-                        Free parking available.
-                    </p>
-                    <a href="#" class="btn" style="background: var(--primary-soul); color: white; margin-top: 1.5rem; width: auto;">
-                        <i class="fas fa-directions"></i> Get Directions
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ SECTION -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How do I know if therapy is right for me?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Therapy can help anyone dealing with life's challenges. If you're experiencing persistent sadness, anxiety, relationship issues, or simply want personal growth, therapy can provide valuable tools and support. We offer a free 30-minute consultation to help you decide.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Is everything I say confidential?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, absolutely. All sessions are confidential under professional ethics and Tanzanian law. The only exceptions are if there's immediate risk of harm to yourself or others, which we would discuss with you first.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Do you accept insurance?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We work with several insurance providers. Please contact us with your insurance details, and we'll check your coverage. We also offer sliding scale fees for those without insurance.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What's the difference between English and Swahili therapy?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>The therapeutic techniques are the same, but language affects how we process emotions. Swahili sessions use culturally-relevant metaphors and concepts, while English sessions use international therapeutic terminology. Many clients choose to mix both languages.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How soon can I get an appointment?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We typically have availability within 1-3 days for new clients. Emergency sessions are available within 24 hours. After submitting your booking request, we'll contact you to schedule your first session.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3 class="footer-title">Psychezone International</h3>
-                    <p>Mabatini Rd, Dar es Salaam</p>
-                    <p>Mon-Sat: 8AM - 6PM</p>
-                    <p>⭐ 5.0 (12+ reviews)</p>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Quick Contact</h3>
-                    <p>+255 123 456 789</p>
-                    <p>hello@psychezone.co.tz</p>
-                    <a href="https://wa.me/255123456789" class="whatsapp-btn" style="width: auto; display: inline-flex; margin-top: 1rem;">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
+            <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--calm-mind);">
+                <i class="fas fa-check-circle"></i>
             </div>
             
-            <div class="copyright">
-                <p>© 2023 Psychezone International. Mental health clinic & counseling services.</p>
-                <p>In Tanzania, mental health services are limited. We're changing that narrative.</p>
+            <h2 style="margin-bottom: 1rem; color: var(--calm-mind);">Booking Confirmed!</h2>
+            
+            <div id="bookingDetails" style="margin-bottom: 2rem;">
+                <!-- Booking details will be inserted here -->
+            </div>
+            
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                You'll receive a confirmation email and WhatsApp message shortly.
+            </p>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button onclick="closeModal()" style="flex: 1; background: rgba(255,255,255,0.1); 
+                       color: white; border: 1px solid rgba(255,255,255,0.2); padding: 1rem; 
+                       border-radius: 10px; cursor: pointer;">
+                    Close
+                </button>
+                <button onclick="goToDashboard()" style="flex: 1; background: var(--primary-soul); 
+                       color: white; border: none; padding: 1rem; border-radius: 10px; cursor: pointer;">
+                    Go to Dashboard
+                </button>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script>
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
+        // State management
+        const state = {
+            selectedDate: null,
+            selectedTime: null,
+            selectedPayment: 'mpesa',
+            currentTab: 'therapy'
+        };
 
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                // Close other items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
+        // Initialize
+        function init() {
+            setupTabs();
+            setupCalendar();
+            setupPaymentMethods();
+            loadBookingData();
+        }
+
+        // Tab navigation
+        function setupTabs() {
+            document.querySelectorAll('.booking-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    document.querySelectorAll('.booking-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding form
+                    const tabId = this.getAttribute('data-tab');
+                    document.querySelectorAll('.booking-form').forEach(form => {
+                        form.classList.remove('active');
+                    });
+                    
+                    const formId = tabId + 'Form';
+                    const form = document.getElementById(formId);
+                    if (form) {
+                        form.classList.add('active');
                     }
+                    
+                    state.currentTab = tabId;
                 });
-                
-                // Toggle current item
-                item.classList.toggle('active');
             });
-        });
+        }
 
-        // Form Submission
-        const bookingForm = document.getElementById('bookingForm');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        bookingForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Calendar setup
+        function setupCalendar() {
+            generateCalendar();
+            setupTimeSlots();
+        }
+
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
             
-            // Disable submit button
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            // Day headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.style.fontWeight = 'bold';
+                dayEl.style.color = 'var(--calm-mind)';
+                dayEl.textContent = day;
+                calendarGrid.appendChild(dayEl);
+            });
             
-            // Get form data
-            const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                language: document.getElementById('language').value,
-                service: document.getElementById('service').value,
-                sessionType: document.getElementById('sessionType').value,
-                message: document.getElementById('message').value,
-                preferredTime: document.getElementById('preferredTime').value
+            // Generate next 7 days
+            const today = new Date();
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = date.getDate();
+                
+                // Mark today
+                if (i === 0) {
+                    dayEl.classList.add('available');
+                    dayEl.setAttribute('data-date', date.toISOString().split('T')[0]);
+                } else if (i < 4) {
+                    // Next 3 days are available
+                    dayEl.classList.add('available');
+                    dayEl.setAttribute('data-date', date.toISOString().split('T')[0]);
+                } else {
+                    // Rest are unavailable
+                    dayEl.classList.add('unavailable');
+                }
+                
+                // Add click handler for available days
+                if (dayEl.classList.contains('available')) {
+                    dayEl.addEventListener('click', function() {
+                        // Clear previous selection
+                        document.querySelectorAll('.calendar-day').forEach(d => {
+                            d.classList.remove('selected');
+                        });
+                        
+                        // Select this day
+                        this.classList.add('selected');
+                        state.selectedDate = this.getAttribute('data-date');
+                        
+                        // Update display
+                        const dateObj = new Date(state.selectedDate);
+                        const formattedDate = dateObj.toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        document.getElementById('selectedDate').textContent = formattedDate;
+                        
+                        // Show time slots
+                        document.getElementById('timeSlotsContainer').style.display = 'block';
+                        generateTimeSlots();
+                    });
+                }
+                
+                calendarGrid.appendChild(dayEl);
+            }
+        }
+
+        function generateTimeSlots() {
+            const timeSlots = document.getElementById('timeSlots');
+            timeSlots.innerHTML = '';
+            
+            // Available time slots
+            const slots = [
+                '9:00 AM', '10:30 AM', '12:00 PM', 
+                '2:00 PM', '3:30 PM', '5:00 PM', '6:30 PM'
+            ];
+            
+            slots.forEach(slot => {
+                const slotEl = document.createElement('div');
+                slotEl.className = 'time-slot';
+                slotEl.textContent = slot;
+                
+                // Mark some slots as unavailable
+                if (Math.random() > 0.7) {
+                    slotEl.classList.add('unavailable');
+                } else {
+                    slotEl.addEventListener('click', function() {
+                        // Clear previous selection
+                        document.querySelectorAll('.time-slot').forEach(s => {
+                            s.classList.remove('selected');
+                        });
+                        
+                        // Select this slot
+                        this.classList.add('selected');
+                        state.selectedTime = this.textContent;
+                    });
+                }
+                
+                timeSlots.appendChild(slotEl);
+            });
+        }
+
+        function setupTimeSlots() {
+            // Generate initial time slots
+            generateTimeSlots();
+        }
+
+        function prevWeek() {
+            // In a real app, this would load previous week
+            showNotification('Loading previous week...');
+        }
+
+        function nextWeek() {
+            // In a real app, this would load next week
+            showNotification('Loading next week...');
+        }
+
+        // Payment methods
+        function setupPaymentMethods() {
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    // Clear previous selection
+                    document.querySelectorAll('.payment-method').forEach(m => {
+                        m.classList.remove('selected');
+                    });
+                    
+                    // Select this method
+                    this.classList.add('selected');
+                    state.selectedPayment = this.getAttribute('data-method');
+                });
+            });
+        }
+
+        // Form submission
+        function submitTherapyBooking() {
+            // Validate form
+            const name = document.getElementById('therapyName').value.trim();
+            const email = document.getElementById('therapyEmail').value.trim();
+            const phone = document.getElementById('therapyPhone').value.trim();
+            const language = document.getElementById('therapyLanguage').value;
+            const sessionType = document.getElementById('sessionType').value;
+            
+            if (!name || !email || !phone || !language) {
+                showNotification('Please fill in all required fields.');
+                return;
+            }
+            
+            if (!state.selectedDate || !state.selectedTime) {
+                showNotification('Please select a date and time.');
+                return;
+            }
+            
+            // Create booking object
+            const booking = {
+                id: Date.now(),
+                type: 'therapy',
+                name: name,
+                email: email,
+                phone: phone,
+                language: language,
+                therapist: document.getElementById('therapyTherapist').value,
+                date: state.selectedDate,
+                time: state.selectedTime,
+                sessionType: sessionType,
+                paymentMethod: state.selectedPayment,
+                notes: document.getElementById('therapyNotes').value,
+                status: 'confirmed',
+                timestamp: new Date().toISOString()
             };
             
-            // Simulate API call
-            setTimeout(() => {
-                // Show success message
-                showNotification('Booking request submitted! We\'ll contact you within 24 hours.');
-                
-                // Reset form
-                bookingForm.reset();
-                
-                // Re-enable button
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Booking Request';
-                
-                // In production, you would send this data to your server
-                console.log('Form data:', formData);
-            }, 2000);
-        });
+            // Save to localStorage
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            // Show confirmation
+            showConfirmation(booking);
+        }
 
-        // Form validation
-        const formInputs = bookingForm.querySelectorAll('input, select, textarea');
-        formInputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.hasAttribute('required') && !this.value) {
-                    this.style.borderColor = '#ff4757';
-                } else {
-                    this.style.borderColor = '';
-                }
+        function showConfirmation(booking) {
+            const modal = document.getElementById('confirmationModal');
+            const details = document.getElementById('bookingDetails');
+            
+            // Format date
+            const date = new Date(booking.date);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             });
             
-            input.addEventListener('input', function() {
-                this.style.borderColor = '';
-            });
-        });
+            // Format session type
+            const sessionTypes = {
+                'cbt': 'Cognitive Behavioral Therapy',
+                'trauma': 'Trauma Therapy',
+                'couples': 'Couples Therapy',
+                'youth': 'Youth Therapy',
+                'consultation': 'Free Consultation'
+            };
+            
+            details.innerHTML = `
+                <div style="background: rgba(255,255,255,0.05); border-radius: 10px; padding: 1rem; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: rgba(255,255,255,0.7);">Date:</span>
+                        <span style="font-weight: bold;">${formattedDate}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: rgba(255,255,255,0.7);">Time:</span>
+                        <span style="font-weight: bold;">${booking.time}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: rgba(255,255,255,0.7);">Session:</span>
+                        <span style="font-weight: bold;">${sessionTypes[booking.sessionType]}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: rgba(255,255,255,0.7);">Booking ID:</span>
+                        <span style="color: var(--calm-mind); font-weight: bold;">PSY-${booking.id.toString().slice(-6)}</span>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
 
-        // Notification function
+        function closeModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        function goToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+
+        // Contact functions
+        function callNumber(number) {
+            if (confirm(`Call ${number}?`)) {
+                window.location.href = `tel:${number}`;
+            }
+        }
+
+        function openWhatsApp() {
+            const message = "Hello, I'd like to learn more about Psychezone's services.";
+            const url = `https://wa.me/255789456123?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function openEmail() {
+            window.location.href = 'mailto:contact@psychezone.co.tz';
+        }
+
+        // Load any saved booking data
+        function loadBookingData() {
+            // Check URL parameters for therapist selection
+            const urlParams = new URLSearchParams(window.location.search);
+            const therapist = urlParams.get('therapist');
+            
+            if (therapist) {
+                const therapistSelect = document.getElementById('therapyTherapist');
+                if (therapistSelect) {
+                    therapistSelect.value = therapist;
+                }
+            }
+        }
+
+        // Helper functions
         function showNotification(message) {
             const notification = document.createElement('div');
+            notification.textContent = message;
             notification.style.cssText = `
                 position: fixed;
-                top: 100px;
+                bottom: 20px;
                 right: 20px;
-                background: var(--primary-soul);
-                color: white;
+                background: rgba(10, 10, 26, 0.95);
+                backdrop-filter: blur(10px);
+                color: var(--calm-mind);
                 padding: 1rem 1.5rem;
-                border-radius: 10px;
+                border-radius: 15px;
+                border-left: 4px solid var(--primary-soul);
                 z-index: 10000;
-                animation: fadeIn 0.3s ease;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
                 max-width: 300px;
-            `;
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-check-circle"></i>
-                    <div>${message}</div>
-                </div>
+                animation: slideIn 0.3s ease;
             `;
             
             document.body.appendChild(notification);
             
-            // Add animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateX(100px); }
-                    to { opacity: 1; transform: translateX(0); }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Remove notification after 5 seconds
             setTimeout(() => {
-                notification.style.animation = 'fadeIn 0.3s ease reverse';
-                setTimeout(() => {
-                    notification.remove();
-                    style.remove();
-                }, 300);
-            }, 5000);
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
 
-        // Initialize with focus on first input
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('firstName').focus();
-        });
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
