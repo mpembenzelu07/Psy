@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Wellness Tools | Psychezone International</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Main Container */
+        .voice-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Section */
+        .voice-hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .voice-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-soul);
+            box-shadow: 0 20px 40px rgba(93, 63, 211, 0.2);
+        }
+
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(93, 63, 211, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-soul);
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: rgba(106, 192, 192, 0.2);
+            color: var(--calm-mind);
+        }
+
+        .tool-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
+        }
+
+        .tool-btn.active {
+            background: linear-gradient(45deg, var(--calm-mind), #8AD6D6);
+            animation: pulse 2s infinite;
+        }
+
+        /* Player Section */
+        .player-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .player-cover {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .player-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(93, 63, 211, 0.2);
+            border: 2px solid var(--primary-soul);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: rgba(93, 63, 211, 0.4);
+            transform: scale(1.1);
+        }
+
+        .control-btn.play-btn {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            font-size: 2rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-soul), var(--calm-mind));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Language Options */
+        .language-options {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .lang-option {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lang-option.active {
+            background: rgba(93, 63, 211, 0.3);
+            border-color: var(--primary-soul);
+        }
+
+        /* Breathing Visualizer */
+        .breathing-visualizer {
+            width: 200px;
+            height: 200px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .breathing-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 3px solid var(--calm-mind);
+            transition: all 4s ease-in-out;
+        }
+
+        .breath-instruction {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--calm-mind);
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* Customization */
+        .customization {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .custom-slider {
+            width: 100%;
+            margin: 1rem 0;
+            -webkit-appearance: none;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-soul);
+            cursor: pointer;
+        }
+
+        /* Journal Section */
+        .journal-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .journal-input {
+            width: 100%;
+            min-height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            resize: vertical;
+            margin: 1rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-controls {
+                gap: 1rem;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .control-btn.play-btn {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+            <nav style="display: flex; gap: 1rem;">
+                <a href="index.html" style="color: white; text-decoration: none;">Home</a>
+                <a href="dashboard.html" style="color: white; text-decoration: none;">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="voice-container">
+        <!-- Hero Section -->
+        <section class="voice-hero">
+            <div class="voice-avatar">
+                <i class="fas fa-microphone-alt"></i>
+            </div>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, white, var(--calm-mind));
+               -webkit-background-clip: text; background-clip: text; color: transparent;">
+                Voice-Guided Wellness
+            </h1>
+            <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.8); max-width: 600px; margin: 0 auto;">
+                Culturally-sensitive audio tools for anxiety, sleep, and mindfulness. Available in English and Swahili.
+            </p>
+        </section>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- Breathing Exercise -->
+            <div class="tool-card">
+                <span class="tool-tag">Most Popular</span>
+                <div class="tool-icon">
+                    <i class="fas fa-wind"></i>
+                </div>
+                <h3>Calming Breath</h3>
+                <p>4-7-8 breathing technique to reduce anxiety and promote relaxation. Great for panic attacks.</p>
+                <div class="language-options">
+                    <span class="lang-option active" data-lang="en">English</span>
+                    <span class="lang-option" data-lang="sw">Kiswahili</span>
+                </div>
+                <button class="tool-btn" data-tool="breathing">
+                    <i class="fas fa-play-circle"></i> Start Breathing Exercise
+                </button>
+            </div>
+
+            <!-- Sleep Meditation -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <h3>Sleep Meditation</h3>
+                <p>Gentle guided meditation to help you fall asleep faster and improve sleep quality.</p>
+                <div style="margin: 1rem 0;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                        <span>Duration:</span>
+                        <span>15-20 minutes</span>
+                    </div>
+                </div>
+                <button class="tool-btn" data-tool="sleep">
+                    <i class="fas fa-bed"></i> Start Sleep Meditation
+                </button>
+            </div>
+
+            <!-- Anxiety Grounding -->
+            <div class="tool-card">
+                <span class="tool-tag" style="background: rgba(255, 154, 118, 0.2); color: var(--hope-glow);">
+                    5-4-3-2-1 Method
+                </span>
+                <div class="tool-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3>Anxiety Grounding</h3>
+                <p>Use your senses to stay present during anxiety or panic. 5-4-3-2-1 technique.</p>
+                <div style="margin: 1rem 0; color: rgba(255, 255, 255, 0.7);">
+                    <i class="fas fa-info-circle"></i> Works best with eyes open
+                </div>
+                <button class="tool-btn" data-tool="grounding">
+                    <i class="fas fa-hand-holding-heart"></i> Start Grounding
+                </button>
+            </div>
+
+            <!-- Body Scan -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3>Body Scan</h3>
+                <p>Mindfulness practice to release tension and connect with your body.</p>
+                <div class="language-options">
+                    <span class="lang-option active" data-lang="en">English</span>
+                    <span class="lang-option" data-lang="sw">Kiswahili</span>
+                </div>
+                <button class="tool-btn" data-tool="bodyscan">
+                    <i class="fas fa-user-injured"></i> Start Body Scan
+                </button>
+            </div>
+
+            <!-- Positive Affirmations -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-comment-medical"></i>
+                </div>
+                <h3>Positive Affirmations</h3>
+                <p>Culturally-adapted affirmations to build self-esteem and positive thinking.</p>
+                <div style="margin: 1rem 0;">
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <span style="background: rgba(106, 192, 192, 0.2); color: var(--calm-mind); 
+                        padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">
+                            Swahili Proverbs
+                        </span>
+                    </div>
+                </div>
+                <button class="tool-btn" data-tool="affirmations">
+                    <i class="fas fa-heart"></i> Listen to Affirmations
+                </button>
+            </div>
+
+            <!-- Emergency Calming -->
+            <div class="tool-card">
+                <span class="tool-tag" style="background: rgba(255, 87, 87, 0.2); color: #ff5757;">
+                    Emergency
+                </span>
+                <div class="tool-icon">
+                    <i class="fas fa-first-aid"></i>
+                </div>
+                <h3>Emergency Calming</h3>
+                <p>Immediate 3-minute exercise for panic attacks or acute distress.</p>
+                <div style="color: var(--hope-glow); margin: 1rem 0; font-weight: bold;">
+                    <i class="fas fa-exclamation-triangle"></i> Use when feeling overwhelmed
+                </div>
+                <button class="tool-btn" data-tool="emergency">
+                    <i class="fas fa-life-ring"></i> Need Help Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Player Section -->
+        <section class="player-section" id="playerSection">
+            <div class="player-header">
+                <div class="player-cover" id="playerCover">
+                    <i class="fas fa-wind"></i>
+                </div>
+                <div class="player-info">
+                    <h3 id="playerTitle">Calming Breath Exercise</h3>
+                    <p id="playerDescription">4-7-8 breathing technique for anxiety relief</p>
+                    <div style="color: var(--calm-mind);">
+                        <i class="fas fa-clock"></i> <span id="playerDuration">5 minutes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breathing Visualizer -->
+            <div class="breathing-visualizer" id="breathingVisualizer" style="display: none;">
+                <div class="breathing-circle" id="breathingCircle" 
+                     style="width: 50px; height: 50px;"></div>
+            </div>
+            <div class="breath-instruction" id="breathInstruction">Breathe In</div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="timer">
+                <span id="currentTime">0:00</span>
+                <span id="totalTime">5:00</span>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <button class="control-btn" id="prevBtn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn play-btn" id="playBtn">
+                    <i class="fas fa-play" id="playIcon"></i>
+                </button>
+                <button class="control-btn" id="nextBtn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+
+            <!-- Customization -->
+            <div class="customization">
+                <h4 style="margin-bottom: 1rem; color: var(--calm-mind);">
+                    <i class="fas fa-sliders-h"></i> Customize Your Experience
+                </h4>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem;">Voice Volume</label>
+                    <input type="range" class="custom-slider" id="volumeSlider" min="0" max="100" value="80">
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Voice Speed</label>
+                    <input type="range" class="custom-slider" id="speedSlider" min="0.5" max="1.5" step="0.1" value="1">
+                </div>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="language-options" style="margin-top: 2rem;">
+                <span class="lang-option active" data-voice="en-female">
+                    <i class="fas fa-female"></i> English (Female)
+                </span>
+                <span class="lang-option" data-voice="en-male">
+                    <i class="fas fa-male"></i> English (Male)
+                </span>
+                <span class="lang-option" data-voice="sw-female">
+                    <i class="fas fa-female"></i> Kiswahili (Female)
+                </span>
+                <span class="lang-option" data-voice="sw-male">
+                    <i class="fas fa-male"></i> Kiswahili (Male)
+                </span>
+            </div>
+        </section>
+
+        <!-- Journal Section -->
+        <section class="journal-section">
+            <h3 style="color: var(--calm-mind); margin-bottom: 1rem;">
+                <i class="fas fa-book-medical"></i> How did this exercise make you feel?
+            </h3>
+            <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
+                Journaling after exercises can help track what works best for you.
+            </p>
+            <textarea class="journal-input" id="journalInput" 
+                      placeholder="Write about your experience..."></textarea>
+            <button onclick="saveJournal()" style="background: var(--primary-soul); color: white; 
+                    border: none; padding: 0.8rem 1.5rem; border-radius: 15px; cursor: pointer;">
+                <i class="fas fa-save"></i> Save to Dashboard
+            </button>
+            <button onclick="clearJournal()" style="background: transparent; color: white; 
+                    border: 1px solid rgba(255,255,255,0.3); padding: 0.8rem 1.5rem; 
+                    border-radius: 15px; cursor: pointer; margin-left: 1rem;">
+                Clear
+            </button>
+        </section>
+    </main>
+
+    <script>
+        // Tool data
+        const tools = {
+            breathing: {
+                title: "Calming Breath Exercise",
+                description: "4-7-8 breathing technique for anxiety relief",
+                duration: "5:00",
+                icon: "fa-wind",
+                color: "linear-gradient(45deg, var(--primary-soul), var(--calm-mind))"
+            },
+            sleep: {
+                title: "Sleep Meditation",
+                description: "Guided meditation for better sleep",
+                duration: "15:00",
+                icon: "fa-moon",
+                color: "linear-gradient(45deg, #6AC0C0, #8AD6D6)"
+            },
+            grounding: {
+                title: "Anxiety Grounding",
+                description: "5-4-3-2-1 technique for panic attacks",
+                duration: "7:00",
+                icon: "fa-mountain",
+                color: "linear-gradient(45deg, #FF9A76, #FFB8A1)"
+            },
+            bodyscan: {
+                title: "Body Scan Meditation",
+                description: "Mindfulness practice for body awareness",
+                duration: "10:00",
+                icon: "fa-spa",
+                color: "linear-gradient(45deg, #9D4EDD, #C77DFF)"
+            },
+            affirmations: {
+                title: "Positive Affirmations",
+                description: "Culturally-adapted positive statements",
+                duration: "8:00",
+                icon: "fa-comment-medical",
+                color: "linear-gradient(45deg, #FFD166, #FFE8A5)"
+            },
+            emergency: {
+                title: "Emergency Calming",
+                description: "Immediate help for acute distress",
+                duration: "3:00",
+                icon: "fa-first-aid",
+                color: "linear-gradient(45deg, #FF6B6B, #FF9A76)"
+            }
+        };
+
+        // DOM Elements
+        const playerSection = document.getElementById('playerSection');
+        const playerTitle = document.getElementById('playerTitle');
+        const playerDescription = document.getElementById('playerDescription');
+        const playerDuration = document.getElementById('playerDuration');
+        const playerCover = document.getElementById('playerCover');
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = document.getElementById('playIcon');
+        const progressFill = document.getElementById('progressFill');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+        const breathingVisualizer = document.getElementById('breathingVisualizer');
+        const breathingCircle = document.getElementById('breathingCircle');
+        const breathInstruction = document.getElementById('breathInstruction');
+        
+        // State
+        let isPlaying = false;
+        let currentTool = null;
+        let progressInterval = null;
+        let currentSeconds = 0;
+        let totalSeconds = 300; // 5 minutes default
+
+        // Tool buttons
+        document.querySelectorAll('.tool-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tool = this.getAttribute('data-tool');
+                startTool(tool);
+            });
+        });
+
+        // Language options
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        function startTool(tool) {
+            currentTool = tool;
+            const toolData = tools[tool];
+            
+            // Update player display
+            playerTitle.textContent = toolData.title;
+            playerDescription.textContent = toolData.description;
+            playerDuration.textContent = toolData.duration;
+            playerCover.innerHTML = `<i class="fas ${toolData.icon}"></i>`;
+            playerCover.style.background = toolData.color;
+            
+            // Parse duration
+            const [minutes, seconds] = toolData.duration.split(':').map(Number);
+            totalSeconds = minutes * 60 + seconds;
+            currentSeconds = 0;
+            
+            // Show/hide breathing visualizer
+            if (tool === 'breathing') {
+                breathingVisualizer.style.display = 'block';
+                startBreathingVisualization();
+            } else {
+                breathingVisualizer.style.display = 'none';
+            }
+            
+            // Show player section
+            playerSection.style.display = 'block';
+            playerSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset player
+            stopPlayback();
+            updateProgress();
+        }
+
+        // Play/Pause
+        playBtn.addEventListener('click', function() {
+            if (!currentTool) {
+                alert('Please select a tool first.');
+                return;
+            }
+            
+            if (isPlaying) {
+                stopPlayback();
+            } else {
+                startPlayback();
+            }
+        });
+
+        function startPlayback() {
+            isPlaying = true;
+            playIcon.className = 'fas fa-pause';
+            playBtn.classList.add('active');
+            
+            // Start progress timer
+            progressInterval = setInterval(() => {
+                if (currentSeconds < totalSeconds) {
+                    currentSeconds++;
+                    updateProgress();
+                    
+                    // Breathing visualization
+                    if (currentTool === 'breathing') {
+                        updateBreathingVisualization();
+                    }
+                } else {
+                    stopPlayback();
+                    // Play completion sound
+                    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3').play().catch(() => {});
+                }
+            }, 1000);
+        }
+
+        function stopPlayback() {
+            isPlaying = false;
+            playIcon.className = 'fas fa-play';
+            playBtn.classList.remove('active');
+            
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
+        }
+
+        function updateProgress() {
+            const progressPercent = (currentSeconds / totalSeconds) * 100;
+            progressFill.style.width = `${progressPercent}%`;
+            
+            // Update time display
+            const currentMinutes = Math.floor(currentSeconds / 60);
+            const currentRemainingSeconds = currentSeconds % 60;
+            currentTimeEl.textContent = `${currentMinutes}:${currentRemainingSeconds.toString().padStart(2, '0')}`;
+            
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const totalRemainingSeconds = totalSeconds % 60;
+            totalTimeEl.textContent = `${totalMinutes}:${totalRemainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Breathing visualization
+        let isBreathingIn = true;
+        let breathCycle = 0;
+
+        function startBreathingVisualization() {
+            isBreathingIn = true;
+            breathCycle = 0;
+            breathingCircle.style.width = '50px';
+            breathingCircle.style.height = '50px';
+            breathingCircle.style.opacity = '1';
+            breathInstruction.textContent = 'Breathe In';
+        }
+
+        function updateBreathingVisualization() {
+            const cycleDuration = 16; // 4-7-8 cycle in seconds
+            const cycleProgress = (currentSeconds % cycleDuration) / cycleDuration;
+            
+            if (cycleProgress < 0.25) {
+                // Breathe in (4 seconds)
+                const scale = 1 + (cycleProgress * 4); // 1x to 5x
+                breathingCircle.style.width = `${50 * scale}px`;
+                breathingCircle.style.height = `${50 * scale}px`;
+                breathingCircle.style.opacity = (0.5 + (cycleProgress * 2)).toString();
+                if (!isBreathingIn) {
+                    isBreathingIn = true;
+                    breathInstruction.textContent = 'Breathe In';
+                }
+            } else if (cycleProgress < 0.6875) {
+                // Hold (7 seconds)
+                if (isBreathingIn) {
+                    isBreathingIn = false;
+                    breathInstruction.textContent = 'Hold';
+                }
+            } else {
+                // Breathe out (8 seconds)
+                const outProgress = (cycleProgress - 0.6875) / 0.3125;
+                const scale = 5 - (outProgress * 4); // 5x to 1x
+                breathingCircle.style.width = `${50 * scale}px`;
+                breathingCircle.style.height = `${50 * scale}px`;
+                breathingCircle.style.opacity = (1.5 - outProgress).toString();
+                if (isBreathingIn !== null) {
+                    isBreathingIn = null;
+                    breathInstruction.textContent = 'Breathe Out';
+                }
+            }
+        }
+
+        // Journal functions
+        function saveJournal() {
+            const entry = document.getElementById('journalInput').value;
+            if (entry.trim()) {
+                // Save to localStorage
+                const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+                entries.push({
+                    date: new Date().toISOString(),
+                    tool: currentTool || 'unknown',
+                    entry: entry
+                });
+                localStorage.setItem('journalEntries', JSON.stringify(entries));
+                
+                alert('Journal entry saved to your dashboard!');
+                document.getElementById('journalInput').value = '';
+            } else {
+                alert('Please write something before saving.');
+            }
+        }
+
+        function clearJournal() {
+            if (confirm('Clear this journal entry?')) {
+                document.getElementById('journalInput').value = '';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for previous tool
+            const lastTool = localStorage.getItem('lastVoiceTool');
+            if (lastTool && tools[lastTool]) {
+                startTool(lastTool);
+            }
+        });
+    </script>
+</body>
+</html>
