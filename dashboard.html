@@ -44,6 +44,7 @@
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            z-index: 1000;
         }
 
         .sidebar-header {
@@ -74,6 +75,11 @@
             text-decoration: none;
             border-radius: 15px;
             transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-align: left;
+            font-size: 1rem;
         }
 
         .sidebar-link:hover, .sidebar-link.active {
@@ -92,6 +98,7 @@
             flex: 1;
             margin-left: 250px;
             padding: 2rem;
+            min-height: 100vh;
         }
 
         .dashboard-header {
@@ -134,7 +141,22 @@
             transform: scale(1.1);
         }
 
-        /* Stats Grid */
+        /* Dashboard Sections */
+        .dashboard-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Overview Section */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -203,7 +225,7 @@
         .trend-down { color: var(--hope-glow); }
 
         /* Progress Chart */
-        .progress-section {
+        .progress-chart {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             padding: 2rem;
@@ -248,25 +270,12 @@
             transition: width 1s ease;
         }
 
-        /* Sessions List */
-        .sessions-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .sessions-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
+        /* Sessions Section */
         .sessions-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            margin-top: 1.5rem;
         }
 
         .session-item {
@@ -362,13 +371,6 @@
         }
 
         /* Goals Section */
-        .goals-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
         .goals-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -429,13 +431,6 @@
         }
 
         /* Resources Section */
-        .resources-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
         .resources-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -482,14 +477,6 @@
         }
 
         /* AI Assistant */
-        .ai-assistant-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 2px dashed var(--primary-soul);
-        }
-
         .ai-chat {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
@@ -574,6 +561,16 @@
             transform: translateY(-3px);
         }
 
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -589,6 +586,11 @@
             padding: 1rem;
         }
 
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
         .modal-content {
             background: var(--dark-sanctuary);
             border-radius: 20px;
@@ -596,6 +598,12 @@
             width: 100%;
             padding: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-header {
@@ -611,6 +619,95 @@
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Progress History */
+        .progress-history-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-history-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            min-width: 100px;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--primary-soul);
+            color: white;
+            border-radius: 10px;
+            z-index: 10001;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* User Menu */
+        .user-menu {
+            position: fixed;
+            top: 5rem;
+            right: 2rem;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-menu.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .user-menu-item {
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .user-menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
         /* Responsive */
@@ -643,6 +740,14 @@
                 width: 100%;
                 justify-content: flex-end;
             }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 1rem;
+            }
         }
     </style>
 </head>
@@ -656,30 +761,30 @@
             </div>
             
             <nav class="sidebar-nav">
-                <a href="dashboard.html" class="sidebar-link active">
+                <button class="sidebar-link active" data-section="overview">
                     <i class="fas fa-home"></i>
                     <span>Overview</span>
-                </a>
-                <a href="dashboard-progress.html" class="sidebar-link" onclick="showProgress()">
+                </button>
+                <button class="sidebar-link" data-section="progress">
                     <i class="fas fa-chart-line"></i>
                     <span>Progress</span>
-                </a>
-                <a href="dashboard-sessions.html" class="sidebar-link" onclick="showSessions()">
+                </button>
+                <button class="sidebar-link" data-section="sessions">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Sessions</span>
-                </a>
-                <a href="dashboard-goals.html" class="sidebar-link" onclick="showGoals()">
+                </button>
+                <button class="sidebar-link" data-section="goals">
                     <i class="fas fa-bullseye"></i>
                     <span>Goals</span>
-                </a>
-                <a href="dashboard-resources.html" class="sidebar-link" onclick="showResources()">
+                </button>
+                <button class="sidebar-link" data-section="resources">
                     <i class="fas fa-book"></i>
                     <span>Resources</span>
-                </a>
-                <a href="dashboard-ai.html" class="sidebar-link" onclick="showAIAssistant()">
+                </button>
+                <button class="sidebar-link" data-section="ai">
                     <i class="fas fa-robot"></i>
                     <span>AI Assistant</span>
-                </a>
+                </button>
                 <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
                     <a href="index.html" class="sidebar-link">
                         <i class="fas fa-globe"></i>
@@ -705,63 +810,122 @@
                     <h1 id="welcomeTitle">Welcome back!</h1>
                     <p id="welcomeSubtitle">Your mental wellness journey</p>
                 </div>
-                <div class="user-avatar" onclick="showUserMenu()" id="userAvatar">
+                <div class="user-avatar" onclick="toggleUserMenu()" id="userAvatar">
                     U
                 </div>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="stats-grid" id="statsGrid">
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-calendar-check"></i>
+            <!-- Overview Section -->
+            <section class="dashboard-section active" id="overviewSection">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-value" id="totalSessions">12</div>
                         </div>
-                        <div class="stat-value" id="totalSessions">12</div>
+                        <div class="stat-label">Total Sessions</div>
+                        <div class="stat-trend trend-up" id="nextSession">Tomorrow 3 PM</div>
                     </div>
-                    <div class="stat-label">Total Sessions</div>
-                    <div class="stat-trend trend-up" id="nextSession">Tomorrow 3 PM</div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-value" id="progressScore">65%</div>
+                        </div>
+                        <div class="stat-label">Progress Score</div>
+                        <div class="stat-trend trend-up">+12%</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="stat-value" id="mindfulnessMinutes">24</div>
+                        </div>
+                        <div class="stat-label">Mindfulness Minutes</div>
+                        <div class="stat-trend trend-up">+5 this week</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-value" id="averageMood">7.8</div>
+                        </div>
+                        <div class="stat-label">Average Mood</div>
+                        <div class="stat-trend trend-up">Improving</div>
+                    </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="stat-value" id="progressScore">65%</div>
+                <!-- Quick Progress Overview -->
+                <div class="progress-chart">
+                    <div class="section-header">
+                        <h3 style="color: var(--calm-mind);">
+                            <i class="fas fa-chart-line"></i> Quick Progress Overview
+                        </h3>
+                        <button onclick="showFullProgress()" style="background: rgba(93, 63, 211, 0.2); 
+                               color: white; border: 1px solid var(--primary-soul); padding: 0.5rem 1rem; 
+                               border-radius: 10px; cursor: pointer;">
+                            View Details
+                        </button>
                     </div>
-                    <div class="stat-label">Progress Score</div>
-                    <div class="stat-trend trend-up">+12%</div>
+                    
+                    <div class="progress-bars">
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Anxiety Management</span>
+                                <span id="anxietyProgress">75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="anxietyBar" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Sleep Quality</span>
+                                <span id="sleepProgress">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="sleepBar" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="stat-value" id="mindfulnessMinutes">24</div>
-                    </div>
-                    <div class="stat-label">Mindfulness Minutes</div>
-                    <div class="stat-trend trend-up">+5 this week</div>
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <a href="voice-tools.html" class="action-btn">
+                        <i class="fas fa-microphone-alt"></i>
+                        Voice Wellness Tools
+                    </a>
+                    <a href="confessional.html" class="action-btn">
+                        <i class="fas fa-user-secret"></i>
+                        Anonymous Release
+                    </a>
+                    <a href="workshops.html" class="action-btn">
+                        <i class="fas fa-users"></i>
+                        Join Workshop
+                    </a>
+                    <a href="contact.html" class="action-btn">
+                        <i class="fas fa-calendar-plus"></i>
+                        Book Session
+                    </a>
                 </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="stat-value" id="averageMood">7.8</div>
-                    </div>
-                    <div class="stat-label">Average Mood</div>
-                    <div class="stat-trend trend-up">Improving</div>
-                </div>
-            </div>
+            </section>
 
             <!-- Progress Section -->
-            <section class="progress-section" id="progressSection">
-                <div class="progress-header">
+            <section class="dashboard-section" id="progressSection">
+                <div class="section-header">
                     <h3 style="color: var(--calm-mind);">
-                        <i class="fas fa-chart-line"></i> Your Progress
+                        <i class="fas fa-chart-line"></i> Detailed Progress Tracking
                     </h3>
                     <button onclick="updateProgress()" style="background: rgba(93, 63, 211, 0.2); 
                            color: white; border: 1px solid var(--primary-soul); padding: 0.5rem 1rem; 
@@ -770,44 +934,65 @@
                     </button>
                 </div>
                 
-                <div class="progress-bars">
-                    <div class="progress-item">
-                        <div class="progress-label">
-                            <span>Anxiety Management</span>
-                            <span id="anxietyProgress">75%</span>
+                <div class="progress-chart">
+                    <div class="progress-bars">
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Anxiety Management</span>
+                                <span id="detailedAnxietyProgress">75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="detailedAnxietyBar" style="width: 75%;"></div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="anxietyBar" style="width: 75%;"></div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Sleep Quality</span>
+                                <span id="detailedSleepProgress">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="detailedSleepBar" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Stress Reduction</span>
+                                <span id="detailedStressProgress">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="detailedStressBar" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Mood Stability</span>
+                                <span id="detailedMoodProgress">70%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="detailedMoodBar" style="width: 70%;"></div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="progress-item">
-                        <div class="progress-label">
-                            <span>Sleep Quality</span>
-                            <span id="sleepProgress">60%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="sleepBar" style="width: 60%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-item">
-                        <div class="progress-label">
-                            <span>Stress Reduction</span>
-                            <span id="stressProgress">85%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="stressBar" style="width: 85%;"></div>
-                        </div>
+                </div>
+
+                <div class="progress-chart" style="margin-top: 2rem;">
+                    <h4 style="color: var(--calm-mind); margin-bottom: 1rem;">
+                        <i class="fas fa-history"></i> Progress History
+                    </h4>
+                    <div id="progressHistory">
+                        <!-- Progress history will be populated here -->
                     </div>
                 </div>
             </section>
 
             <!-- Sessions Section -->
-            <section class="sessions-section" id="sessionsSection">
-                <div class="sessions-header">
+            <section class="dashboard-section" id="sessionsSection">
+                <div class="section-header">
                     <h3 style="color: var(--calm-mind);">
-                        <i class="fas fa-calendar-alt"></i> Upcoming Sessions
+                        <i class="fas fa-calendar-alt"></i> Your Therapy Sessions
                     </h3>
                     <button onclick="addSession()" style="background: rgba(106, 192, 192, 0.2); 
                            color: var(--calm-mind); border: 1px solid var(--calm-mind); 
@@ -822,10 +1007,10 @@
             </section>
 
             <!-- Goals Section -->
-            <section class="goals-section" id="goalsSection">
-                <div class="sessions-header">
-                    <h3 style="color: var(--calm-mind);">
-                        <i class="fas fa-bullseye"></i> Your Goals
+            <section class="dashboard-section" id="goalsSection">
+                <div class="section-header">
+                    <h3 style="color: var(--hope-glow);">
+                        <i class="fas fa-bullseye"></i> Your Wellness Goals
                     </h3>
                     <button onclick="addGoal()" style="background: rgba(255, 154, 118, 0.2); 
                            color: var(--hope-glow); border: 1px solid var(--hope-glow); 
@@ -840,10 +1025,10 @@
             </section>
 
             <!-- Resources Section -->
-            <section class="resources-section" id="resourcesSection">
-                <div class="sessions-header">
-                    <h3 style="color: var(--calm-mind);">
-                        <i class="fas fa-book"></i> Recommended Resources
+            <section class="dashboard-section" id="resourcesSection">
+                <div class="section-header">
+                    <h3 style="color: var(--primary-soul);">
+                        <i class="fas fa-book"></i> Wellness Resources
                     </h3>
                     <button onclick="refreshResources()" style="background: rgba(93, 63, 211, 0.2); 
                            color: white; border: 1px solid var(--primary-soul); 
@@ -858,8 +1043,8 @@
             </section>
 
             <!-- AI Assistant Section -->
-            <section class="ai-assistant-section" id="aiAssistantSection">
-                <div class="sessions-header">
+            <section class="dashboard-section" id="aiSection">
+                <div class="section-header">
                     <h3 style="color: var(--primary-soul);">
                         <i class="fas fa-robot"></i> AI Wellness Assistant
                     </h3>
@@ -875,31 +1060,28 @@
                 </div>
                 
                 <div class="ai-input">
-                    <input type="text" id="aiMessageInput" placeholder="Ask me anything about your wellness journey...">
+                    <input type="text" id="aiMessageInput" placeholder="Ask me anything about your wellness journey..." onkeypress="if(event.key === 'Enter') sendAIMessage()">
                     <button onclick="sendAIMessage()">Send</button>
                 </div>
             </section>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <a href="voice-tools.html" class="action-btn">
-                    <i class="fas fa-microphone-alt"></i>
-                    Voice Wellness Tools
-                </a>
-                <a href="confessional.html" class="action-btn">
-                    <i class="fas fa-user-secret"></i>
-                    Anonymous Release
-                </a>
-                <a href="workshops.html" class="action-btn">
-                    <i class="fas fa-users"></i>
-                    Join Workshop
-                </a>
-                <a href="contact.html" class="action-btn">
-                    <i class="fas fa-calendar-plus"></i>
-                    Book Session
-                </a>
-            </div>
         </main>
+    </div>
+
+    <!-- User Menu -->
+    <div class="user-menu" id="userMenu">
+        <button class="user-menu-item" onclick="showToast('Opening profile...')">
+            <i class="fas fa-user"></i> My Profile
+        </button>
+        <button class="user-menu-item" onclick="showToast('Opening settings...')">
+            <i class="fas fa-cog"></i> Settings
+        </button>
+        <button class="user-menu-item" onclick="showToast('Saved to cloud!')">
+            <i class="fas fa-cloud-upload-alt"></i> Backup Data
+        </button>
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0.5rem 0;"></div>
+        <button class="user-menu-item" onclick="showToast('Logged out successfully')">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
     </div>
 
     <!-- Session Notes Modal -->
@@ -975,509 +1157,682 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
     <script>
-        // ================== INITIALIZE DASHBOARD ==================
+        // ================== DASHBOARD STATE ==================
+        const dashboardState = {
+            userName: "User",
+            totalSessions: 12,
+            progressScore: 65,
+            mindfulnessMinutes: 24,
+            averageMood: 7.8,
+            nextSession: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
+            sessions: [],
+            goals: [],
+            resources: [],
+            aiChat: [],
+            progressHistory: []
+        };
+
+        // ================== INITIALIZATION ==================
         document.addEventListener('DOMContentLoaded', function() {
-            loadUserData();
-            loadSessions();
-            loadGoals();
-            loadResources();
-            initAIAssistant();
+            initializeDashboard();
+            setupNavigation();
+            loadMockData();
             updateWelcomeMessage();
+            updateStats();
+            renderSessions();
+            renderGoals();
+            renderResources();
+            renderProgressHistory();
+            initializeAIChat();
+            
+            // Close modals when clicking outside
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    closeAllModals();
+                }
+            });
+            
+            // Close user menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const userMenu = document.getElementById('userMenu');
+                const userAvatar = document.getElementById('userAvatar');
+                
+                if (!userMenu.contains(event.target) && !userAvatar.contains(event.target)) {
+                    userMenu.classList.remove('active');
+                }
+            });
         });
 
-        // ================== USER DATA MANAGEMENT ==================
-        function loadUserData() {
-            // Load user data from localStorage or set defaults
-            const userData = JSON.parse(localStorage.getItem('userData')) || {
-                name: 'User',
-                joinDate: new Date().toISOString(),
-                totalSessions: 12,
-                progressScore: 65,
-                mindfulnessMinutes: 24,
-                averageMood: 7.8,
-                progress: {
-                    anxiety: 75,
-                    sleep: 60,
-                    stress: 85
-                }
-            };
-
-            // Update UI
-            document.getElementById('totalSessions').textContent = userData.totalSessions;
-            document.getElementById('progressScore').textContent = userData.progressScore + '%';
-            document.getElementById('mindfulnessMinutes').textContent = userData.mindfulnessMinutes;
-            document.getElementById('averageMood').textContent = userData.averageMood;
-
-            // Update progress bars
-            document.getElementById('anxietyProgress').textContent = userData.progress.anxiety + '%';
-            document.getElementById('anxietyBar').style.width = userData.progress.anxiety + '%';
-            document.getElementById('sleepProgress').textContent = userData.progress.sleep + '%';
-            document.getElementById('sleepBar').style.width = userData.progress.sleep + '%';
-            document.getElementById('stressProgress').textContent = userData.progress.stress + '%';
-            document.getElementById('stressBar').style.width = userData.progress.stress + '%';
-
-            // Save user initials for avatar
-            document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+        // ================== DASHBOARD FUNCTIONS ==================
+        function initializeDashboard() {
+            // Set initial welcome message
+            const hour = new Date().getHours();
+            let greeting = "Good evening";
+            if (hour < 12) greeting = "Good morning";
+            else if (hour < 18) greeting = "Good afternoon";
+            
+            document.getElementById('welcomeTitle').textContent = `${greeting}, ${dashboardState.userName}!`;
         }
 
-        function updateProgress() {
-            const progress = JSON.parse(localStorage.getItem('userData')).progress;
-            
-            // Simulate progress update
-            progress.anxiety = Math.min(100, progress.anxiety + 5);
-            progress.sleep = Math.min(100, progress.sleep + 3);
-            progress.stress = Math.min(100, progress.stress + 2);
-
-            // Update UI
-            document.getElementById('anxietyProgress').textContent = progress.anxiety + '%';
-            document.getElementById('anxietyBar').style.width = progress.anxiety + '%';
-            document.getElementById('sleepProgress').textContent = progress.sleep + '%';
-            document.getElementById('sleepBar').style.width = progress.sleep + '%';
-            document.getElementById('stressProgress').textContent = progress.stress + '%';
-            document.getElementById('stressBar').style.width = progress.stress + '%';
-
-            // Update overall progress
-            const avgProgress = Math.round((progress.anxiety + progress.sleep + progress.stress) / 3);
-            document.getElementById('progressScore').textContent = avgProgress + '%';
-
-            showNotification('Progress updated! Keep up the good work!');
+        function setupNavigation() {
+            // Set up sidebar navigation
+            document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
+                link.addEventListener('click', function() {
+                    // Remove active class from all links
+                    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Hide all sections
+                    document.querySelectorAll('.dashboard-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show selected section
+                    const sectionId = this.getAttribute('data-section') + 'Section';
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
         }
 
         function updateWelcomeMessage() {
-            const now = new Date();
-            const hour = now.getHours();
+            const hour = new Date().getHours();
             let greeting = "Good evening";
+            let subtitle = "Rest and recharge for tomorrow";
+            
+            if (hour < 12) {
+                greeting = "Good morning";
+                subtitle = "Start your day with mindfulness";
+            } else if (hour < 18) {
+                greeting = "Good afternoon";
+                subtitle = "Keep up the great work";
+            }
+            
+            document.getElementById('welcomeTitle').textContent = `${greeting}, ${dashboardState.userName}!`;
+            document.getElementById('welcomeSubtitle').textContent = subtitle;
+        }
 
-            if (hour < 12) greeting = "Good morning";
-            else if (hour < 18) greeting = "Good afternoon";
-
-            const userData = JSON.parse(localStorage.getItem('userData')) || { name: 'User' };
-            const daysSinceJoin = Math.floor((new Date() - new Date(userData.joinDate)) / (1000 * 60 * 60 * 24));
-
-            document.getElementById('welcomeTitle').textContent = `${greeting}, ${userData.name}`;
-            document.getElementById('welcomeSubtitle').textContent = `Day ${daysSinceJoin} of your wellness journey`;
+        function updateStats() {
+            document.getElementById('totalSessions').textContent = dashboardState.totalSessions;
+            document.getElementById('progressScore').textContent = dashboardState.progressScore + '%';
+            document.getElementById('mindfulnessMinutes').textContent = dashboardState.mindfulnessMinutes;
+            document.getElementById('averageMood').textContent = dashboardState.averageMood.toFixed(1);
+            
+            // Format next session
+            const nextSessionDate = new Date(dashboardState.nextSession);
+            const options = { 
+                weekday: 'long', 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            };
+            const formattedDate = nextSessionDate.toLocaleDateString('en-US', options);
+            document.getElementById('nextSession').textContent = formattedDate;
         }
 
         // ================== SESSIONS MANAGEMENT ==================
-        function loadSessions() {
-            const sessions = JSON.parse(localStorage.getItem('userSessions')) || [
+        function loadMockSessions() {
+            const mockSessions = [
                 {
                     id: 1,
-                    title: "CBT Session with Dr. Mwamba",
-                    type: "cbt",
-                    date: new Date(Date.now() + 86400000).toISOString(), // Tomorrow
-                    duration: "60 minutes",
+                    title: "CBT Therapy Session",
+                    date: new Date(Date.now() + 2 * 60 * 60 * 1000),
+                    duration: "60 min",
+                    therapist: "Dr. Sarah Chen",
                     status: "upcoming",
-                    notes: "Focus on anxiety management techniques"
+                    notes: "Focus on anxiety management techniques and breathing exercises. Discuss progress with sleep schedule."
                 },
                 {
                     id: 2,
-                    title: "Group Workshop: Anxiety Management",
-                    type: "group",
-                    date: new Date(Date.now() + 259200000).toISOString(), // 3 days from now
-                    duration: "90 minutes",
-                    status: "upcoming",
-                    notes: "Learn breathing techniques with peers"
+                    title: "Trauma Therapy",
+                    date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+                    duration: "90 min",
+                    therapist: "Dr. James Wilson",
+                    status: "completed",
+                    notes: "Processed recent triggers and developed coping strategies. Good progress on grounding techniques."
                 },
                 {
                     id: 3,
-                    title: "Weekly CBT Session",
-                    type: "cbt",
-                    date: new Date(Date.now() - 86400000).toISOString(), // Yesterday
-                    duration: "60 minutes",
-                    status: "completed",
-                    notes: "Discussed thought patterns and coping strategies. Good progress on identifying automatic negative thoughts."
+                    title: "Group Therapy",
+                    date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                    duration: "120 min",
+                    therapist: "Group led by Dr. Lisa Park",
+                    status: "upcoming",
+                    notes: ""
+                },
+                {
+                    id: 4,
+                    title: "Couples Counseling",
+                    date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+                    duration: "75 min",
+                    therapist: "Dr. Michael Rodriguez",
+                    status: "missed",
+                    notes: "Rescheduled for next week. Focus on communication patterns."
                 }
             ];
+            
+            dashboardState.sessions = mockSessions.sort((a, b) => a.date - b.date);
+        }
 
+        function renderSessions() {
+            if (dashboardState.sessions.length === 0) {
+                loadMockSessions();
+            }
+            
             const sessionsList = document.getElementById('sessionsList');
             sessionsList.innerHTML = '';
-
-            sessions.forEach(session => {
-                const sessionDate = new Date(session.date);
-                const now = new Date();
-                const timeDiff = sessionDate - now;
-                const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
-                let timeText = '';
-                if (daysDiff === 0) timeText = 'Today';
-                else if (daysDiff === 1) timeText = 'Tomorrow';
-                else if (daysDiff > 1) timeText = `In ${daysDiff} days`;
-                else timeText = sessionDate.toLocaleDateString();
-
-                const sessionEl = document.createElement('div');
-                sessionEl.className = 'session-item';
-                sessionEl.innerHTML = `
+            
+            dashboardState.sessions.forEach(session => {
+                const sessionItem = document.createElement('div');
+                sessionItem.className = 'session-item';
+                
+                const statusClass = `status-${session.status}`;
+                const dateString = session.date.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                
+                sessionItem.innerHTML = `
                     <div class="session-info">
                         <div class="session-title">${session.title}</div>
                         <div class="session-meta">
-                            <span><i class="far fa-clock"></i> ${timeText}, ${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                            <span><i class="fas fa-hourglass-half"></i> ${session.duration}</span>
-                            <span><i class="fas fa-user-md"></i> ${session.type.toUpperCase()}</span>
+                            <span><i class="far fa-calendar"></i> ${dateString}</span>
+                            <span><i class="far fa-clock"></i> ${session.duration}</span>
+                            <span><i class="fas fa-user-md"></i> ${session.therapist}</span>
                         </div>
                     </div>
+                    <div class="session-status ${statusClass}">
+                        ${session.status.charAt(0).toUpperCase() + session.status.slice(1)}
+                    </div>
                     <div class="session-actions">
-                        <span class="session-status status-${session.status}">
-                            ${session.status.charAt(0).toUpperCase() + session.status.slice(1)}
-                        </span>
-                        ${session.status === 'upcoming' ? `
-                            <button class="session-btn btn-prepare" onclick="prepareSession(${session.id})">
-                                <i class="fas fa-book"></i> Prepare
-                            </button>
-                        ` : ''}
-                        ${session.status === 'completed' ? `
-                            <button class="session-btn btn-notes" onclick="viewSessionNotes(${session.id})">
-                                <i class="fas fa-sticky-note"></i> Notes
-                            </button>
-                        ` : ''}
+                        ${session.status === 'upcoming' ? 
+                            `<button class="session-btn btn-prepare" onclick="prepareForSession(${session.id})">
+                                <i class="fas fa-play-circle"></i> Prepare
+                            </button>` : ''}
+                        <button class="session-btn btn-notes" onclick="viewSessionNotes(${session.id})">
+                            <i class="fas fa-sticky-note"></i> Notes
+                        </button>
                     </div>
                 `;
-                sessionsList.appendChild(sessionEl);
+                
+                sessionsList.appendChild(sessionItem);
             });
-
-            // Update next session in stats
-            const nextSession = sessions.find(s => s.status === 'upcoming');
-            if (nextSession) {
-                const nextDate = new Date(nextSession.date);
-                const timeString = nextDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                document.getElementById('nextSession').textContent = `${nextDate.toLocaleDateString()} ${timeString}`;
-            }
         }
 
         function addSession() {
-            document.getElementById('addSessionModal').style.display = 'flex';
+            // Set default date/time to tomorrow at 3 PM
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(15, 0, 0, 0);
+            
+            const dateTimeInput = document.getElementById('sessionDateTime');
+            const isoString = tomorrow.toISOString().slice(0, 16);
+            dateTimeInput.value = isoString;
+            
+            openModal('addSessionModal');
         }
 
         function saveNewSession() {
-            const type = document.getElementById('sessionType').value;
+            const sessionType = document.getElementById('sessionType').value;
             const dateTime = document.getElementById('sessionDateTime').value;
             
             if (!dateTime) {
-                showNotification('Please select a date and time');
+                showToast('Please select a date and time');
                 return;
             }
-
-            const sessions = JSON.parse(localStorage.getItem('userSessions')) || [];
+            
             const newSession = {
                 id: Date.now(),
-                title: `${type.toUpperCase()} Session`,
-                type: type,
-                date: new Date(dateTime).toISOString(),
-                duration: "60 minutes",
+                title: getSessionTitle(sessionType),
+                date: new Date(dateTime),
+                duration: "60 min",
+                therapist: getTherapistForType(sessionType),
                 status: "upcoming",
-                notes: "New session scheduled"
+                notes: ""
             };
-
-            sessions.push(newSession);
-            localStorage.setItem('userSessions', JSON.stringify(sessions));
             
+            dashboardState.sessions.push(newSession);
+            dashboardState.sessions.sort((a, b) => a.date - b.date);
+            dashboardState.totalSessions++;
+            
+            renderSessions();
+            updateStats();
             closeModal('addSessionModal');
-            loadSessions();
-            showNotification('New session added!');
+            showToast('Session added successfully!');
         }
 
-        function prepareSession(sessionId) {
-            const sessions = JSON.parse(localStorage.getItem('userSessions')) || [];
-            const session = sessions.find(s => s.id === sessionId);
-            
-            if (session) {
-                showNotification(`Preparing for ${session.title}. Opening preparation materials...`);
-                // In a real app, this would open preparation materials
-                setTimeout(() => {
-                    window.location.href = 'voice-tools.html?prepare=true';
-                }, 1000);
-            }
+        function getSessionTitle(type) {
+            const titles = {
+                'cbt': 'CBT Therapy Session',
+                'trauma': 'Trauma Therapy Session',
+                'couples': 'Couples Counseling',
+                'group': 'Group Therapy Session'
+            };
+            return titles[type] || 'Therapy Session';
+        }
+
+        function getTherapistForType(type) {
+            const therapists = {
+                'cbt': 'Dr. Sarah Chen',
+                'trauma': 'Dr. James Wilson',
+                'couples': 'Dr. Michael Rodriguez',
+                'group': 'Group led by Dr. Lisa Park'
+            };
+            return therapists[type] || 'Your Therapist';
+        }
+
+        function prepareForSession(sessionId) {
+            showToast('Preparing session materials...');
+            // In a real app, this would open session preparation tools
         }
 
         function viewSessionNotes(sessionId) {
-            const sessions = JSON.parse(localStorage.getItem('userSessions')) || [];
-            const session = sessions.find(s => s.id === sessionId);
+            const session = dashboardState.sessions.find(s => s.id === sessionId);
+            if (!session) return;
             
-            if (session) {
-                document.getElementById('notesContent').innerHTML = `
-                    <h4 style="margin-bottom: 1rem; color: var(--calm-mind);">${session.title}</h4>
-                    <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
-                        <p style="color: rgba(255,255,255,0.9); line-height: 1.6;">${session.notes}</p>
-                    </div>
-                    <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
-                        <i class="far fa-clock"></i> ${new Date(session.date).toLocaleDateString()}
-                    </div>
-                `;
-                document.getElementById('sessionNotesModal').style.display = 'flex';
-            }
+            const notesContent = document.getElementById('notesContent');
+            notesContent.innerHTML = `
+                <h4 style="margin-bottom: 1rem; color: var(--calm-mind);">${session.title}</h4>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1.5rem;">
+                    ${session.date.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit'
+                    })}
+                </p>
+                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px; min-height: 150px;">
+                    ${session.notes || '<p style="color: rgba(255,255,255,0.5); font-style: italic;">No notes recorded for this session.</p>'}
+                </div>
+                <textarea id="editNotes" style="width: 100%; margin-top: 1rem; padding: 1rem; 
+                       background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); 
+                       border-radius: 10px; color: white; min-height: 100px;"
+                       placeholder="Add or edit notes here...">${session.notes || ''}</textarea>
+                <button onclick="saveSessionNotes(${sessionId})" style="width: 100%; margin-top: 1rem; padding: 0.8rem; 
+                       background: var(--primary-soul); color: white; border: none; border-radius: 10px; 
+                       cursor: pointer; font-weight: bold;">
+                    Save Notes
+                </button>
+            `;
+            
+            openModal('sessionNotesModal');
+        }
+
+        function saveSessionNotes(sessionId) {
+            const session = dashboardState.sessions.find(s => s.id === sessionId);
+            if (!session) return;
+            
+            const editTextarea = document.getElementById('editNotes');
+            session.notes = editTextarea.value;
+            
+            closeModal('sessionNotesModal');
+            showToast('Notes saved successfully!');
         }
 
         // ================== GOALS MANAGEMENT ==================
-        function loadGoals() {
-            const goals = JSON.parse(localStorage.getItem('userGoals')) || [
+        function loadMockGoals() {
+            const mockGoals = [
                 {
                     id: 1,
                     title: "Improve Sleep Quality",
+                    targetDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
                     progress: 60,
-                    targetDate: new Date(Date.now() + 30 * 86400000).toISOString(), // 30 days from now
-                    icon: "fas fa-bed",
-                    color: "#6AC0C0",
                     milestones: [
                         { text: "Establish bedtime routine", completed: true },
-                        { text: "Limit screen time before bed", completed: true },
-                        { text: "Practice sleep meditation", completed: false },
-                        { text: "Wake up at consistent time", completed: false }
-                    ]
+                        { text: "Reduce screen time before bed", completed: true },
+                        { text: "Practice meditation daily", completed: false },
+                        { text: "Achieve 8 hours of sleep", completed: false }
+                    ],
+                    icon: "fas fa-moon"
                 },
                 {
                     id: 2,
                     title: "Reduce Anxiety",
+                    targetDate: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000), // 45 days from now
                     progress: 75,
-                    targetDate: new Date(Date.now() + 60 * 86400000).toISOString(), // 60 days from now
-                    icon: "fas fa-wind",
-                    color: "#5D3FD3",
                     milestones: [
                         { text: "Learn breathing techniques", completed: true },
-                        { text: "Identify triggers", completed: true },
-                        { text: "Practice daily mindfulness", completed: false },
-                        { text: "Challenge anxious thoughts", completed: false }
-                    ]
+                        { text: "Daily journaling", completed: true },
+                        { text: "Regular exercise", completed: true },
+                        { text: "Therapy sessions", completed: false }
+                    ],
+                    icon: "fas fa-brain"
                 },
                 {
                     id: 3,
                     title: "Build Healthy Habits",
+                    targetDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days from now
                     progress: 40,
-                    targetDate: new Date(Date.now() + 90 * 86400000).toISOString(), // 90 days from now
-                    icon: "fas fa-seedling",
-                    color: "#FF9A76",
                     milestones: [
-                        { text: "Daily 10-minute walk", completed: true },
-                        { text: "Drink 8 glasses of water", completed: false },
-                        { text: "Practice gratitude journal", completed: false },
-                        { text: "Weekly meal planning", completed: false }
-                    ]
+                        { text: "Morning routine", completed: true },
+                        { text: "Healthy eating", completed: false },
+                        { text: "Regular exercise", completed: false },
+                        { text: "Social connections", completed: false }
+                    ],
+                    icon: "fas fa-heart"
                 }
             ];
+            
+            dashboardState.goals = mockGoals;
+        }
 
+        function renderGoals() {
+            if (dashboardState.goals.length === 0) {
+                loadMockGoals();
+            }
+            
             const goalsGrid = document.getElementById('goalsGrid');
             goalsGrid.innerHTML = '';
-
-            goals.forEach(goal => {
-                const goalDate = new Date(goal.targetDate);
-                const daysLeft = Math.ceil((goalDate - new Date()) / (1000 * 60 * 60 * 24));
+            
+            dashboardState.goals.forEach(goal => {
+                const goalCard = document.createElement('div');
+                goalCard.className = 'goal-card';
                 
-                const goalEl = document.createElement('div');
-                goalEl.className = 'goal-card';
-                goalEl.innerHTML = `
+                const daysLeft = Math.ceil((goal.targetDate - Date.now()) / (1000 * 60 * 60 * 24));
+                const milestoneItems = goal.milestones.map(milestone => `
+                    <li class="${milestone.completed ? 'completed' : ''}">
+                        <i class="fas fa-${milestone.completed ? 'check-circle' : 'circle'}"></i>
+                        ${milestone.text}
+                    </li>
+                `).join('');
+                
+                goalCard.innerHTML = `
                     <div class="goal-header">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="goal-icon" style="background: ${goal.color}20;">
-                                <i class="${goal.icon}" style="color: ${goal.color};"></i>
-                            </div>
-                            <div>
-                                <h4 style="margin-bottom: 0.2rem;">${goal.title}</h4>
-                                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
-                                    ${daysLeft > 0 ? `${daysLeft} days left` : 'Target reached!'}
-                                </div>
-                            </div>
+                        <div>
+                            <h4 style="color: var(--hope-glow); margin-bottom: 0.5rem;">${goal.title}</h4>
+                            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                                <i class="far fa-calendar"></i> 
+                                ${goal.targetDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} 
+                                (${daysLeft} days left)
+                            </p>
                         </div>
-                        <div style="font-size: 1.5rem; font-weight: bold; color: ${goal.color};">${goal.progress}%</div>
+                        <div class="goal-icon">
+                            <i class="${goal.icon}"></i>
+                        </div>
                     </div>
-                    
                     <div class="goal-progress">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.9rem;">Progress</span>
+                            <span style="color: var(--hope-glow); font-weight: bold;">${goal.progress}%</span>
+                        </div>
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${goal.progress}%; background: ${goal.color};"></div>
+                            <div class="progress-fill" style="width: ${goal.progress}%; background: linear-gradient(90deg, var(--hope-glow), #FFD166);"></div>
                         </div>
                     </div>
-                    
                     <ul class="goal-milestones">
-                        ${goal.milestones.map(milestone => `
-                            <li class="${milestone.completed ? 'completed' : ''}">
-                                <i class="fas fa-${milestone.completed ? 'check-circle' : 'circle'}"></i>
-                                ${milestone.text}
-                            </li>
-                        `).join('')}
+                        ${milestoneItems}
                     </ul>
-                    
-                    <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-                        <button onclick="updateGoalProgress(${goal.id})" style="flex: 1; padding: 0.5rem; 
-                               background: ${goal.color}20; color: ${goal.color}; border: 1px solid ${goal.color}; 
-                               border-radius: 5px; cursor: pointer;">
-                            Update Progress
-                        </button>
-                    </div>
                 `;
-                goalsGrid.appendChild(goalEl);
+                
+                goalsGrid.appendChild(goalCard);
             });
         }
 
         function addGoal() {
-            document.getElementById('addGoalModal').style.display = 'flex';
+            // Set default date to 30 days from now
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 30);
+            const dateString = defaultDate.toISOString().split('T')[0];
+            
+            document.getElementById('goalDate').value = dateString;
+            document.getElementById('goalTitle').value = '';
+            
+            openModal('addGoalModal');
         }
 
         function saveNewGoal() {
-            const title = document.getElementById('goalTitle').value;
+            const title = document.getElementById('goalTitle').value.trim();
             const date = document.getElementById('goalDate').value;
             
-            if (!title || !date) {
-                showNotification('Please fill in all fields');
+            if (!title) {
+                showToast('Please enter a goal title');
                 return;
             }
-
-            const goals = JSON.parse(localStorage.getItem('userGoals')) || [];
-            const goalIcons = ['fas fa-bed', 'fas fa-wind', 'fas fa-heart', 'fas fa-brain', 'fas fa-seedling'];
-            const goalColors = ['#6AC0C0', '#5D3FD3', '#FF9A76', '#FF6B6B', '#9D4EDD'];
-            const randomIndex = Math.floor(Math.random() * goalIcons.length);
-
+            
+            if (!date) {
+                showToast('Please select a target date');
+                return;
+            }
+            
             const newGoal = {
                 id: Date.now(),
                 title: title,
+                targetDate: new Date(date),
                 progress: 0,
-                targetDate: new Date(date).toISOString(),
-                icon: goalIcons[randomIndex],
-                color: goalColors[randomIndex],
                 milestones: [
-                    { text: "Define success criteria", completed: false },
-                    { text: "Create action plan", completed: false },
-                    { text: "Track weekly progress", completed: false },
-                    { text: "Review and adjust", completed: false }
-                ]
+                    { text: "Define action plan", completed: false },
+                    { text: "First week progress", completed: false },
+                    { text: "Mid-point check", completed: false },
+                    { text: "Achieve goal", completed: false }
+                ],
+                icon: "fas fa-star"
             };
-
-            goals.push(newGoal);
-            localStorage.setItem('userGoals', JSON.stringify(goals));
             
+            dashboardState.goals.push(newGoal);
+            renderGoals();
             closeModal('addGoalModal');
-            loadGoals();
-            showNotification('New goal created!');
-        }
-
-        function updateGoalProgress(goalId) {
-            const goals = JSON.parse(localStorage.getItem('userGoals')) || [];
-            const goalIndex = goals.findIndex(g => g.id === goalId);
-            
-            if (goalIndex !== -1) {
-                // Find next incomplete milestone
-                const incompleteMilestone = goals[goalIndex].milestones.find(m => !m.completed);
-                if (incompleteMilestone) {
-                    incompleteMilestone.completed = true;
-                    goals[goalIndex].progress += 25;
-                    
-                    // Update local storage
-                    localStorage.setItem('userGoals', JSON.stringify(goals));
-                    
-                    // Reload goals
-                    loadGoals();
-                    showNotification('Goal progress updated! Keep going!');
-                } else {
-                    showNotification('All milestones completed! Great job!');
-                }
-            }
+            showToast('New goal created!');
         }
 
         // ================== RESOURCES MANAGEMENT ==================
-        function loadResources() {
-            const resources = [
+        function loadMockResources() {
+            const mockResources = [
                 {
-                    title: "Anxiety Workbook",
-                    description: "Interactive exercises for anxiety management",
+                    id: 1,
+                    title: "Mindfulness Meditation Guide",
+                    description: "Audio guides for daily mindfulness practice",
+                    icon: "fas fa-headphones",
+                    link: "#"
+                },
+                {
+                    id: 2,
+                    title: "Anxiety Management Workbook",
+                    description: "Interactive exercises and worksheets",
                     icon: "fas fa-book-open",
-                    action: "Download",
                     link: "#"
                 },
                 {
-                    title: "Sleep Meditation",
-                    description: "Guided audio for better sleep",
-                    icon: "fas fa-moon",
-                    action: "Listen",
-                    link: "voice-tools.html"
-                },
-                {
-                    title: "Mood Tracker",
-                    description: "Track your daily emotions",
-                    icon: "fas fa-chart-bar",
-                    action: "Open",
+                    id: 3,
+                    title: "Sleep Hygiene Tips",
+                    description: "Science-backed strategies for better sleep",
+                    icon: "fas fa-bed",
                     link: "#"
                 },
                 {
-                    title: "Therapy Journal",
-                    description: "Digital journal for session notes",
-                    icon: "fas fa-pencil-alt",
-                    action: "Start",
+                    id: 4,
+                    title: "Therapy Session Journal",
+                    description: "Track your thoughts and progress",
+                    icon: "fas fa-journal-whills",
                     link: "#"
                 },
                 {
+                    id: 5,
                     title: "Breathing Exercises",
-                    description: "5-minute calming techniques",
+                    description: "Techniques for stress relief",
                     icon: "fas fa-wind",
-                    action: "Practice",
-                    link: "voice-tools.html"
+                    link: "#"
                 },
                 {
-                    title: "Community Forum",
-                    description: "Connect with others",
-                    icon: "fas fa-users",
-                    action: "Join",
-                    link: "workshops.html"
+                    id: 6,
+                    title: "Emergency Contacts",
+                    description: "Immediate support when you need it",
+                    icon: "fas fa-phone-alt",
+                    link: "#"
                 }
             ];
+            
+            dashboardState.resources = mockResources;
+        }
 
+        function renderResources() {
+            if (dashboardState.resources.length === 0) {
+                loadMockResources();
+            }
+            
             const resourcesGrid = document.getElementById('resourcesGrid');
             resourcesGrid.innerHTML = '';
-
-            resources.forEach(resource => {
-                const resourceEl = document.createElement('div');
-                resourceEl.className = 'resource-card';
-                resourceEl.innerHTML = `
+            
+            dashboardState.resources.forEach(resource => {
+                const resourceCard = document.createElement('div');
+                resourceCard.className = 'resource-card';
+                
+                resourceCard.innerHTML = `
                     <div class="resource-icon">
                         <i class="${resource.icon}"></i>
                     </div>
-                    <h4 style="margin-bottom: 0.5rem;">${resource.title}</h4>
+                    <h4 style="margin-bottom: 0.5rem; color: var(--primary-soul);">${resource.title}</h4>
                     <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 1rem;">
                         ${resource.description}
                     </p>
-                    <a href="${resource.link}" class="resource-btn">
-                        ${resource.action}
+                    <a href="${resource.link}" class="resource-btn" onclick="showToast('Opening ${resource.title}...'); return false;">
+                        Access Resource
                     </a>
                 `;
-                resourcesGrid.appendChild(resourceEl);
+                
+                resourcesGrid.appendChild(resourceCard);
             });
         }
 
         function refreshResources() {
-            showNotification('Refreshing resources...');
-            setTimeout(() => {
-                loadResources();
-                showNotification('Resources updated!');
-            }, 1000);
+            showToast('Refreshing resources...');
+            // In a real app, this would fetch updated resources from server
         }
 
-        // ================== AI ASSISTANT ==================
-        function initAIAssistant() {
-            const aiChat = document.getElementById('aiChat');
+        // ================== PROGRESS TRACKING ==================
+        function loadMockProgressHistory() {
+            const history = [];
+            const now = new Date();
             
-            // Load previous messages
-            const aiHistory = JSON.parse(localStorage.getItem('aiChatHistory')) || [
-                {
-                    sender: 'ai',
-                    message: "Hello! I'm your AI wellness assistant. How can I help you today?"
-                }
-            ];
+            for (let i = 30; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                
+                history.push({
+                    date: date,
+                    anxiety: Math.floor(Math.random() * 20) + 70, // 70-90
+                    sleep: Math.floor(Math.random() * 25) + 60,  // 60-85
+                    stress: Math.floor(Math.random() * 15) + 75,  // 75-90
+                    mood: Math.floor(Math.random() * 2) + 7       // 7-9
+                });
+            }
+            
+            dashboardState.progressHistory = history;
+        }
 
-            // Display history
-            aiHistory.forEach(msg => {
-                addAIMessage(msg.sender, msg.message);
+        function renderProgressHistory() {
+            if (dashboardState.progressHistory.length === 0) {
+                loadMockProgressHistory();
+            }
+            
+            const progressHistoryDiv = document.getElementById('progressHistory');
+            progressHistoryDiv.innerHTML = '';
+            
+            // Show only last 7 entries
+            const recentHistory = dashboardState.progressHistory.slice(-7);
+            
+            recentHistory.forEach(entry => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'progress-history-item';
+                
+                const dateString = entry.date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                
+                historyItem.innerHTML = `
+                    <div class="progress-history-date">${dateString}</div>
+                    <div style="flex: 1; display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <span style="color: var(--primary-soul);"><i class="fas fa-chart-line"></i> ${entry.anxiety}%</span>
+                        <span style="color: var(--calm-mind);"><i class="fas fa-bed"></i> ${entry.sleep}%</span>
+                        <span style="color: var(--hope-glow);"><i class="fas fa-fire"></i> ${entry.stress}%</span>
+                        <span style="color: #FFD166;"><i class="fas fa-smile"></i> ${entry.mood}/10</span>
+                    </div>
+                `;
+                
+                progressHistoryDiv.appendChild(historyItem);
             });
         }
 
-        function addAIMessage(sender, message) {
-            const aiChat = document.getElementById('aiChat');
-            const messageEl = document.createElement('div');
-            messageEl.className = sender === 'ai' ? 'ai-message' : 'user-message';
-            messageEl.innerHTML = `
-                <div style="font-weight: bold; margin-bottom: 0.5rem;">
-                    ${sender === 'ai' ? '🤖 AI Assistant' : '👤 You'}
-                </div>
-                <div>${message}</div>
-            `;
-            aiChat.appendChild(messageEl);
-            aiChat.scrollTop = aiChat.scrollHeight;
+        function updateProgress() {
+            // Simulate progress update
+            const anxietyProgress = document.getElementById('detailedAnxietyProgress');
+            const sleepProgress = document.getElementById('detailedSleepProgress');
+            const stressProgress = document.getElementById('detailedStressProgress');
+            const moodProgress = document.getElementById('detailedMoodProgress');
+            
+            // Random small improvements
+            const improvements = {
+                anxiety: Math.floor(Math.random() * 5) + 1,
+                sleep: Math.floor(Math.random() * 3) + 1,
+                stress: Math.floor(Math.random() * 4) + 1,
+                mood: Math.floor(Math.random() * 2) + 1
+            };
+            
+            // Update values
+            const currentAnxiety = parseInt(anxietyProgress.textContent);
+            const currentSleep = parseInt(sleepProgress.textContent);
+            const currentStress = parseInt(stressProgress.textContent);
+            const currentMood = parseInt(moodProgress.textContent);
+            
+            anxietyProgress.textContent = Math.min(currentAnxiety + improvements.anxiety, 100) + '%';
+            sleepProgress.textContent = Math.min(currentSleep + improvements.sleep, 100) + '%';
+            stressProgress.textContent = Math.min(currentStress + improvements.stress, 100) + '%';
+            moodProgress.textContent = Math.min(currentMood + improvements.mood, 10) + '%';
+            
+            // Update progress bars
+            document.getElementById('detailedAnxietyBar').style.width = anxietyProgress.textContent;
+            document.getElementById('detailedSleepBar').style.width = sleepProgress.textContent;
+            document.getElementById('detailedStressBar').style.width = stressProgress.textContent;
+            document.getElementById('detailedMoodBar').style.width = moodProgress.textContent;
+            
+            // Update main stats
+            dashboardState.progressScore = Math.min(dashboardState.progressScore + 1, 100);
+            dashboardState.mindfulnessMinutes += 5;
+            dashboardState.averageMood = Math.min(dashboardState.averageMood + 0.1, 10);
+            
+            updateStats();
+            showToast('Progress updated! Keep up the great work!');
+        }
+
+        function showFullProgress() {
+            // Navigate to progress section
+            document.querySelector('.sidebar-link[data-section="progress"]').click();
+        }
+
+        // ================== AI ASSISTANT ==================
+        function initializeAIChat() {
+            const aiChatDiv = document.getElementById('aiChat');
+            
+            // Initial welcome message
+            addAIMessage("Hello! I'm your AI Wellness Assistant. I'm here to help you with your mental wellness journey. You can ask me about therapy techniques, progress tracking, or general wellness tips. How can I assist you today?");
+        }
+
+        function addAIMessage(text) {
+            const aiChatDiv = document.getElementById('aiChat');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'ai-message';
+            messageDiv.innerHTML = `<p>${text}</p>`;
+            aiChatDiv.appendChild(messageDiv);
+            aiChatDiv.scrollTop = aiChatDiv.scrollHeight;
+        }
+
+        function addUserMessage(text) {
+            const aiChatDiv = document.getElementById('aiChat');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'user-message';
+            messageDiv.innerHTML = `<p>${text}</p>`;
+            aiChatDiv.appendChild(messageDiv);
+            aiChatDiv.scrollTop = aiChatDiv.scrollHeight;
         }
 
         function sendAIMessage() {
@@ -1485,241 +1840,94 @@
             const message = input.value.trim();
             
             if (!message) return;
-
+            
             // Add user message
-            addAIMessage('user', message);
-            
-            // Save to history
-            const aiHistory = JSON.parse(localStorage.getItem('aiChatHistory')) || [];
-            aiHistory.push({ sender: 'user', message: message });
-            
-            // Clear input
+            addUserMessage(message);
             input.value = '';
             
-            // Show typing indicator
-            addAIMessage('ai', '...');
-            
-            // Generate AI response after delay
+            // Simulate AI thinking
             setTimeout(() => {
-                // Remove typing indicator
-                const aiChat = document.getElementById('aiChat');
-                aiChat.lastChild.remove();
-                
-                // Generate response
-                const response = generateAIResponse(message);
-                addAIMessage('ai', response);
-                
-                // Save AI response to history
-                aiHistory.push({ sender: 'ai', message: response });
-                localStorage.setItem('aiChatHistory', JSON.stringify(aiHistory));
-            }, 1500);
+                const aiResponse = getAIResponse(message);
+                addAIMessage(aiResponse);
+            }, 1000);
         }
 
-        function generateAIResponse(message) {
+        function getAIResponse(message) {
             const lowerMessage = message.toLowerCase();
             
-            // Keyword-based responses
+            // Predefined responses based on keywords
             if (lowerMessage.includes('anxiety') || lowerMessage.includes('stress')) {
-                return "I understand you're dealing with anxiety. Try our 4-7-8 breathing exercise in the Voice Tools section. It can help calm your nervous system immediately.";
-            } else if (lowerMessage.includes('sleep') || lowerMessage.includes('insomnia')) {
-                return "For sleep issues, I recommend establishing a consistent bedtime routine and trying our sleep meditation exercises. Avoid screens 1 hour before bed.";
-            } else if (lowerMessage.includes('progress') || lowerMessage.includes('improve')) {
-                return "Your progress looks great! You've completed 65% of your goals. Try focusing on one small improvement each day rather than big changes all at once.";
-            } else if (lowerMessage.includes('session') || lowerMessage.includes('therapist')) {
-                return "Your next session is tomorrow at 3 PM. Consider preparing by writing down any questions or concerns you want to discuss with your therapist.";
-            } else if (lowerMessage.includes('mood') || lowerMessage.includes('feel')) {
-                return "It's normal for moods to fluctuate. Try our mood tracker to identify patterns. Remember to be kind to yourself during difficult moments.";
-            } else if (lowerMessage.includes('goal') || lowerMessage.includes('achieve')) {
-                return "Break your goals into smaller, manageable steps. Celebrate small wins along the way. Would you like help creating a specific action plan?";
-            } else if (lowerMessage.includes('help') || lowerMessage.includes('emergency')) {
-                return "If you're in crisis, please use our emergency contact immediately. For non-emergency support, I can connect you with resources or suggest specific exercises.";
+                return "I understand you're asking about anxiety. Have you tried the 4-7-8 breathing technique? Breathe in for 4 seconds, hold for 7 seconds, exhale for 8 seconds. This can help calm your nervous system. Would you like more techniques?";
+            } else if (lowerMessage.includes('sleep')) {
+                return "For better sleep, try establishing a consistent bedtime routine. Avoid screens 1 hour before bed, keep your bedroom cool and dark, and try relaxation exercises. Our Sleep Hygiene resource has more detailed strategies.";
+            } else if (lowerMessage.includes('progress') || lowerMessage.includes('track')) {
+                return `Your current progress score is ${dashboardState.progressScore}%. You've completed ${dashboardState.totalSessions} sessions and logged ${dashboardState.mindfulnessMinutes} mindfulness minutes. Keep up the good work!`;
+            } else if (lowerMessage.includes('session') || lowerMessage.includes('therapy')) {
+                return "Your next session is " + dashboardState.nextSession.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit'
+                }) + ". Would you like help preparing for it?";
+            } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                return "Hello! How can I support your wellness journey today?";
+            } else if (lowerMessage.includes('thank')) {
+                return "You're welcome! Remember, progress takes time. Celebrate your small victories along the way.";
             } else {
-                const responses = [
-                    "I'm here to support your wellness journey. How are you feeling today?",
-                    "That's interesting. Can you tell me more about what you're experiencing?",
-                    "I understand. Remember that progress in mental health isn't always linear. Be patient with yourself.",
-                    "Have you tried any of our voice-guided exercises? They can be very helpful for immediate relief.",
-                    "Based on your progress, I'd recommend focusing on consistency rather than intensity in your practice.",
-                    "Would you like me to suggest specific resources or exercises for what you're dealing with?"
-                ];
-                return responses[Math.floor(Math.random() * responses.length)];
+                return "I'm here to support your mental wellness journey. You can ask me about therapy techniques, progress tracking, sleep improvement, anxiety management, or general wellness tips. What would you like to know more about?";
             }
         }
 
         function clearAIChat() {
-            if (confirm('Clear all AI chat history?')) {
-                localStorage.removeItem('aiChatHistory');
-                document.getElementById('aiChat').innerHTML = '';
-                initAIAssistant();
-                showNotification('AI chat cleared!');
-            }
+            const aiChatDiv = document.getElementById('aiChat');
+            aiChatDiv.innerHTML = '';
+            initializeAIChat();
+            showToast('Chat cleared');
         }
 
-        // ================== UTILITY FUNCTIONS ==================
-        function showProgress() {
-            document.getElementById('progressSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showSessions() {
-            document.getElementById('sessionsSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showGoals() {
-            document.getElementById('goalsSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showResources() {
-            document.getElementById('resourcesSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showAIAssistant() {
-            document.getElementById('aiAssistantSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showUserMenu() {
-            const menu = document.createElement('div');
-            menu.style.cssText = `
-                position: fixed;
-                top: 80px;
-                right: 20px;
-                background: rgba(10, 10, 26, 0.95);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255,255,255,0.1);
-                border-radius: 10px;
-                padding: 1rem;
-                z-index: 10000;
-                min-width: 200px;
-            `;
-            
-            menu.innerHTML = `
-                <div style="padding: 0.5rem; color: rgba(255,255,255,0.8);">User Menu</div>
-                <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0.5rem 0;"></div>
-                <button onclick="editProfile()" style="width: 100%; text-align: left; padding: 0.8rem; 
-                       background: transparent; border: none; color: white; cursor: pointer; border-radius: 5px;">
-                    <i class="fas fa-user-edit" style="margin-right: 0.5rem;"></i> Edit Profile
-                </button>
-                <button onclick="exportData()" style="width: 100%; text-align: left; padding: 0.8rem; 
-                       background: transparent; border: none; color: white; cursor: pointer; border-radius: 5px;">
-                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i> Export Data
-                </button>
-                <button onclick="resetDashboard()" style="width: 100%; text-align: left; padding: 0.8rem; 
-                       background: transparent; border: none; color: white; cursor: pointer; border-radius: 5px;">
-                    <i class="fas fa-redo" style="margin-right: 0.5rem;"></i> Reset Dashboard
-                </button>
-                <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0.5rem 0;"></div>
-                <button onclick="closeUserMenu()" style="width: 100%; text-align: left; padding: 0.8rem; 
-                       background: transparent; border: none; color: #ff6b6b; cursor: pointer; border-radius: 5px;">
-                    <i class="fas fa-sign-out-alt" style="margin-right: 0.5rem;"></i> Close Menu
-                </button>
-            `;
-            
-            menu.id = 'userMenu';
-            document.body.appendChild(menu);
-            
-            // Close menu when clicking outside
-            setTimeout(() => {
-                document.addEventListener('click', function closeMenu(e) {
-                    if (!e.target.closest('#userMenu') && e.target.id !== 'userAvatar') {
-                        menu.remove();
-                        document.removeEventListener('click', closeMenu);
-                    }
-                });
-            }, 100);
-        }
-
-        function closeUserMenu() {
-            const menu = document.getElementById('userMenu');
-            if (menu) menu.remove();
-        }
-
-        function editProfile() {
-            showNotification('Profile editing coming soon!');
-            closeUserMenu();
-        }
-
-        function exportData() {
-            showNotification('Preparing data export...');
-            setTimeout(() => {
-                const data = {
-                    userData: JSON.parse(localStorage.getItem('userData')),
-                    sessions: JSON.parse(localStorage.getItem('userSessions')),
-                    goals: JSON.parse(localStorage.getItem('userGoals')),
-                    moodData: JSON.parse(localStorage.getItem('moodData') || '{}')
-                };
-                
-                const dataStr = JSON.stringify(data, null, 2);
-                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-                
-                const exportFileDefaultName = 'psychezone-data.json';
-                
-                const linkElement = document.createElement('a');
-                linkElement.setAttribute('href', dataUri);
-                linkElement.setAttribute('download', exportFileDefaultName);
-                linkElement.click();
-                
-                showNotification('Data exported successfully!');
-                closeUserMenu();
-            }, 1000);
-        }
-
-        function resetDashboard() {
-            if (confirm('Reset dashboard to default settings? This will clear your progress data.')) {
-                localStorage.removeItem('userData');
-                localStorage.removeItem('userSessions');
-                localStorage.removeItem('userGoals');
-                localStorage.removeItem('aiChatHistory');
-                
-                showNotification('Dashboard reset. Refreshing...');
-                setTimeout(() => {
-                    location.reload();
-                }, 1500);
-            }
-            closeUserMenu();
+        // ================== MODAL FUNCTIONS ==================
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: rgba(10, 10, 26, 0.95);
-                backdrop-filter: blur(10px);
-                color: var(--calm-mind);
-                padding: 1rem 1.5rem;
-                border-radius: 15px;
-                border-left: 4px solid var(--primary-soul);
-                z-index: 10000;
-                max-width: 300px;
-                animation: slideIn 0.3s ease;
-            `;
-            
-            document.body.appendChild(notification);
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        // ================== USER MENU ==================
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('userMenu');
+            userMenu.classList.toggle('active');
+        }
+
+        // ================== TOAST NOTIFICATIONS ==================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
             
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
+                toast.classList.remove('show');
             }, 3000);
         }
 
-        // Add animation styles
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+        // ================== MOCK DATA LOADING ==================
+        function loadMockData() {
+            loadMockSessions();
+            loadMockGoals();
+            loadMockResources();
+            loadMockProgressHistory();
+        }
     </script>
 </body>
 </html>
