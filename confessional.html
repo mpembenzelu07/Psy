@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychezone | Anonymous Confessional</title>
+    <title>Anonymous Release | Psychezone International</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ==== GLOBAL STYLES ==== */
         :root {
             --primary-soul: #5D3FD3;
             --calm-mind: #6AC0C0;
             --hope-glow: #FF9A76;
             --dark-sanctuary: #0A0A1A;
-            --light-bg: #F8F9FF;
-            --transition: all 0.4s ease;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -26,33 +24,23 @@
         body {
             background: var(--dark-sanctuary);
             color: white;
-            overflow-x: hidden;
             min-height: 100vh;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ==== HEADER ==== */
+        /* Header */
         header {
             background: rgba(10, 10, 26, 0.95);
             backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .logo {
@@ -62,11 +50,7 @@
             text-decoration: none;
         }
 
-        .logo-icon {
-            color: var(--primary-soul);
-            font-size: 2rem;
-        }
-
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
@@ -76,875 +60,958 @@
             color: transparent;
         }
 
-        .main-nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(93, 63, 211, 0.2);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ==== CONFESSIONAL HERO ==== */
-        .confessional-hero {
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            padding-top: 120px;
-            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1) 0%, transparent 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, white, var(--primary-soul));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: #aaa;
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
-
-        .safety-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(106, 192, 192, 0.2);
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            margin-top: 1rem;
-            color: var(--calm-mind);
-        }
-
-        /* ==== CONFESSIONAL CONTAINER ==== */
+        /* Main Container */
         .confessional-container {
-            padding: 4rem 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            min-height: 500px;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        @media (max-width: 992px) {
-            .confessional-container {
-                grid-template-columns: 1fr;
-            }
+        /* Security Header */
+        .security-header {
+            text-align: center;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        /* ==== INPUT SECTION ==== */
-        .input-section {
+        .security-icon {
+            font-size: 3rem;
+            color: var(--calm-mind);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .security-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 154, 118, 0.2);
+            color: var(--hope-glow);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Writing Area */
+        .writing-area {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 2.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: fit-content;
         }
 
-        .section-title {
-            font-size: 2rem;
+        .writing-prompt {
+            font-size: 1.2rem;
+            color: var(--calm-mind);
             margin-bottom: 1.5rem;
-            color: white;
-        }
-
-        .emotion-selector {
-            margin: 1.5rem 0;
-        }
-
-        .emotion-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-
-        .emotion-tag {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .emotion-tag:hover, .emotion-tag.active {
-            background: var(--primary-soul);
+            text-align: center;
         }
 
         .confession-input {
             width: 100%;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
             padding: 1.5rem;
             color: white;
             font-size: 1.1rem;
-            resize: none;
-            margin: 1.5rem 0;
+            resize: vertical;
+            margin-bottom: 1.5rem;
             transition: var(--transition);
-            font-family: inherit;
         }
 
         .confession-input:focus {
-            outline: none;
             border-color: var(--primary-soul);
-            background: rgba(93, 63, 211, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
         }
 
-        .character-count {
-            text-align: right;
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
+        .input-tools {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            justify-content: center;
+            margin-bottom: 1.5rem;
         }
 
-        .btn-confess {
-            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+        .word-count {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .format-tools {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .format-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-        }
-
-        .btn-confess:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(93, 63, 211, 0.3);
-        }
-
-        .btn-confess:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .disclaimer {
-            font-size: 0.8rem;
-            color: #888;
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        /* ==== VISUALIZATION SECTION ==== */
-        .visualization-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            height: fit-content;
-        }
-
-        .art-container {
-            width: 100%;
-            height: 300px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            margin: 2rem 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            position: relative;
+            transition: var(--transition);
         }
 
-        .art-placeholder {
-            text-align: center;
-            color: #666;
+        .format-btn:hover {
+            background: rgba(93, 63, 211, 0.3);
+            transform: translateY(-2px);
         }
 
-        .art-placeholder i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.1);
+        /* Emotion Selector */
+        .emotion-selector {
+            margin: 2rem 0;
         }
 
-        .art-canvas {
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-
-        .transformation-text {
-            font-style: italic;
-            color: var(--calm-mind);
-            text-align: center;
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
             margin: 1rem 0;
-            min-height: 24px;
         }
 
-        .share-options {
+        .emotion-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .emotion-option:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .emotion-option.selected {
+            border-color: var(--primary-soul);
+            background: rgba(93, 63, 211, 0.2);
+        }
+
+        .emotion-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Release Options */
+        .release-options {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .release-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .release-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .release-option.selected {
+            background: rgba(93, 63, 211, 0.2);
+            border: 2px solid var(--primary-soul);
+        }
+
+        .option-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(106, 192, 192, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--calm-mind);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
         }
 
-        .share-btn {
+        .action-btn {
             flex: 1;
-            padding: 0.8rem;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 1.2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
             border: none;
-            color: white;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .share-btn:hover {
-            background: rgba(93, 63, 211, 0.3);
-        }
-
-        /* ==== COMMUNITY WALL ==== */
-        .community-section {
-            padding: 6rem 0;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .community-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: white;
-        }
-
-        .community-description {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            color: #ccc;
-        }
-
-        .community-wall {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .community-art {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .community-art:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .art-preview {
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            opacity: 0.7;
-        }
-
-        .art-message {
-            font-style: italic;
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .art-date {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        /* ==== STATS ==== */
-        .stats-section {
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-card {
-            padding: 2rem;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--hope-glow);
-            margin-bottom: 0.5rem;
-        }
-
-        /* ==== FOOTER ==== */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 3rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-title {
-            color: var(--calm-mind);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
+            gap: 0.8rem;
         }
 
-        .social-link:hover {
-            background: var(--primary-soul);
+        .btn-release {
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+        }
+
+        .btn-release:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
+        }
+
+        .btn-save {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-save:hover {
+            background: rgba(255, 255, 255, 0.15);
             transform: translateY(-3px);
         }
 
-        .copyright {
-            text-align: center;
+        /* Archive Section */
+        .archive-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
             margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* ==== ANIMATIONS ==== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .archive-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
+        .archive-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            transition: var(--transition);
         }
 
-        /* ==== RESPONSIVE ==== */
+        .archive-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .archive-emotion {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .archive-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Statistics */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Security Features */
+        .security-features {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--calm-mind);
+        }
+
+        .security-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .security-list li {
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .security-list li:before {
+            content: '✓';
+            color: var(--calm-mind);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* Encryption Animation */
+        .encryption-animation {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--primary-soul) 0%, 
+                var(--calm-mind) 50%, 
+                var(--primary-soul) 100%);
+            background-size: 200% 100%;
+            animation: encrypt 2s linear infinite;
+            border-radius: 2px;
+            margin: 1rem 0;
+        }
+
+        @keyframes encrypt {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .main-nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--dark-sanctuary);
+            .action-buttons {
                 flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
-
-            .main-nav.active {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .share-options {
+            
+            .input-tools {
                 flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .emotion-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .archive-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header>
-        <div class="container">
-            <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-brain logo-icon"></i>
-                    <div class="logo-text">PSYCHEZONE</div>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="dashboard.html" style="color: white; text-decoration: none; padding: 0.5rem 1rem;">
+                    Dashboard
                 </a>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <nav class="main-nav" id="mainNav">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="therapies.html" class="nav-link">Therapies</a>
-                    <a href="workshops.html" class="nav-link">Workshops</a>
-                    <a href="confessional.html" class="nav-link active">Confessional</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
-                </nav>
             </div>
         </div>
     </header>
 
-    <!-- CONFESSIONAL HERO -->
-    <section class="confessional-hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">ANONYMOUS RELEASE</h1>
-                <p class="hero-subtitle">Release what weighs on your heart. Watch it transform into abstract art. Find peace in letting go.</p>
-                <div class="safety-badge">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>100% Anonymous • No Data Stored • Therapeutic Release</span>
-                </div>
+    <main class="confessional-container">
+        <!-- Security Header -->
+        <section class="security-header">
+            <span class="security-badge">100% ANONYMOUS</span>
+            <i class="fas fa-user-secret security-icon"></i>
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; background: linear-gradient(to right, white, var(--calm-mind));
+               -webkit-background-clip: text; background-clip: text; color: transparent;">
+                Safe Release Space
+            </h1>
+            <p style="color: rgba(255, 255, 255, 0.8); max-width: 600px; margin: 0 auto;">
+                Release your thoughts, feelings, and burdens without identification. 
+                Everything here is encrypted and never stored with your personal information.
+            </p>
+        </section>
+
+        <!-- Security Features -->
+        <div class="security-features">
+            <h3 style="color: var(--calm-mind); margin-bottom: 0.5rem;">
+                <i class="fas fa-shield-alt"></i> How We Protect You
+            </h3>
+            <ul class="security-list">
+                <li>No registration required</li>
+                <li>End-to-end encryption</li>
+                <li>Automatic deletion after 30 days</li>
+                <li>No IP address logging</li>
+                <li>No connection to your therapy records</li>
+            </ul>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-value" id="totalReleases">0</div>
+                <div class="stat-label">Total Releases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="thisMonth">0</div>
+                <div class="stat-label">This Month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgLength">0</div>
+                <div class="stat-label">Avg. Words</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Anonymous</div>
             </div>
         </div>
-    </section>
 
-    <!-- CONFESSIONAL CONTAINER -->
-    <section class="confessional-container container">
-        <!-- INPUT SECTION -->
-        <div class="input-section">
-            <h2 class="section-title">What's On Your Heart?</h2>
-            <p>Type what you need to release. This is a safe, judgment-free space.</p>
+        <!-- Writing Area -->
+        <section class="writing-area">
+            <div class="writing-prompt" id="currentPrompt">
+                What's on your mind today? You're safe here.
+            </div>
             
+            <div class="encryption-animation"></div>
+            
+            <textarea class="confession-input" id="confessionInput" 
+                      placeholder="Write anything you need to release... 
+                      This space is completely confidential and will be encrypted."></textarea>
+            
+            <div class="input-tools">
+                <div class="word-count">
+                    Words: <span id="wordCount">0</span>
+                </div>
+                <div class="format-tools">
+                    <button class="format-btn" onclick="formatText('bold')">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button class="format-btn" onclick="formatText('italic')">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button class="format-btn" onclick="clearText()">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Emotion Selector -->
             <div class="emotion-selector">
-                <p>How are you feeling?</p>
-                <div class="emotion-tags">
-                    <button class="emotion-tag">Anxious</button>
-                    <button class="emotion-tag">Sad</button>
-                    <button class="emotion-tag">Angry</button>
-                    <button class="emotion-tag">Overwhelmed</button>
-                    <button class="emotion-tag">Lost</button>
-                    <button class="emotion-tag">Hopeful</button>
+                <div style="color: var(--calm-mind); margin-bottom: 1rem;">
+                    <i class="fas fa-heart"></i> How does this make you feel?
+                </div>
+                <div class="emotion-grid" id="emotionGrid">
+                    <!-- Emotions will be populated by JS -->
                 </div>
             </div>
 
-            <textarea 
-                class="confession-input" 
-                placeholder="Write what you need to release... This space is completely anonymous. No names, no tracking, just release."
-                id="confessionText"
-                maxlength="500"
-            ></textarea>
-
-            <div class="character-count">
-                <span id="charCount">0</span>/500 characters
-            </div>
-
-            <button class="btn btn-confess" id="releaseBtn">
-                <i class="fas fa-feather-alt"></i> Release & Transform
-            </button>
-
-            <p class="disclaimer">
-                <i class="fas fa-lock"></i> Your text is never stored. It transforms into art and is released forever.
-            </p>
-        </div>
-
-        <!-- VISUALIZATION SECTION -->
-        <div class="visualization-section">
-            <h2 class="section-title">Watch It Transform</h2>
-            <p>Your words become healing art</p>
-            
-            <div class="art-container">
-                <div class="art-placeholder" id="artPlaceholder">
-                    <i class="fas fa-paint-brush"></i>
-                    <p>Your art will appear here</p>
-                </div>
-                <div class="art-canvas" id="artCanvas"></div>
-            </div>
-
-            <div class="transformation-text" id="transformationText">
-                Type something to begin the transformation...
-            </div>
-
-            <div class="share-options">
-                <button class="share-btn" id="saveArtBtn" disabled>
-                    <i class="fas fa-download"></i>
-                    <span>Save Art</span>
-                </button>
-                <button class="share-btn" id="shareArtBtn" disabled>
-                    <i class="fas fa-share-alt"></i>
-                    <span>Share</span>
-                </button>
-                <button class="share-btn" id="resetBtn">
-                    <i class="fas fa-redo"></i>
-                    <span>New Release</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- COMMUNITY WALL -->
-    <section class="community-section">
-        <div class="container">
-            <h2 class="community-title">Collective Healing Wall</h2>
-            <p class="community-description">
-                Every release contributes to our community healing art. These are visual representations of burdens released by others.
-            </p>
-
-            <div class="community-wall">
-                <div class="community-art">
-                    <div class="art-preview" style="background: linear-gradient(45deg, #5D3FD3, #6AC0C0);"></div>
-                    <p class="art-message">"Released the weight of expectations"</p>
-                    <p class="art-date">Released 2 days ago</p>
-                </div>
-
-                <div class="community-art">
-                    <div class="art-preview" style="background: linear-gradient(45deg, #FF9A76, #6AC0C0);"></div>
-                    <p class="art-message">"Let go of past regrets"</p>
-                    <p class="art-date">Released 3 days ago</p>
-                </div>
-
-                <div class="community-art">
-                    <div class="art-preview" style="background: linear-gradient(45deg, #5D3FD3, #FF9A76);"></div>
-                    <p class="art-message">"Found peace with uncertainty"</p>
-                    <p class="art-date">Released 5 days ago</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- STATS -->
-    <section class="stats-section">
-        <div class="container">
-            <h2 class="section-title">Healing in Numbers</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" id="releasesCount">1,247</div>
-                    <p>Anonymous Releases</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="artCreated">892</div>
-                    <p>Healing Art Pieces Created</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number pulse">100%</div>
-                    <p>Confidential & Safe</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3 class="footer-title">Psychezone International</h3>
-                    <p>Mabatini Rd, Dar es Salaam</p>
-                    <p>Mon-Sat: 8AM - 6PM</p>
-                    <p>⭐ 5.0 (12+ reviews)</p>
+            <!-- Release Options -->
+            <div class="release-options">
+                <div style="color: var(--calm-mind); margin-bottom: 1rem;">
+                    <i class="fas fa-archive"></i> How would you like to release this?
                 </div>
                 
-                <div>
-                    <h3 class="footer-title">Need More Support?</h3>
-                    <p>The anonymous confessional is for release. For ongoing support:</p>
-                    <a href="therapies.html" class="btn" style="background: var(--primary-soul); color: white; margin-top: 1rem; padding: 0.8rem 1.5rem;">
-                        Explore Therapy Options
-                    </a>
+                <div class="release-option selected" data-option="encrypt">
+                    <div class="option-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold;">Encrypt & Store</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                            Keep it private for yourself
+                        </div>
+                    </div>
                 </div>
                 
-                <div>
-                    <h3 class="footer-title">Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                <div class="release-option" data-option="burn">
+                    <div class="option-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold;">Burn After Reading</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                            Delete automatically after viewing
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="release-option" data-option="share">
+                    <div class="option-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold;">Anonymous Sharing</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                            Share without identification (no replies)
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn btn-release" onclick="releaseConfession()">
+                    <i class="fas fa-paper-plane"></i>
+                    Release Now
+                </button>
+                <button class="action-btn btn-save" onclick="saveDraft()">
+                    <i class="fas fa-save"></i>
+                    Save Draft
+                </button>
+            </div>
+        </section>
+
+        <!-- Archive Section -->
+        <section class="archive-section" id="archiveSection">
+            <div class="archive-header">
+                <h3 style="color: var(--calm-mind);">
+                    <i class="fas fa-history"></i> Your Release History
+                </h3>
+                <button onclick="clearArchive()" style="background: rgba(255,255,255,0.1); color: white; 
+                       border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1rem; 
+                       border-radius: 10px; cursor: pointer;">
+                    Clear All
+                </button>
+            </div>
             
-            <div class="copyright">
-                <p>© 2023 Psychezone International. Mental health clinic & counseling services.</p>
-                <p>The Confessional is a therapeutic tool for emotional release. In crisis? Call +255 123 456 789</p>
+            <div class="archive-grid" id="archiveGrid">
+                <!-- Archive items will be populated by JS -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 1rem; color: rgba(255,255,255,0.6);">
+                <i class="fas fa-info-circle"></i> Entries are automatically deleted after 30 days
+            </div>
+        </section>
+
+        <!-- Support Resources -->
+        <div style="background: rgba(93, 63, 211, 0.1); border-radius: 15px; padding: 1.5rem; margin-top: 3rem;">
+            <h4 style="color: var(--hope-glow); margin-bottom: 1rem;">
+                <i class="fas fa-life-ring"></i> Need More Support?
+            </h4>
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                If you're experiencing severe distress or having thoughts of harming yourself or others:
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="contact.html" style="background: var(--primary-soul); color: white; 
+                   padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">
+                    Emergency Contact
+                </a>
+                <a href="voice-tools.html" style="background: rgba(106, 192, 192, 0.2); color: var(--calm-mind); 
+                   padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">
+                    Calming Exercises
+                </a>
+                <a href="therapies.html" style="background: rgba(255, 154, 118, 0.2); color: var(--hope-glow); 
+                   padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">
+                    Professional Help
+                </a>
             </div>
         </div>
-    </footer>
+    </main>
 
     <script>
+        // Emotions data
+        const emotions = [
+            { icon: '😢', label: 'Sad', color: '#5D3FD3' },
+            { icon: '😔', label: 'Lonely', color: '#6AC0C0' },
+            { icon: '😰', label: 'Anxious', color: '#FF9A76' },
+            { icon: '😠', label: 'Angry', color: '#FF6B6B' },
+            { icon: '😴', label: 'Tired', color: '#9D4EDD' },
+            { icon: '😐', label: 'Numb', color: '#888' },
+            { icon: '🙂', label: 'Okay', color: '#6AC0C0' },
+            { icon: '😊', label: 'Hopeful', color: '#FFD166' },
+            { icon: '🤔', label: 'Confused', color: '#8AC926' },
+            { icon: '😌', label: 'Relieved', color: '#118AB2' },
+            { icon: '😖', label: 'Overwhelmed', color: '#EF476F' },
+            { icon: '💪', label: 'Strong', color: '#06D6A0' }
+        ];
+
+        // Prompts
+        const prompts = [
+            "What's on your mind today? You're safe here.",
+            "Write what you can't say out loud.",
+            "What burden would you like to release?",
+            "Speak your truth without fear.",
+            "What needs to be heard, even anonymously?",
+            "Release what's weighing on your heart.",
+            "Share what you've been holding inside.",
+            "What story needs to be told today?"
+        ];
+
         // DOM Elements
-        const confessionText = document.getElementById('confessionText');
-        const charCount = document.getElementById('charCount');
-        const releaseBtn = document.getElementById('releaseBtn');
-        const artPlaceholder = document.getElementById('artPlaceholder');
-        const artCanvas = document.getElementById('artCanvas');
-        const transformationText = document.getElementById('transformationText');
-        const saveArtBtn = document.getElementById('saveArtBtn');
-        const shareArtBtn = document.getElementById('shareArtBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const emotionTags = document.querySelectorAll('.emotion-tag');
-        const releasesCount = document.getElementById('releasesCount');
-        const artCreated = document.getElementById('artCreated');
+        const confessionInput = document.getElementById('confessionInput');
+        const wordCount = document.getElementById('wordCount');
+        const emotionGrid = document.getElementById('emotionGrid');
+        const archiveGrid = document.getElementById('archiveGrid');
+        const totalReleases = document.getElementById('totalReleases');
+        const thisMonth = document.getElementById('thisMonth');
+        const avgLength = document.getElementById('avgLength');
+        const currentPrompt = document.getElementById('currentPrompt');
 
-        // Character Counter
-        confessionText.addEventListener('input', function() {
-            const length = this.value.length;
-            charCount.textContent = length;
-            releaseBtn.disabled = length < 10;
-        });
+        // State
+        let selectedEmotion = null;
+        let selectedOption = 'encrypt';
+        let releases = JSON.parse(localStorage.getItem('confessionalReleases') || '[]');
+        let drafts = JSON.parse(localStorage.getItem('confessionalDrafts') || '[]');
 
-        // Emotion Tags
-        emotionTags.forEach(tag => {
-            tag.addEventListener('click', function() {
-                emotionTags.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+        // Initialize
+        function init() {
+            // Load random prompt
+            const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+            currentPrompt.textContent = randomPrompt;
+            
+            // Populate emotions
+            emotions.forEach(emotion => {
+                const emotionEl = document.createElement('div');
+                emotionEl.className = 'emotion-option';
+                emotionEl.innerHTML = `
+                    <div class="emotion-icon">${emotion.icon}</div>
+                    <div>${emotion.label}</div>
+                `;
+                emotionEl.addEventListener('click', () => selectEmotion(emotionEl, emotion));
+                emotionGrid.appendChild(emotionEl);
             });
-        });
-
-        // Release Button
-        releaseBtn.addEventListener('click', function() {
-            const text = confessionText.value.trim();
-            if (text.length < 10) return;
-
-            // Disable input and button
-            confessionText.disabled = true;
-            this.disabled = true;
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Transforming...';
-
-            // Generate art
-            setTimeout(() => {
-                // Hide placeholder, show canvas
-                artPlaceholder.style.display = 'none';
-                artCanvas.style.display = 'block';
-                
-                // Generate simple art
-                generateArt(text);
-                
-                // Update transformation text
-                const emotions = ['peace', 'release', 'freedom', 'healing', 'transformation'];
-                const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
-                transformationText.textContent = `Your words have transformed into ${randomEmotion}.`;
-                
-                // Enable share buttons
-                saveArtBtn.disabled = false;
-                shareArtBtn.disabled = false;
-                
-                // Update button text
-                this.innerHTML = '<i class="fas fa-check"></i> Released';
-                this.style.background = 'var(--calm-mind)';
-                
-                // Update stats
-                updateStats();
-                
-                // Show success message
-                showNotification('Released successfully! Your burden is now healing art.');
-            }, 1500);
-        });
-
-        // Generate Art Function
-        function generateArt(text) {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const container = artCanvas;
             
-            // Set canvas size
-            canvas.width = 400;
-            canvas.height = 300;
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Generate color based on text
-            const hash = text.split('').reduce((a, b) => {
-                a = ((a << 5) - a) + b.charCodeAt(0);
-                return a & a;
-            }, 0);
-            
-            // Create gradient based on text hash
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            const hue1 = Math.abs(hash) % 360;
-            const hue2 = (hue1 + 150) % 360;
-            
-            gradient.addColorStop(0, `hsl(${hue1}, 70%, 50%)`);
-            gradient.addColorStop(1, `hsl(${hue2}, 70%, 50%)`);
-            
-            // Draw shapes based on text
-            const words = text.split(' ').length;
-            const chars = text.length;
-            
-            // Draw circles for words
-            for (let i = 0; i < words && i < 20; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                const radius = Math.min(chars / 100, 30) + Math.random() * 20;
-                
-                ctx.beginPath();
-                ctx.arc(x, y, radius, 0, Math.PI * 2);
-                ctx.fillStyle = i % 2 === 0 ? gradient : `rgba(255, 255, 255, 0.1)`;
-                ctx.fill();
-            }
-            
-            // Add to container
-            container.innerHTML = '';
-            container.appendChild(canvas);
-        }
-
-        // Update Stats
-        function updateStats() {
-            // Animate counting up
-            animateCount(releasesCount, 1247, 1248, 500);
-            animateCount(artCreated, 892, 893, 500);
-        }
-
-        function animateCount(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                element.textContent = Math.floor(progress * (end - start) + start);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Save Art
-        saveArtBtn.addEventListener('click', function() {
-            const canvas = artCanvas.querySelector('canvas');
-            if (canvas) {
-                const link = document.createElement('a');
-                link.download = 'psychezone-healing-art.png';
-                link.href = canvas.toDataURL();
-                link.click();
-                showNotification('Art saved to your device!');
-            }
-        });
-
-        // Share Art
-        shareArtBtn.addEventListener('click', function() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My Healing Art from Psychezone',
-                    text: 'I released my burden and created healing art.',
-                    url: window.location.href
+            // Setup release options
+            document.querySelectorAll('.release-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.release-option').forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedOption = option.getAttribute('data-option');
                 });
-            } else {
-                showNotification('Share your art by saving it and sharing the image!');
+            });
+            
+            // Word count tracking
+            confessionInput.addEventListener('input', updateWordCount);
+            
+            // Load archive
+            loadArchive();
+            
+            // Update statistics
+            updateStatistics();
+        }
+
+        // Emotion selection
+        function selectEmotion(element, emotion) {
+            document.querySelectorAll('.emotion-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedEmotion = emotion;
+        }
+
+        // Update word count
+        function updateWordCount() {
+            const text = confessionInput.value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            wordCount.textContent = words;
+        }
+
+        // Text formatting
+        function formatText(type) {
+            const input = confessionInput;
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            const selectedText = input.value.substring(start, end);
+            
+            let formattedText = '';
+            switch(type) {
+                case 'bold':
+                    formattedText = `**${selectedText}**`;
+                    break;
+                case 'italic':
+                    formattedText = `*${selectedText}*`;
+                    break;
             }
-        });
+            
+            input.value = input.value.substring(0, start) + formattedText + input.value.substring(end);
+            input.focus();
+            updateWordCount();
+        }
 
-        // Reset
-        resetBtn.addEventListener('click', function() {
-            confessionText.value = '';
-            confessionText.disabled = false;
-            charCount.textContent = '0';
-            releaseBtn.disabled = true;
-            releaseBtn.innerHTML = '<i class="fas fa-feather-alt"></i> Release & Transform';
-            releaseBtn.style.background = '';
-            
-            artPlaceholder.style.display = 'flex';
-            artCanvas.style.display = 'none';
-            artCanvas.innerHTML = '';
-            
-            transformationText.textContent = 'Type something to begin the transformation...';
-            
-            saveArtBtn.disabled = true;
-            shareArtBtn.disabled = true;
-            
-            emotionTags.forEach(tag => tag.classList.remove('active'));
-            
-            showNotification('Ready for a new release. What would you like to let go of today?');
-        });
+        function clearText() {
+            if (confessionInput.value.trim() && !confirm('Clear your writing?')) {
+                return;
+            }
+            confessionInput.value = '';
+            updateWordCount();
+        }
 
-        // Notification Function
+        // Save draft
+        function saveDraft() {
+            const text = confessionInput.value.trim();
+            if (!text) {
+                showNotification('Write something to save as draft.');
+                return;
+            }
+            
+            const draft = {
+                id: Date.now(),
+                text: text,
+                emotion: selectedEmotion,
+                date: new Date().toISOString(),
+                wordCount: text.split(/\s+/).length
+            };
+            
+            drafts.unshift(draft);
+            localStorage.setItem('confessionalDrafts', JSON.stringify(drafts));
+            
+            showNotification('Draft saved. You can continue later.');
+        }
+
+        // Release confession
+        function releaseConfession() {
+            const text = confessionInput.value.trim();
+            if (!text) {
+                showNotification('Write something to release.');
+                return;
+            }
+            
+            if (!selectedEmotion && !confirm('Release without selecting an emotion?')) {
+                return;
+            }
+            
+            // Create release object
+            const release = {
+                id: Date.now(),
+                text: text,
+                emotion: selectedEmotion,
+                option: selectedOption,
+                date: new Date().toISOString(),
+                wordCount: text.split(/\s+/).length,
+                encrypted: true
+            };
+            
+            // Add to releases
+            releases.unshift(release);
+            localStorage.setItem('confessionalReleases', JSON.stringify(releases));
+            
+            // Clear input
+            confessionInput.value = '';
+            updateWordCount();
+            document.querySelectorAll('.emotion-option').forEach(el => el.classList.remove('selected'));
+            selectedEmotion = null;
+            
+            // Show encryption animation
+            showEncryptionAnimation();
+            
+            // Update display
+            setTimeout(() => {
+                loadArchive();
+                updateStatistics();
+                showNotification('Released and encrypted. Thank you for sharing.');
+            }, 1500);
+        }
+
+        // Show encryption animation
+        function showEncryptionAnimation() {
+            const animation = document.createElement('div');
+            animation.className = 'encryption-animation';
+            animation.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 300px;
+                height: 100px;
+                border-radius: 20px;
+                background: rgba(10, 10, 26, 0.95);
+                backdrop-filter: blur(10px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                border: 2px solid var(--primary-soul);
+            `;
+            
+            animation.innerHTML = `
+                <div style="font-size: 2rem; margin-bottom: 1rem;">🔒</div>
+                <div style="color: var(--calm-mind); font-weight: bold; margin-bottom: 0.5rem;">
+                    Encrypting Release...
+                </div>
+                <div style="width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                    <div style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary-soul), var(--calm-mind)); 
+                         animation: fill 1.5s ease-in-out forwards;"></div>
+                </div>
+                <style>
+                    @keyframes fill { to { width: 100%; } }
+                </style>
+            `;
+            
+            document.body.appendChild(animation);
+            
+            setTimeout(() => {
+                animation.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => animation.remove(), 300);
+            }, 1500);
+        }
+
+        // Load archive
+        function loadArchive() {
+            archiveGrid.innerHTML = '';
+            
+            if (releases.length === 0) {
+                archiveGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: rgba(255,255,255,0.6);">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <div>No releases yet. Your first release will appear here.</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show only recent releases
+            const recentReleases = releases.slice(0, 6);
+            
+            recentReleases.forEach(release => {
+                const archiveEl = document.createElement('div');
+                archiveEl.className = 'archive-item';
+                
+                // Format date
+                const date = new Date(release.date);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // Truncate text
+                const maxLength = 100;
+                const displayText = release.text.length > maxLength 
+                    ? release.text.substring(0, maxLength) + '...' 
+                    : release.text;
+                
+                archiveEl.innerHTML = `
+                    ${release.emotion ? `<div class="archive-emotion">${release.emotion.icon}</div>` : ''}
+                    <div class="archive-date">${formattedDate}</div>
+                    <div style="margin-bottom: 1rem; color: rgba(255,255,255,0.9);">
+                        ${displayText}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                        <span style="color: var(--calm-mind);">${release.wordCount} words</span>
+                        <span style="color: rgba(255,255,255,0.6);">${release.option}</span>
+                    </div>
+                `;
+                
+                archiveGrid.appendChild(archiveEl);
+            });
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            totalReleases.textContent = releases.length;
+            
+            // This month's releases
+            const now = new Date();
+            const thisMonthReleases = releases.filter(r => {
+                const releaseDate = new Date(r.date);
+                return releaseDate.getMonth() === now.getMonth() && 
+                       releaseDate.getFullYear() === now.getFullYear();
+            }).length;
+            thisMonth.textContent = thisMonthReleases;
+            
+            // Average length
+            if (releases.length > 0) {
+                const totalWords = releases.reduce((sum, r) => sum + r.wordCount, 0);
+                avgLength.textContent = Math.round(totalWords / releases.length);
+            }
+        }
+
+        // Clear archive
+        function clearArchive() {
+            if (!confirm('Permanently delete all your releases? This cannot be undone.')) {
+                return;
+            }
+            
+            releases = [];
+            localStorage.setItem('confessionalReleases', JSON.stringify(releases));
+            loadArchive();
+            updateStatistics();
+            showNotification('All releases have been deleted.');
+        }
+
+        // Helper functions
         function showNotification(message) {
             const notification = document.createElement('div');
+            notification.textContent = message;
             notification.style.cssText = `
                 position: fixed;
-                top: 100px;
+                bottom: 20px;
                 right: 20px;
-                background: var(--primary-soul);
-                color: white;
+                background: rgba(10, 10, 26, 0.95);
+                backdrop-filter: blur(10px);
+                color: var(--calm-mind);
                 padding: 1rem 1.5rem;
-                border-radius: 10px;
+                border-radius: 15px;
+                border-left: 4px solid var(--primary-soul);
                 z-index: 10000;
-                animation: fadeIn 0.3s ease;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                max-width: 300px;
+                animation: slideIn 0.3s ease;
             `;
-            notification.textContent = message;
+            
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'fadeIn 0.3s ease reverse';
+                notification.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
 
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
 
-        // Initialize with sample data
-        setTimeout(() => {
-            if (!localStorage.getItem('visitedConfessional')) {
-                showNotification('Welcome to the Anonymous Confessional. Your words are safe here.');
-                localStorage.setItem('visitedConfessional', 'true');
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
             }
-        }, 1000);
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
