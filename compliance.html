@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethics & Compliance | Psychezone International</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Main Container */
+        .compliance-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Section */
+        .compliance-hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trust-icon {
+            font-size: 4rem;
+            color: var(--calm-mind);
+            margin-bottom: 1.5rem;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Compliance Grid */
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .compliance-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .compliance-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-soul);
+            box-shadow: 0 20px 40px rgba(93, 63, 211, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: rgba(93, 63, 211, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary-soul);
+        }
+
+        .card-badge {
+            background: rgba(106, 192, 192, 0.2);
+            color: var(--calm-mind);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        .compliance-list {
+            list-style: none;
+        }
+
+        .compliance-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .compliance-list li:before {
+            content: '✓';
+            color: var(--calm-mind);
+            margin-right: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* AI Limitations */
+        .ai-limitations {
+            background: rgba(255, 154, 118, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 4px solid var(--hope-glow);
+        }
+
+        .limitation-item {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+
+        .limitation-icon {
+            font-size: 1.5rem;
+            color: var(--hope-glow);
+        }
+
+        /* Data Flow Diagram */
+        .data-flow {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .flow-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-step:not(:last-child):after {
+            content: '→';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--calm-mind);
+            font-size: 1.5rem;
+        }
+
+        .step-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Compliance Checklist */
+        .checklist-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--calm-mind);
+        }
+
+        /* Certification Badges */
+        .certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .cert-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .cert-icon {
+            font-size: 2.5rem;
+            color: var(--primary-soul);
+            margin-bottom: 1rem;
+        }
+
+        /* Transparency Panel */
+        .transparency-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 2px solid var(--calm-mind);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .panel-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .panel-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-value {
+            font-weight: bold;
+            color: var(--calm-mind);
+        }
+
+        /* Download Section */
+        .download-section {
+            background: rgba(93, 63, 211, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 3rem 0;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            color: var(--calm-mind);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(45deg);
+        }
+
+        /* Verification */
+        .verification-section {
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .verify-btn {
+            background: var(--primary-soul);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: var(--transition);
+        }
+
+        .verify-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .flow-diagram {
+                flex-direction: column;
+            }
+            
+            .flow-step:not(:last-child):after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -2rem;
+                transform: translateX(50%);
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="index.html" style="color: white; text-decoration: none; padding: 0.5rem 1rem;">
+                    Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="compliance-container">
+        <!-- Hero Section -->
+        <section class="compliance-hero">
+            <i class="fas fa-shield-alt trust-icon"></i>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, white, var(--calm-mind));
+               -webkit-background-clip: text; background-clip: text; color: transparent;">
+                Ethical AI & Compliance
+            </h1>
+            <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.8); max-width: 800px; margin: 0 auto;">
+                Our commitment to responsible AI, data privacy, and ethical mental health practices.
+                Transparency is at the core of everything we do.
+            </p>
+        </section>
+
+        <!-- Compliance Grid -->
+        <div class="compliance-grid">
+            <!-- Data Privacy -->
+            <div class="compliance-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Data Privacy</h3>
+                    <span class="card-badge">GDPR Compliant</span>
+                </div>
+                <ul class="compliance-list">
+                    <li>End-to-end encryption for all sessions</li>
+                    <li>No personal data sold or shared</li>
+                    <li>Automatic data deletion after 90 days</li>
+                    <li>Anonymous options available</li>
+                    <li>Transparent data usage policies</li>
+                    <li>Right to be forgotten guaranteed</li>
+                </ul>
+            </div>
+
+            <!-- AI Ethics -->
+            <div class="compliance-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Ethics</h3>
+                    <span class="card-badge">Ethical AI</span>
+                </div>
+                <ul class="compliance-list">
+                    <li>AI does NOT diagnose or treat</li>
+                    <li>Human-in-the-loop for all critical decisions</li>
+                    <li>No algorithmic bias in matching</li>
+                    <li>Regular third-party audits</li>
+                    <li>Explainable AI decisions</li>
+                    <li>User consent for AI features</li>
+                </ul>
+            </div>
+
+            <!-- Clinical Standards -->
+            <div class="compliance-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Clinical Standards</h3>
+                    <span class="card-badge">Licensed</span>
+                </div>
+                <ul class="compliance-list">
+                    <li>All therapists fully licensed</li>
+                    <li>Regular clinical supervision</li>
+                    <li>Evidence-based practices only</li>
+                    <li>Culturally competent care</li>
+                    <li>Emergency protocols in place</li>
+                    <li>Continuous professional development</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- AI Limitations -->
+        <section class="ai-limitations">
+            <h2 style="color: var(--hope-glow); margin-bottom: 1.5rem;">
+                <i class="fas fa-exclamation-triangle"></i> Important AI Limitations
+            </h2>
+            
+            <div class="limitation-item">
+                <i class="fas fa-ban limitation-icon"></i>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">Not for Diagnosis</h4>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        Our AI does NOT provide medical diagnosis, treatment plans, or crisis intervention.
+                        It assists with matching and support only.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="limitation-item">
+                <i class="fas fa-user-md limitation-icon"></i>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">Human Supervision Required</h4>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        All AI recommendations are reviewed by licensed professionals before implementation.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="limitation-item">
+                <i class="fas fa-brain limitation-icon"></i>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">No Emotional Understanding</h4>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        AI cannot understand human emotions or provide genuine empathy.
+                        It processes patterns, not feelings.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Flow Diagram -->
+        <section class="data-flow">
+            <h2 style="color: var(--calm-mind); margin-bottom: 1rem;">
+                <i class="fas fa-project-diagram"></i> Your Data Journey
+            </h2>
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                See exactly how your data flows through our system, from input to secure storage.
+            </p>
+            
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="step-circle">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>You Provide Data</div>
+                    <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                        Optional & controlled
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-circle">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>Immediate Encryption</div>
+                    <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                        AES-256 encryption
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-circle">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>AI Processing</div>
+                    <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                        No personal identifiers
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-circle">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>Secure Storage</div>
+                    <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                        Tanzania-based servers
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transparency Panel -->
+        <section class="transparency-panel">
+            <div class="panel-header">
+                <h3 style="color: var(--calm-mind);">
+                    <i class="fas fa-chart-bar"></i> Real-time Transparency
+                </h3>
+                <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                    Updated: Just now
+                </div>
+            </div>
+            
+            <div class="panel-grid">
+                <div class="panel-item">
+                    <div class="panel-label">Active AI Audits</div>
+                    <div class="panel-value">3 ongoing</div>
+                </div>
+                <div class="panel-item">
+                    <div class="panel-label">Data Breaches</div>
+                    <div class="panel-value">0 since 2023</div>
+                </div>
+                <div class="panel-item">
+                    <div class="panel-label">Human Reviews</div>
+                    <div class="panel-value">100% of AI matches</div>
+                </div>
+                <div class="panel-item">
+                    <div class="panel-label">User Consent Rate</div>
+                    <div class="panel-value">98.7% opt-in</div>
+                </div>
+                <div class="panel-item">
+                    <div class="panel-label">Data Deletion Requests</div>
+                    <div class="panel-value">24 (all honored)</div>
+                </div>
+                <div class="panel-item">
+                    <div class="panel-label">Compliance Checks</div>
+                    <div class="panel-value">Monthly</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compliance Checklist -->
+        <section class="checklist-section">
+            <h2 style="color: var(--calm-mind); margin-bottom: 1.5rem;">
+                <i class="fas fa-tasks"></i> Our Compliance Checklist
+            </h2>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="check1" checked disabled>
+                <label for="check1">Regular security audits by third parties</label>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="check2" checked disabled>
+                <label for="check2">All therapists licensed and insured</label>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="check3" checked disabled>
+                <label for="check3">GDPR and local data protection compliance</label>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="check4" checked disabled>
+                <label for="check4">AI algorithm bias testing every quarter</label>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="check5" checked disabled>
+                <label for="check5">Emergency protocols and crisis training</label>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="check6" checked disabled>
+                <label for="check6">Transparent pricing with no hidden fees</label>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="check7" checked disabled>
+                <label for="check7">Regular user feedback and improvement cycles</label>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: var(--calm-mind); margin-bottom: 1.5rem;">
+                <i class="fas fa-award"></i> Certifications & Partnerships
+            </h3>
+            
+            <div class="certifications">
+                <div class="cert-badge">
+                    <i class="fas fa-shield-alt cert-icon"></i>
+                    <div>Tanzania Medical Council</div>
+                </div>
+                
+                <div class="cert-badge">
+                    <i class="fas fa-lock cert-icon"></i>
+                    <div>ISO 27001 Certified</div>
+                </div>
+                
+                <div class="cert-badge">
+                    <i class="fas fa-handshake cert-icon"></i>
+                    <div>Global Mental Health Partnership</div>
+                </div>
+                
+                <div class="cert-badge">
+                    <i class="fas fa-robot cert-icon"></i>
+                    <div>Ethical AI Framework Certified</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 style="color: var(--calm-mind); margin-bottom: 1.5rem; text-align: center;">
+                <i class="fas fa-question-circle"></i> Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Is my therapy data used to train AI?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No. Therapy session content is never used to train our AI models. We only use anonymized, 
+                       aggregated data for improving matching algorithms, with explicit user consent.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I use the service completely anonymously?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Our confessional platform requires no personal information. For therapy services, 
+                       we require minimal contact information but offer encrypted communication options.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do you prevent AI bias in therapist matching?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We regularly audit our algorithms for bias, use diverse training data, and ensure 
+                       human professionals review all matches. Users can also override AI recommendations.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What happens in a data breach?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We notify affected users within 72 hours, provide free credit monitoring, and 
+                       conduct a full security review. All data is encrypted, making it useless if accessed.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can children use Psychezone services?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Users under 18 require parental consent. We have specialized youth therapists and 
+                       additional privacy protections for minors, including no AI matching for under-16s.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section class="download-section">
+            <h2 style="color: var(--primary-soul); margin-bottom: 1rem;">
+                <i class="fas fa-file-download"></i> Full Documentation
+            </h2>
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                Download our complete compliance documents and policies.
+            </p>
+            
+            <div class="download-buttons">
+                <a href="#" class="download-btn" onclick="downloadDocument('privacy')">
+                    <i class="fas fa-lock"></i>
+                    <div>
+                        <div style="font-weight: bold;">Privacy Policy</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">PDF • 45KB</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="download-btn" onclick="downloadDocument('ai-ethics')">
+                    <i class="fas fa-robot"></i>
+                    <div>
+                        <div style="font-weight: bold;">AI Ethics Framework</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">PDF • 120KB</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="download-btn" onclick="downloadDocument('terms')">
+                    <i class="fas fa-file-contract"></i>
+                    <div>
+                        <div style="font-weight: bold;">Terms of Service</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">PDF • 85KB</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="download-btn" onclick="downloadDocument('compliance')">
+                    <i class="fas fa-clipboard-check"></i>
+                    <div>
+                        <div style="font-weight: bold;">Compliance Report</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">PDF • 210KB</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Verification Section -->
+        <section class="verification-section">
+            <h2 style="color: var(--calm-mind); margin-bottom: 1rem;">
+                <i class="fas fa-check-circle"></i> Verify Our Compliance
+            </h2>
+            <p style="color: rgba(255,255,255,0.8);">
+                Independent verification of our security and compliance standards.
+            </p>
+            
+            <button class="verify-btn" onclick="verifyCompliance()">
+                <i class="fas fa-search"></i> Run Independent Verification
+            </button>
+            
+            <div id="verificationResult" style="margin-top: 1.5rem; display: none;">
+                <!-- Results will appear here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // FAQ functionality
+        function toggleFAQ(questionElement) {
+            const answer = questionElement.nextElementSibling;
+            const toggle = questionElement.querySelector('.faq-toggle');
+            
+            // Close other FAQs
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                if (ans !== answer) {
+                    ans.classList.remove('active');
+                    ans.previousElementSibling.querySelector('.faq-toggle').classList.remove('active');
+                }
+            });
+            
+            // Toggle current FAQ
+            answer.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Document download simulation
+        function downloadDocument(type) {
+            const documents = {
+                'privacy': { name: 'Privacy Policy', size: '45KB' },
+                'ai-ethics': { name: 'AI Ethics Framework', size: '120KB' },
+                'terms': { name: 'Terms of Service', size: '85KB' },
+                'compliance': { name: 'Compliance Report', size: '210KB' }
+            };
+            
+            const doc = documents[type];
+            showNotification(`Downloading ${doc.name} (${doc.size})...`);
+            
+            // Simulate download delay
+            setTimeout(() => {
+                showNotification(`${doc.name} downloaded successfully.`);
+            }, 1500);
+        }
+
+        // Compliance verification
+        function verifyCompliance() {
+            const resultDiv = document.getElementById('verificationResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <div style="background: rgba(255,255,255,0.05); border-radius: 15px; padding: 1.5rem;">
+                    <div style="font-size: 2rem; color: var(--calm-mind); margin-bottom: 1rem;">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <h3 style="color: var(--calm-mind); margin-bottom: 1rem;">Verification Complete</h3>
+                    <div style="color: rgba(255,255,255,0.8);">
+                        <p>All compliance checks passed successfully:</p>
+                        <ul style="list-style: none; margin: 1rem 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <i class="fas fa-check" style="color: var(--calm-mind); margin-right: 0.5rem;"></i>
+                                SSL Encryption: Active
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <i class="fas fa-check" style="color: var(--calm-mind); margin-right: 0.5rem;"></i>
+                                Data Protection: GDPR Compliant
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <i class="fas fa-check" style="color: var(--calm-mind); margin-right: 0.5rem;"></i>
+                                AI Ethics: Framework Verified
+                            </li>
+                            <li style="padding: 0.5rem 0;">
+                                <i class="fas fa-check" style="color: var(--calm-mind); margin-right: 0.5rem;"></i>
+                                Clinical Standards: Licensed Practitioners
+                            </li>
+                        </ul>
+                        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-top: 1rem;">
+                            Last verified: ${new Date().toLocaleDateString()}
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            // Save verification timestamp
+            localStorage.setItem('lastVerification', new Date().toISOString());
+        }
+
+        // Check for previous verification
+        document.addEventListener('DOMContentLoaded', () => {
+            const lastVerification = localStorage.getItem('lastVerification');
+            if (lastVerification) {
+                const lastDate = new Date(lastVerification);
+                const now = new Date();
+                const daysDiff = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
+                
+                if (daysDiff < 7) { // Less than a week ago
+                    document.getElementById('verificationResult').innerHTML = `
+                        <div style="color: var(--calm-mind); font-size: 0.9rem;">
+                            <i class="fas fa-history"></i> Last verified ${daysDiff} day${daysDiff !== 1 ? 's' : ''} ago
+                        </div>
+                    `;
+                    document.getElementById('verificationResult').style.display = 'block';
+                }
+            }
+        });
+
+        // Helper functions
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(10, 10, 26, 0.95);
+                backdrop-filter: blur(10px);
+                color: var(--calm-mind);
+                padding: 1rem 1.5rem;
+                border-radius: 15px;
+                border-left: 4px solid var(--primary-soul);
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
