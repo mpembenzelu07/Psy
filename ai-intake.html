@@ -33,6 +33,9 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .nav-container {
@@ -58,6 +61,49 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(93, 63, 211, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background: rgba(93, 63, 211, 0.2);
+            border: 2px solid var(--primary-soul);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            background: rgba(93, 63, 211, 0.4);
+            transform: translateX(-5px);
         }
 
         /* AI Chat Container */
@@ -362,6 +408,7 @@
             align-items: center;
             gap: 0.5rem;
             margin-top: 1rem;
+            padding: 0 2rem;
         }
 
         .typing-dot {
@@ -378,6 +425,41 @@
         @keyframes typing {
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1); }
+        }
+
+        /* Navigation Footer */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link:hover {
+            background: rgba(93, 63, 211, 0.2);
+            color: white;
+            transform: translateY(-2px);
         }
 
         /* Responsive */
@@ -398,16 +480,87 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .nav-footer {
+                flex-direction: column;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 26, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 2rem;
+                display: none;
+                z-index: 999;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header with Navigation -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">
                 <i class="fas fa-brain logo-icon"></i>
                 <div class="logo-text">PSYCHEZONE</div>
             </a>
+            
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+                <a href="therapies.html" class="nav-link">
+                    <i class="fas fa-heartbeat"></i> Therapies
+                </a>
+                <a href="voice-tools.html" class="nav-link">
+                    <i class="fas fa-microphone-alt"></i> Voice Tools
+                </a>
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </nav>
         </div>
     </header>
 
@@ -537,9 +690,60 @@
                 </a>
             </div>
         </div>
+
+        <!-- Navigation Footer -->
+        <div class="nav-footer">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="dashboard.html" class="footer-link">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+                <a href="therapies.html" class="footer-link">
+                    <i class="fas fa-heartbeat"></i> All Therapies
+                </a>
+                <a href="workshops.html" class="footer-link">
+                    <i class="fas fa-users"></i> Workshops
+                </a>
+                <a href="confessional.html" class="footer-link">
+                    <i class="fas fa-user-secret"></i> Anonymous Release
+                </a>
+            </div>
+            
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i> Back to Previous Page
+            </button>
+        </div>
     </main>
 
     <script>
+        // ================== NAVIGATION FUNCTIONS ==================
+        function goBack() {
+            // Check if there's a previous page in history
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // Default to homepage if no history
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Mobile menu toggle
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const menuBtn = document.getElementById('menuBtn');
+            
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
         // ================== CONFIGURATION ==================
         const CONFIG = {
             currentStep: 1,
