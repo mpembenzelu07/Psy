@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychezone | Our Therapies</title>
+    <title>Therapy Services | Psychezone International</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ==== GLOBAL STYLES ==== */
+        /* ==== THERAPY-SPECIFIC STYLES ==== */
         :root {
             --primary-soul: #5D3FD3;
             --calm-mind: #6AC0C0;
             --hope-glow: #FF9A76;
             --dark-sanctuary: #0A0A1A;
-            --light-bg: #F8F9FF;
             --transition: all 0.4s ease;
         }
 
@@ -26,32 +25,28 @@
         body {
             background: var(--dark-sanctuary);
             color: white;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ==== HEADER & NAVIGATION ==== */
+        /* Header (same as index.html) */
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
             background: rgba(10, 10, 26, 0.95);
             backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .logo {
@@ -61,11 +56,7 @@
             text-decoration: none;
         }
 
-        .logo-icon {
-            color: var(--primary-soul);
-            font-size: 2rem;
-        }
-
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
@@ -75,110 +66,82 @@
             color: transparent;
         }
 
-        .main-nav {
-            display: flex;
-            gap: 2rem;
-        }
-
+        .nav-links { display: flex; gap: 1.5rem; }
         .nav-link {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 30px;
             transition: var(--transition);
         }
-
         .nav-link:hover, .nav-link.active {
             background: rgba(93, 63, 211, 0.2);
+            transform: translateY(-2px);
         }
 
-        .language-switcher {
-            display: flex;
-            gap: 10px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .lang-btn.active {
-            background: var(--primary-soul);
-            border-color: var(--primary-soul);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ==== PAGE HERO ==== */
-        .page-hero {
-            min-height: 60vh;
+        /* Therapy Hero */
+        .therapy-hero {
+            min-height: 70vh;
             display: flex;
             align-items: center;
+            padding: 0 5%;
             padding-top: 120px;
-            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
             position: relative;
             overflow: hidden;
         }
 
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
+        .therapy-hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .therapy-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             background: linear-gradient(to right, white, var(--calm-mind));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .hero-subtitle {
+        .therapy-hero p {
             font-size: 1.2rem;
-            color: #aaa;
-            max-width: 600px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
 
-        /* ==== THERAPY INTRO ==== */
-        .therapy-intro {
-            padding: 4rem 0;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .intro-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #ccc;
-        }
-
-        /* ==== THERAPY GRID ==== */
+        /* Therapy Grid */
         .therapies-section {
-            padding: 4rem 0;
+            padding: 6rem 5%;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 3rem;
             color: white;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
         }
 
         .therapy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .therapy-card {
@@ -186,41 +149,52 @@
             border-radius: 20px;
             overflow: hidden;
             transition: var(--transition);
-            border: 1px solid transparent;
-            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .therapy-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary-soul);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(93, 63, 211, 0.2);
         }
 
-        .therapy-header {
-            padding: 2rem 2rem 1rem;
-            position: relative;
+        .therapy-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .therapy-icon {
-            font-size: 2.5rem;
-            color: var(--primary-soul);
-            margin-bottom: 1rem;
-        }
-
-        .therapy-title {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+        .therapy-image i {
+            font-size: 4rem;
             color: white;
+            opacity: 0.9;
         }
 
-        .therapy-subtitle {
-            color: var(--calm-mind);
-            font-size: 1rem;
+        .therapy-content {
+            padding: 2rem;
+        }
+
+        .therapy-tags {
+            display: flex;
+            gap: 0.5rem;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
-        .therapy-body {
-            padding: 0 2rem 2rem;
+        .therapy-tag {
+            background: rgba(106, 192, 192, 0.2);
+            color: var(--calm-mind);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .therapy-tag.primary {
+            background: rgba(93, 63, 211, 0.2);
+            color: #b19eff;
         }
 
         .therapy-features {
@@ -230,516 +204,277 @@
 
         .therapy-features li {
             padding: 0.5rem 0;
-            color: #ccc;
-            position: relative;
-            padding-left: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .therapy-features li:before {
-            content: "✓";
+            content: '✓';
             color: var(--calm-mind);
-            position: absolute;
-            left: 0;
+            margin-right: 0.5rem;
+            font-weight: bold;
         }
 
-        .therapy-price {
-            font-size: 1.5rem;
-            color: var(--hope-glow);
-            font-weight: 700;
-            margin: 1rem 0;
-        }
-
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
+        .therapy-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 600;
             transition: var(--transition);
             border: none;
             cursor: pointer;
         }
 
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
-            color: white;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .btn-primary:hover {
+        .therapy-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(93, 63, 211, 0.3);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
         }
 
-        /* ==== BILINGUAL SECTION ==== */
-        .bilingual-section {
-            padding: 6rem 0;
+        /* AI Integration */
+        .ai-integration {
+            padding: 4rem 5%;
             background: rgba(0, 0, 0, 0.3);
             text-align: center;
         }
 
-        .language-cards {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .language-card {
+        .ai-box {
+            max-width: 800px;
+            margin: 0 auto;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 2rem;
-            width: 300px;
-            transition: var(--transition);
-            border: 2px solid transparent;
+            padding: 3rem;
+            border: 2px dashed var(--primary-soul);
         }
 
-        .language-card:hover {
-            border-color: var(--primary-soul);
-            transform: translateY(-10px);
-        }
-
-        .lang-flag {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        /* ==== PROCESS SECTION ==== */
-        .process-section {
-            padding: 6rem 0;
-        }
-
-        .process-steps {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 3rem;
-            position: relative;
-            flex-wrap: wrap;
-        }
-
-        .process-steps:before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 50px;
-            right: 50px;
-            height: 3px;
-            background: var(--primary-soul);
-            z-index: 1;
-        }
-
-        .process-step {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            flex: 1;
-            min-width: 200px;
-            margin-bottom: 2rem;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background: var(--primary-soul);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto 1rem;
-            border: 5px solid var(--dark-sanctuary);
-        }
-
-        /* ==== FOOTER ==== */
+        /* Footer (same as index.html) */
         footer {
             background: rgba(0, 0, 0, 0.5);
-            padding: 3rem 0;
+            padding: 4rem 5% 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .footer-title {
-            color: var(--calm-mind);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            background: var(--primary-soul);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
-        }
-
-        /* ==== RESPONSIVE ==== */
+        /* Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .main-nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--dark-sanctuary);
-                flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .main-nav.active {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .process-steps:before {
-                display: none;
-            }
-
-            .process-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .therapy-grid {
-                grid-template-columns: 1fr;
-            }
+            .therapy-hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2.2rem; }
+            .therapy-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header>
-        <div class="container">
-            <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-brain logo-icon"></i>
-                    <div class="logo-text">PSYCHEZONE</div>
-                </a>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <nav class="main-nav" id="mainNav">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="therapies.html" class="nav-link active">Therapies</a>
-                    <a href="workshops.html" class="nav-link">Workshops</a>
-                    <a href="confessional.html" class="nav-link">Confessional</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
-                </nav>
-
-                <div class="language-switcher">
-                    <button class="lang-btn active">EN</button>
-                    <button class="lang-btn">SW</button>
-                </div>
-            </div>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="therapies.html" class="nav-link active">Therapies</a>
+                <a href="workshops.html" class="nav-link">Workshops</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="ai-intake.html" class="nav-link">AI Assistant</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <!-- PAGE HERO -->
-    <section class="page-hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">THERAPIES THAT SPEAK TO YOUR SOUL</h1>
-                <p class="hero-subtitle">Evidence-based psychotherapy meets culturally-aware healing in English and Swahili</p>
-            </div>
+    <section class="therapy-hero">
+        <div class="therapy-hero-content">
+            <h1>Evidence-Based Therapy Services</h1>
+            <p>Professional mental health care blending Western psychotherapy with Tanzanian cultural understanding. Available in English and Swahili.</p>
+            <a href="ai-intake.html" class="therapy-btn" style="width: auto; padding: 1rem 2rem;">
+                <i class="fas fa-robot"></i> Get Matched with AI Assistant
+            </a>
         </div>
     </section>
 
-    <!-- THERAPY INTRO -->
-    <section class="therapy-intro">
-        <div class="container">
-            <p class="intro-text">
-                At Psychezone, we believe healing should respect your cultural context while utilizing proven therapeutic methods. 
-                Our bilingual therapists provide care that bridges Western psychology with Tanzanian wisdom, creating a truly 
-                transformative healing experience.
-            </p>
-        </div>
-    </section>
-
-    <!-- THERAPIES GRID -->
     <section class="therapies-section">
-        <div class="container">
-            <h2 class="section-title">OUR THERAPEUTIC APPROACHES</h2>
-            
-            <div class="therapy-grid">
-                <!-- Therapy 1 -->
-                <div class="therapy-card">
-                    <div class="therapy-header">
-                        <i class="fas fa-brain therapy-icon"></i>
-                        <h3 class="therapy-title">Cognitive Behavioral Therapy (CBT)</h3>
-                        <p class="therapy-subtitle">English & Swahili Sessions</p>
-                    </div>
-                    <div class="therapy-body">
-                        <p>Identify and transform negative thought patterns with evidence-based techniques adapted for Tanzanian context.</p>
-                        
-                        <ul class="therapy-features">
-                            <li>Weekly 60-minute sessions</li>
-                            <li>Personalized coping strategies</li>
-                            <li>Progress tracking dashboard</li>
-                            <li>Bilingual worksheets</li>
-                        </ul>
-                        
-                        <div class="therapy-price">TZS 80,000 / session</div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-calendar-alt"></i> Book CBT Session
-                        </button>
-                    </div>
+        <h2 class="section-title">Our Therapy Approaches</h2>
+        
+        <div class="therapy-grid">
+            <!-- CBT Card -->
+            <div class="therapy-card">
+                <div class="therapy-image" style="background: linear-gradient(45deg, #5D3FD3, #7B5FE8);">
+                    <i class="fas fa-brain"></i>
                 </div>
-
-                <!-- Therapy 2 -->
-                <div class="therapy-card">
-                    <div class="therapy-header">
-                        <i class="fas fa-hands therapy-icon"></i>
-                        <h3 class="therapy-title">Trauma-Informed Care</h3>
-                        <p class="therapy-subtitle">Healing Through Storytelling</p>
+                <div class="therapy-content">
+                    <div class="therapy-tags">
+                        <span class="therapy-tag primary">Most Popular</span>
+                        <span class="therapy-tag">Bilingual</span>
+                        <span class="therapy-tag">AI-Enhanced</span>
                     </div>
-                    <div class="therapy-body">
-                        <p>Gentle, culturally-sensitive approach to trauma healing incorporating narrative therapy and traditional healing wisdom.</p>
-                        
-                        <ul class="therapy-features">
-                            <li>Safe space for story sharing</li>
-                            <li>Mind-body connection work</li>
-                            <li>Traditional healing integration</li>
-                            <li>Group support available</li>
-                        </ul>
-                        
-                        <div class="therapy-price">TZS 100,000 / session</div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-calendar-alt"></i> Begin Healing Journey
-                        </button>
-                    </div>
+                    <h3>Cognitive Behavioral Therapy (CBT)</h3>
+                    <p>Identify and change negative thought patterns with culturally-adapted techniques.</p>
+                    <ul class="therapy-features">
+                        <li>Weekly 60-minute sessions</li>
+                        <li>Personalized digital workbook</li>
+                        <li>AI progress tracking</li>
+                        <li>Available in English & Swahili</li>
+                    </ul>
+                    <button class="therapy-btn" onclick="window.location.href='contact.html'">
+                        Book Session - $80
+                    </button>
                 </div>
+            </div>
 
-                <!-- Therapy 3 -->
-                <div class="therapy-card">
-                    <div class="therapy-header">
-                        <i class="fas fa-user-friends therapy-icon"></i>
-                        <h3 class="therapy-title">Family Therapy</h3>
-                        <p class="therapy-subtitle">Healing Relationships</p>
-                    </div>
-                    <div class="therapy-body">
-                        <p>Strengthen family bonds and resolve conflicts with culturally-attuned family systems therapy.</p>
-                        
-                        <ul class="therapy-features">
-                            <li>90-minute family sessions</li>
-                            <li>Generational pattern exploration</li>
-                            <li>Communication skill building</li>
-                            <li>Follow-up support included</li>
-                        </ul>
-                        
-                        <div class="therapy-price">TZS 120,000 / session</div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-calendar-alt"></i> Schedule Family Session
-                        </button>
-                    </div>
+            <!-- Trauma Therapy -->
+            <div class="therapy-card">
+                <div class="therapy-image" style="background: linear-gradient(45deg, #6AC0C0, #8AD6D6);">
+                    <i class="fas fa-hands-helping"></i>
                 </div>
+                <div class="therapy-content">
+                    <div class="therapy-tags">
+                        <span class="therapy-tag">Trauma-Informed</span>
+                        <span class="therapy-tag">Confidential</span>
+                    </div>
+                    <h3>Trauma & PTSD Therapy</h3>
+                    <p>Safe, gentle processing of traumatic experiences with EMDR and narrative therapy.</p>
+                    <ul class="therapy-features">
+                        <li>90-minute specialized sessions</li>
+                        <li>EMDR certification</li>
+                        <li>Secure virtual option</li>
+                        <li>Anonymous intake available</li>
+                    </ul>
+                    <button class="therapy-btn" onclick="window.location.href='contact.html'">
+                        Book Session - $95
+                    </button>
+                </div>
+            </div>
 
-                <!-- Therapy 4 -->
-                <div class="therapy-card">
-                    <div class="therapy-header">
-                        <i class="fas fa-briefcase therapy-icon"></i>
-                        <h3 class="therapy-title">Corporate Mental Wellness</h3>
-                        <p class="therapy-subtitle">For Organizations</p>
+            <!-- Couples Therapy -->
+            <div class="therapy-card">
+                <div class="therapy-image" style="background: linear-gradient(45deg, #FF9A76, #FFB8A1);">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="therapy-content">
+                    <div class="therapy-tags">
+                        <span class="therapy-tag">Couples</span>
+                        <span class="therapy-tag">Family</span>
+                        <span class="therapy-tag">Bilingual</span>
                     </div>
-                    <div class="therapy-body">
-                        <p>Employee assistance programs and workplace mental health initiatives tailored for Tanzanian businesses.</p>
-                        
-                        <ul class="therapy-features">
-                            <li>Confidential employee sessions</li>
-                            <li>Stress management workshops</li>
-                            <li>Leadership mental fitness</li>
-                            <li>Custom organizational packages</li>
-                        </ul>
-                        
-                        <div class="therapy-price">Custom Pricing</div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-building"></i> Inquire for Business
-                        </button>
+                    <h3>Couples & Family Therapy</h3>
+                    <p>Improve communication and resolve conflicts in relationships and family systems.</p>
+                    <ul class="therapy-features">
+                        <li>90-minute joint sessions</li>
+                        <li>Cultural mediation</li>
+                        <li>Communication tools</li>
+                        <li>Conflict resolution skills</li>
+                    </ul>
+                    <button class="therapy-btn" onclick="window.location.href='contact.html'">
+                        Book Session - $120
+                    </button>
+                </div>
+            </div>
+
+            <!-- Youth Therapy -->
+            <div class="therapy-card">
+                <div class="therapy-image" style="background: linear-gradient(45deg, #9D4EDD, #C77DFF);">
+                    <i class="fas fa-child"></i>
+                </div>
+                <div class="therapy-content">
+                    <div class="therapy-tags">
+                        <span class="therapy-tag">Teens</span>
+                        <span class="therapy-tag">Play Therapy</span>
+                        <span class="therapy-tag">School Support</span>
                     </div>
+                    <h3>Youth & Adolescent Therapy</h3>
+                    <p>Age-appropriate therapy for teenagers dealing with anxiety, depression, and school stress.</p>
+                    <ul class="therapy-features">
+                        <li>45-60 minute sessions</li>
+                        <li>Play/art therapy options</li>
+                        <li>Parent guidance included</li>
+                        <li>School coordination</li>
+                    </ul>
+                    <button class="therapy-btn" onclick="window.location.href='contact.html'">
+                        Book Session - $70
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BILINGUAL SECTION -->
-    <section class="bilingual-section">
-        <div class="container">
-            <h2 class="section-title">HEALING IN YOUR LANGUAGE</h2>
-            <p style="max-width: 600px; margin: 0 auto 2rem; color: #ccc;">
-                We provide full therapeutic services in both English and Swahili. Choose the language that feels most comfortable for your healing journey.
-            </p>
-            
-            <div class="language-cards">
-                <div class="language-card">
-                    <div class="lang-flag">🇬🇧</div>
-                    <h3>English Therapy</h3>
-                    <p>For those comfortable with international therapeutic terminology and Western psychology frameworks.</p>
-                    <div style="margin-top: 1rem; color: var(--calm-mind);">
-                        <i class="fas fa-check-circle"></i> Available Now
-                    </div>
-                </div>
-                
-                <div class="language-card">
-                    <div class="lang-flag">🇹🇿</div>
-                    <h3>Swahili Therapy</h3>
-                    <p>Healing in Kiswahili with culturally-adapted terminology and Tanzanian therapeutic metaphors.</p>
-                    <div style="margin-top: 1rem; color: var(--calm-mind);">
-                        <i class="fas fa-check-circle"></i> Available Now
-                    </div>
-                </div>
-                
-                <div class="language-card">
-                    <div class="lang-flag">🌍</div>
-                    <h3>Code-Switching</h3>
-                    <p>Mix both languages within sessions as needed for authentic expression and understanding.</p>
-                    <div style="margin-top: 1rem; color: var(--hope-glow);">
-                        <i class="fas fa-star"></i> Most Popular
-                    </div>
-                </div>
-            </div>
+    <section class="ai-integration">
+        <div class="ai-box">
+            <i class="fas fa-robot" style="font-size: 4rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
+            <h3>AI-Enhanced Therapy Experience</h3>
+            <p>Our intelligent platform tracks your progress, suggests coping strategies, and provides 
+               between-session support through our confidential AI assistant.</p>
+            <a href="ai-intake.html" class="therapy-btn" style="width: auto; margin-top: 1rem;">
+                <i class="fas fa-magic"></i> Experience AI-Assisted Therapy
+            </a>
         </div>
     </section>
 
-    <!-- PROCESS SECTION -->
-    <section class="process-section">
-        <div class="container">
-            <h2 class="section-title">YOUR HEALING JOURNEY</h2>
-            
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <h3>Initial Consultation</h3>
-                    <p>Free 30-minute discovery session to understand your needs</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h3>Personalized Plan</h3>
-                    <p>Custom therapy roadmap in your preferred language</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <h3>Begin Therapy</h3>
-                    <p>Weekly sessions with progress tracking</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <h3>Ongoing Support</h3>
-                    <p>Continuous care with optional group sessions</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3 class="footer-title">Psychezone International</h3>
-                    <p>Mabatini Rd, Dar es Salaam</p>
-                    <p>Mon-Sat: 8AM - 6PM</p>
-                    <p>⭐ 5.0 (12+ reviews)</p>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Quick Links</h3>
-                    <p><a href="index.html" style="color: white; text-decoration: none;">Home</a></p>
-                    <p><a href="therapies.html" style="color: white; text-decoration: none;">Services</a></p>
-                    <p><a href="contact.html" style="color: white; text-decoration: none;">Book Appointment</a></p>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
+        <div class="footer-grid">
+            <div>
+                <h3 style="color: var(--calm-mind); margin-bottom: 1.5rem;">Psychezone International</h3>
+                <p>Mabatini Rd, Dar es Salaam</p>
+                <p>Therapy Hours: Mon-Sat 8AM-8PM</p>
+                <p>Emergency: +255 789 456 123</p>
             </div>
-            
-            <div class="copyright">
-                <p>© 2023 Psychezone International. Mental health clinic & counseling services.</p>
-                <p>In Tanzania, mental health services are limited. We're changing that narrative.</p>
+            <div>
+                <h3 style="color: var(--calm-mind); margin-bottom: 1.5rem;">Quick Therapy Access</h3>
+                <a href="ai-intake.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; display: block; margin: 0.5rem 0;">
+                    AI Therapy Match →
+                </a>
+                <a href="contact.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; display: block; margin: 0.5rem 0;">
+                    Book First Session →
+                </a>
+                <a href="dashboard.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; display: block; margin: 0.5rem 0;">
+                    Therapy Dashboard →
+                </a>
             </div>
+            <div>
+                <h3 style="color: var(--calm-mind); margin-bottom: 1.5rem;">Crisis Support</h3>
+                <p style="color: var(--hope-glow); font-weight: bold;">24/7 AI Assistant Available</p>
+                <a href="contact.html" style="display: inline-block; background: var(--primary-soul); color: white; 
+                   padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none; margin-top: 1rem;">
+                    Emergency Contact
+                </a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); 
+             color: rgba(255, 255, 255, 0.6);">
+            <p>© 2024 Psychezone International | Professional Therapy Services</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
-
-        // Language Switcher
-        const langButtons = document.querySelectorAll('.lang-btn');
-        langButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                langButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                // In production, this would trigger language change
+        // Therapy selection handler
+        document.querySelectorAll('.therapy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const therapyName = this.closest('.therapy-card').querySelector('h3').textContent;
+                localStorage.setItem('selectedTherapy', therapyName);
             });
         });
 
-        // Therapy Booking Buttons
-        document.querySelectorAll('.btn-primary').forEach(button => {
-            button.addEventListener('click', function() {
-                const therapyName = this.closest('.therapy-card').querySelector('.therapy-title').textContent;
-                alert(`Booking request for: ${therapyName}\n\nYou will be redirected to our booking page.`);
-                // In production: window.location.href = 'contact.html';
-            });
-        });
+        // AI Recommendation
+        if (localStorage.getItem('moodData')) {
+            const moodData = JSON.parse(localStorage.getItem('moodData'));
+            if (moodData.includes('anxiety') || moodData.includes('stress')) {
+                document.querySelector('.ai-box').innerHTML += `
+                    <p style="color: var(--calm-mind); margin-top: 1rem;">
+                        <i class="fas fa-lightbulb"></i> Based on your mood check, we recommend starting with CBT.
+                    </p>
+                `;
+            }
+        }
     </script>
 </body>
 </html>
