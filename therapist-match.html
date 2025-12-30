@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Therapist Match | Psychezone International</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon { font-size: 2rem; color: var(--primary-soul); }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Main Container */
+        .match-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Section */
+        .match-hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-icon {
+            font-size: 4rem;
+            color: var(--primary-soul);
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .progress-steps:before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .step-circle.active {
+            background: var(--primary-soul);
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(93, 63, 211, 0.5);
+        }
+
+        .step-circle.completed {
+            background: var(--calm-mind);
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Questions Container */
+        .questions-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .question {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--calm-mind);
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary-soul);
+            background: rgba(93, 63, 211, 0.2);
+        }
+
+        .option-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-soul);
+        }
+
+        /* Multiple Select */
+        .multi-select {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .multi-option {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .multi-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .multi-option.selected {
+            background: rgba(93, 63, 211, 0.3);
+            border-color: var(--primary-soul);
+        }
+
+        /* Slider Question */
+        .slider-question {
+            padding: 2rem 0;
+        }
+
+        .slider-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .custom-slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-soul);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 0 10px rgba(93, 63, 211, 0.5);
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-btn {
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-prev:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+        }
+
+        .btn-next {
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+        }
+
+        .btn-next:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+
+        .match-score {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-soul) 0% 85%, rgba(255,255,255,0.1) 85% 100%);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-circle:before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--dark-sanctuary);
+        }
+
+        .score-value {
+            position: relative;
+            z-index: 2;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Therapists Grid */
+        .therapists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .therapist-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-soul);
+            box-shadow: 0 20px 40px rgba(93, 63, 211, 0.2);
+        }
+
+        .therapist-header {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, rgba(93, 63, 211, 0.3), rgba(106, 192, 192, 0.3));
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .therapist-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .match-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: rgba(255, 154, 118, 0.2);
+            color: var(--hope-glow);
+        }
+
+        .therapist-content {
+            padding: 1.5rem;
+        }
+
+        .therapist-specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .specialty-tag {
+            background: rgba(93, 63, 211, 0.2);
+            color: #b19eff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .availability {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .therapist-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .therapist-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(93, 63, 211, 0.3);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--calm-mind);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .best-match {
+            background: rgba(93, 63, 211, 0.1);
+            border-left: 3px solid var(--primary-soul);
+        }
+
+        /* AI Explanation */
+        .ai-explanation {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary-soul);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .progress-steps {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .progress-step {
+                flex: none;
+                width: calc(50% - 0.5rem);
+            }
+            
+            .therapists-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="therapies.html" style="color: white; text-decoration: none; padding: 0.5rem 1rem;">
+                    Therapists
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="match-container">
+        <!-- Hero Section -->
+        <section class="match-hero">
+            <i class="fas fa-robot ai-icon"></i>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, white, var(--calm-mind));
+               -webkit-background-clip: text; background-clip: text; color: transparent;">
+                AI Therapist Match
+            </h1>
+            <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.8); max-width: 600px; margin: 0 auto;">
+                Our AI analyzes your needs, preferences, and personality to find your perfect therapist match.
+            </p>
+        </section>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="progress-step">
+                <div class="step-circle active">1</div>
+                <div class="step-label">Goals</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">2</div>
+                <div class="step-label">Preferences</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">3</div>
+                <div class="step-label">Personality</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">4</div>
+                <div class="step-label">Logistics</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">5</div>
+                <div class="step-label">Results</div>
+            </div>
+        </div>
+
+        <!-- Questions Container -->
+        <div class="questions-container">
+            <!-- Question 1 -->
+            <div class="question active" id="question1">
+                <div class="question-text">
+                    What are your primary goals for therapy?
+                </div>
+                <div class="options-grid">
+                    <div class="option-card" data-value="anxiety">
+                        <i class="fas fa-wind option-icon"></i>
+                        <div style="font-weight: bold;">Reduce Anxiety</div>
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                            Manage stress and worry
+                        </div>
+                    </div>
+                    <div class="option-card" data-value="depression">
+                        <i class="fas fa-cloud option-icon"></i>
+                        <div style="font-weight: bold;">Overcome Depression</div>
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                            Find motivation and joy
+                        </div>
+                    </div>
+                    <div class="option-card" data-value="trauma">
+                        <i class="fas fa-hands-helping option-icon"></i>
+                        <div style="font-weight: bold;">Heal from Trauma</div>
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                            Process past experiences
+                        </div>
+                    </div>
+                    <div class="option-card" data-value="relationships">
+                        <i class="fas fa-heart option-icon"></i>
+                        <div style="font-weight: bold;">Improve Relationships</div>
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                            Better communication
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" id="question2">
+                <div class="question-text">
+                    What type of therapist are you looking for?
+                </div>
+                <div class="multi-select">
+                    <div class="multi-option" data-value="gender-female">Female Therapist</div>
+                    <div class="multi-option" data-value="gender-male">Male Therapist</div>
+                    <div class="multi-option" data-value="gender-any">Any Gender</div>
+                    <div class="multi-option" data-value="age-young">Younger (25-35)</div>
+                    <div class="multi-option" data-value="age-mid">Middle-aged (36-50)</div>
+                    <div class="multi-option" data-value="age-senior">Older (51+)</div>
+                    <div class="multi-option" data-value="religion-same">Same Religion</div>
+                    <div class="multi-option" data-value="culture-same">Similar Cultural Background</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" id="question3">
+                <div class="question-text">
+                    How do you prefer to communicate?
+                </div>
+                <div class="slider-question">
+                    <div class="slider-container">
+                        <input type="range" class="custom-slider" id="communicationSlider" min="1" max="5" value="3">
+                        <div class="slider-labels">
+                            <span>More Listening</span>
+                            <span>Balanced</span>
+                            <span>More Direct</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 1rem; color: rgba(255,255,255,0.7);">
+                        <span id="communicationValue">Balanced approach preferred</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" id="question4">
+                <div class="question-text">
+                    What are your language and scheduling preferences?
+                </div>
+                <div class="options-grid">
+                    <div class="option-card" data-value="language-en">
+                        <i class="fas fa-language option-icon"></i>
+                        <div style="font-weight: bold;">English Only</div>
+                    </div>
+                    <div class="option-card" data-value="language-sw">
+                        <i class="fas fa-language option-icon"></i>
+                        <div style="font-weight: bold;">Kiswahili Only</div>
+                    </div>
+                    <div class="option-card" data-value="language-both">
+                        <i class="fas fa-exchange-alt option-icon"></i>
+                        <div style="font-weight: bold;">Bilingual</div>
+                    </div>
+                    <div class="option-card" data-value="format-inperson">
+                        <i class="fas fa-user option-icon"></i>
+                        <div style="font-weight: bold;">In-Person</div>
+                    </div>
+                    <div class="option-card" data-value="format-online">
+                        <i class="fas fa-video option-icon"></i>
+                        <div style="font-weight: bold;">Online</div>
+                    </div>
+                    <div class="option-card" data-value="format-hybrid">
+                        <i class="fas fa-laptop-house option-icon"></i>
+                        <div style="font-weight: bold;">Hybrid</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="nav-btn btn-prev" id="prevBtn" onclick="prevQuestion()">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="nav-btn btn-next" id="nextBtn" onclick="nextQuestion()">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <!-- Match Score -->
+            <div class="match-score">
+                <div class="score-circle">
+                    <div class="score-value" id="matchScore">92%</div>
+                </div>
+                <h3 style="margin-bottom: 0.5rem;">Perfect Match Found!</h3>
+                <p style="color: rgba(255,255,255,0.8);">
+                    Based on your answers, we found therapists who match your needs
+                </p>
+            </div>
+
+            <!-- AI Explanation -->
+            <div class="ai-explanation">
+                <h4 style="color: var(--primary-soul); margin-bottom: 1rem;">
+                    <i class="fas fa-robot"></i> Why These Matches Work For You
+                </h4>
+                <p id="aiExplanation">
+                    Our AI analyzed your preference for CBT approaches, bilingual communication, 
+                    and evening availability. These therapists specialize in anxiety management 
+                    and have availability that matches your schedule.
+                </p>
+            </div>
+
+            <!-- Therapists Grid -->
+            <div class="therapists-grid">
+                <!-- Therapist 1 -->
+                <div class="therapist-card">
+                    <div class="match-badge">Best Match</div>
+                    <div class="therapist-header">
+                        <div class="therapist-avatar">AM</div>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem;">Dr. Aisha Mwamba</h3>
+                            <div style="color: rgba(255,255,255,0.8);">PhD, Clinical Psychologist</div>
+                        </div>
+                    </div>
+                    <div class="therapist-content">
+                        <div style="color: var(--calm-mind); margin-bottom: 0.5rem;">
+                            <i class="fas fa-star"></i> 4.9/5 (47 reviews)
+                        </div>
+                        <div style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                            Specializes in anxiety, trauma, and cultural identity issues.
+                        </div>
+                        
+                        <div class="therapist-specialties">
+                            <span class="specialty-tag">CBT</span>
+                            <span class="specialty-tag">Trauma-Informed</span>
+                            <span class="specialty-tag">Bilingual</span>
+                            <span class="specialty-tag">Anxiety</span>
+                        </div>
+                        
+                        <div class="availability">
+                            <div>
+                                <i class="fas fa-language"></i> EN/SW
+                            </div>
+                            <div>
+                                <i class="fas fa-clock"></i> Evenings
+                            </div>
+                            <div>
+                                <i class="fas fa-video"></i> Hybrid
+                            </div>
+                        </div>
+                        
+                        <button class="therapist-btn" onclick="selectTherapist('aisha')">
+                            <i class="fas fa-calendar-check"></i> Book Session - $85
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Therapist 2 -->
+                <div class="therapist-card">
+                    <div class="therapist-header" style="background: linear-gradient(45deg, rgba(106, 192, 192, 0.3), rgba(255, 154, 118, 0.3));">
+                        <div class="therapist-avatar">JK</div>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem;">Jamila Kondo</h3>
+                            <div style="color: rgba(255,255,255,0.8);">MA, Licensed Counselor</div>
+                        </div>
+                    </div>
+                    <div class="therapist-content">
+                        <div style="color: var(--calm-mind); margin-bottom: 0.5rem;">
+                            <i class="fas fa-star"></i> 4.8/5 (32 reviews)
+                        </div>
+                        <div style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                            Focuses on mindfulness, stress management, and work-life balance.
+                        </div>
+                        
+                        <div class="therapist-specialties">
+                            <span class="specialty-tag">Mindfulness</span>
+                            <span class="specialty-tag">DBT</span>
+                            <span class="specialty-tag">Stress</span>
+                            <span class="specialty-tag">Swahili</span>
+                        </div>
+                        
+                        <div class="availability">
+                            <div>
+                                <i class="fas fa-language"></i> SW/EN
+                            </div>
+                            <div>
+                                <i class="fas fa-clock"></i> Mornings
+                            </div>
+                            <div>
+                                <i class="fas fa-user"></i> In-Person
+                            </div>
+                        </div>
+                        
+                        <button class="therapist-btn" onclick="selectTherapist('jamila')">
+                            <i class="fas fa-calendar-check"></i> Book Session - $75
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Therapist 3 -->
+                <div class="therapist-card">
+                    <div class="therapist-header" style="background: linear-gradient(45deg, rgba(255, 154, 118, 0.3), rgba(157, 78, 221, 0.3));">
+                        <div class="therapist-avatar">DM</div>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem;">Dr. David Masika</h3>
+                            <div style="color: rgba(255,255,255,0.8);">PhD, Clinical Psychologist</div>
+                        </div>
+                    </div>
+                    <div class="therapist-content">
+                        <div style="color: var(--calm-mind); margin-bottom: 0.5rem;">
+                            <i class="fas fa-star"></i> 4.7/5 (28 reviews)
+                        </div>
+                        <div style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                            Expert in men's mental health and relationship counseling.
+                        </div>
+                        
+                        <div class="therapist-specialties">
+                            <span class="specialty-tag">Men's Health</span>
+                            <span class="specialty-tag">CBT</span>
+                            <span class="specialty-tag">Relationships</span>
+                            <span class="specialty-tag">Bilingual</span>
+                        </div>
+                        
+                        <div class="availability">
+                            <div>
+                                <i class="fas fa-language"></i> EN/SW
+                            </div>
+                            <div>
+                                <i class="fas fa-clock"></i> Flexible
+                            </div>
+                            <div>
+                                <i class="fas fa-video"></i> Online Only
+                            </div>
+                        </div>
+                        
+                        <button class="therapist-btn" onclick="selectTherapist('david')">
+                            <i class="fas fa-calendar-check"></i> Book Session - $80
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="comparison-table">
+                <h4 style="color: var(--calm-mind); margin-bottom: 1rem;">Detailed Comparison</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Dr. Aisha Mwamba</th>
+                            <th>Jamila Kondo</th>
+                            <th>Dr. David Masika</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Match Score</td>
+                            <td class="best-match">92%</td>
+                            <td>87%</td>
+                            <td>84%</td>
+                        </tr>
+                        <tr>
+                            <td>Specialties</td>
+                            <td class="best-match">Anxiety, Trauma, CBT</td>
+                            <td>Mindfulness, Stress, DBT</td>
+                            <td>Men's Health, Relationships</td>
+                        </tr>
+                        <tr>
+                            <td>Languages</td>
+                            <td class="best-match">English & Swahili</td>
+                            <td>Swahili & English</td>
+                            <td>English & Swahili</td>
+                        </tr>
+                        <tr>
+                            <td>Availability</td>
+                            <td class="best-match">Evenings & Weekends</td>
+                            <td>Weekday Mornings</td>
+                            <td>Flexible Schedule</td>
+                        </tr>
+                        <tr>
+                            <td>Session Format</td>
+                            <td class="best-match">Hybrid</td>
+                            <td>In-Person Only</td>
+                            <td>Online Only</td>
+                        </tr>
+                        <tr>
+                            <td>Cost per Session</td>
+                            <td>$85</td>
+                            <td>$75</td>
+                            <td>$80</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Alternative Options -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                    Not satisfied with these matches?
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="restartMatching()" style="background: rgba(255,255,255,0.1); color: white; 
+                           border: 2px solid var(--primary-soul); padding: 1rem 2rem; border-radius: 25px; 
+                           cursor: pointer;">
+                        <i class="fas fa-redo"></i> Start Over
+                    </button>
+                    <button onclick="window.location.href='therapies.html'" style="background: rgba(93, 63, 211, 0.2); 
+                           color: white; border: none; padding: 1rem 2rem; border-radius: 25px; 
+                           cursor: pointer;">
+                        <i class="fas fa-list"></i> View All Therapists
+                    </button>
+                    <button onclick="window.location.href='ai-intake.html'" style="background: linear-gradient(45deg, var(--primary-soul), #7B5FE8); 
+                           color: white; border: none; padding: 1rem 2rem; border-radius: 25px; 
+                           cursor: pointer;">
+                        <i class="fas fa-robot"></i> Talk to AI Assistant
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // State management
+        const state = {
+            currentQuestion: 1,
+            totalQuestions: 4,
+            answers: {},
+            therapists: [
+                {
+                    id: 'aisha',
+                    name: 'Dr. Aisha Mwamba',
+                    matchScore: 92,
+                    specialties: ['Anxiety', 'Trauma', 'CBT'],
+                    languages: ['English', 'Swahili'],
+                    availability: 'Evenings & Weekends',
+                    format: 'Hybrid',
+                    price: 85,
+                    explanation: 'Matches your preference for CBT, bilingual sessions, and evening availability. Specializes in anxiety management.'
+                },
+                {
+                    id: 'jamila',
+                    name: 'Jamila Kondo',
+                    matchScore: 87,
+                    specialties: ['Mindfulness', 'Stress', 'DBT'],
+                    languages: ['Swahili', 'English'],
+                    availability: 'Weekday Mornings',
+                    format: 'In-Person',
+                    price: 75,
+                    explanation: 'Strong match for mindfulness approaches and Swahili-language preference.'
+                },
+                {
+                    id: 'david',
+                    name: 'Dr. David Masika',
+                    matchScore: 84,
+                    specialties: ['Men\'s Health', 'Relationships', 'CBT'],
+                    languages: ['English', 'Swahili'],
+                    availability: 'Flexible',
+                    format: 'Online Only',
+                    price: 80,
+                    explanation: 'Good match for CBT approach and flexible scheduling needs.'
+                }
+            ]
+        };
+
+        // DOM Elements
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const matchScore = document.getElementById('matchScore');
+        const aiExplanation = document.getElementById('aiExplanation');
+        const communicationSlider = document.getElementById('communicationSlider');
+        const communicationValue = document.getElementById('communicationValue');
+
+        // Initialize
+        function init() {
+            updateNavigation();
+            setupEventListeners();
+            loadProgress();
+        }
+
+        // Event listeners
+        function setupEventListeners() {
+            // Option cards selection
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const questionId = this.closest('.question').id;
+                    const value = this.getAttribute('data-value');
+                    
+                    // Clear other selections in this question
+                    this.parentElement.querySelectorAll('.option-card').forEach(c => {
+                        c.classList.remove('selected');
+                    });
+                    
+                    // Select this card
+                    this.classList.add('selected');
+                    
+                    // Store answer
+                    state.answers[questionId] = value;
+                    updateNavigation();
+                });
+            });
+
+            // Multi-select options
+            document.querySelectorAll('.multi-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    updateMultiSelect();
+                });
+            });
+
+            // Slider
+            communicationSlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                let label = '';
+                
+                switch(value) {
+                    case 1: label = 'Prefer therapist who listens more'; break;
+                    case 2: label = 'Slightly more listening'; break;
+                    case 3: label = 'Balanced approach preferred'; break;
+                    case 4: label = 'Slightly more direct'; break;
+                    case 5: label = 'Prefer direct guidance'; break;
+                }
+                
+                communicationValue.textContent = label;
+                state.answers['question3'] = value;
+                updateNavigation();
+            });
+        }
+
+        // Question navigation
+        function nextQuestion() {
+            if (state.currentQuestion < state.totalQuestions) {
+                // Hide current question
+                document.getElementById(`question${state.currentQuestion}`).classList.remove('active');
+                
+                // Show next question
+                state.currentQuestion++;
+                document.getElementById(`question${state.currentQuestion}`).classList.add('active');
+                
+                // Update progress steps
+                updateProgressSteps();
+                updateNavigation();
+            } else {
+                // Show results
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (state.currentQuestion > 1) {
+                // Hide current question
+                document.getElementById(`question${state.currentQuestion}`).classList.remove('active');
+                
+                // Show previous question
+                state.currentQuestion--;
+                document.getElementById(`question${state.currentQuestion}`).classList.add('active');
+                
+                // Update progress steps
+                updateProgressSteps();
+                updateNavigation();
+            }
+        }
+
+        // Update navigation buttons
+        function updateNavigation() {
+            prevBtn.style.display = state.currentQuestion > 1 ? 'flex' : 'none';
+            
+            if (state.currentQuestion < state.totalQuestions) {
+                nextBtn.innerHTML = `Next <i class="fas fa-arrow-right"></i>`;
+                nextBtn.disabled = !isQuestionAnswered(state.currentQuestion);
+            } else {
+                nextBtn.innerHTML = `View Results <i class="fas fa-chart-bar"></i>`;
+                nextBtn.disabled = !isQuestionAnswered(state.currentQuestion);
+            }
+        }
+
+        // Check if question is answered
+        function isQuestionAnswered(questionNum) {
+            const questionId = `question${questionNum}`;
+            
+            if (questionNum === 2) {
+                // Multi-select question
+                return document.querySelectorAll(`#${questionId} .multi-option.selected`).length > 0;
+            } else if (questionNum === 3) {
+                // Slider question
+                return state.answers[questionId] !== undefined;
+            } else {
+                // Single select question
+                return document.querySelectorAll(`#${questionId} .option-card.selected`).length > 0;
+            }
+        }
+
+        // Update progress steps
+        function updateProgressSteps() {
+            const steps = document.querySelectorAll('.step-circle');
+            steps.forEach((step, index) => {
+                const stepNum = index + 1;
+                
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum === state.currentQuestion) {
+                    step.classList.add('active');
+                } else if (stepNum < state.currentQuestion) {
+                    step.classList.add('completed');
+                }
+            });
+        }
+
+        // Update multi-select storage
+        function updateMultiSelect() {
+            const selected = [];
+            document.querySelectorAll('#question2 .multi-option.selected').forEach(option => {
+                selected.push(option.getAttribute('data-value'));
+            });
+            state.answers['question2'] = selected;
+            updateNavigation();
+        }
+
+        // Show results
+        function showResults() {
+            // Calculate match score
+            const score = calculateMatchScore();
+            matchScore.textContent = `${score}%`;
+            
+            // Update AI explanation
+            const bestMatch = state.therapists[0];
+            aiExplanation.textContent = bestMatch.explanation;
+            
+            // Hide questions, show results
+            document.querySelector('.questions-container').style.display = 'none';
+            document.querySelector('.progress-steps').style.display = 'none';
+            resultsSection.style.display = 'block';
+            
+            // Update progress steps for results
+            const steps = document.querySelectorAll('.step-circle');
+            steps.forEach(step => {
+                step.classList.remove('active');
+                step.classList.add('completed');
+            });
+            
+            // Add results step
+            const resultsStep = document.createElement('div');
+            resultsStep.className = 'progress-step';
+            resultsStep.innerHTML = `
+                <div class="step-circle active">✓</div>
+                <div class="step-label">Results</div>
+            `;
+            document.querySelector('.progress-steps').appendChild(resultsStep);
+            document.querySelector('.progress-steps').style.display = 'flex';
+            
+            // Save results
+            saveResults(score);
+        }
+
+        // Calculate match score (simplified)
+        function calculateMatchScore() {
+            let score = 0;
+            const questionCount = Object.keys(state.answers).length;
+            
+            if (questionCount > 0) {
+                score = Math.min(95 + Math.floor(Math.random() * 6), 100);
+            }
+            
+            return score;
+        }
+
+        // Save results to localStorage
+        function saveResults(score) {
+            const results = {
+                score: score,
+                answers: state.answers,
+                date: new Date().toISOString(),
+                therapists: state.therapists
+            };
+            
+            localStorage.setItem('therapistMatchResults', JSON.stringify(results));
+        }
+
+        // Load progress from localStorage
+        function loadProgress() {
+            const saved = localStorage.getItem('therapistMatchProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                state.answers = progress.answers || {};
+                state.currentQuestion = progress.currentQuestion || 1;
+                
+                // Restore selections
+                restoreSelections();
+                updateProgressSteps();
+                updateNavigation();
+            }
+        }
+
+        // Restore selections from state
+        function restoreSelections() {
+            Object.keys(state.answers).forEach(questionId => {
+                const answer = state.answers[questionId];
+                
+                if (questionId === 'question2' && Array.isArray(answer)) {
+                    // Restore multi-select
+                    answer.forEach(value => {
+                        const option = document.querySelector(`.multi-option[data-value="${value}"]`);
+                        if (option) option.classList.add('selected');
+                    });
+                } else if (questionId === 'question3') {
+                    // Restore slider
+                    communicationSlider.value = answer;
+                    communicationSlider.dispatchEvent(new Event('input'));
+                } else {
+                    // Restore single select
+                    const card = document.querySelector(`#${questionId} .option-card[data-value="${answer}"]`);
+                    if (card) card.classList.add('selected');
+                }
+            });
+        }
+
+        // Therapist selection
+        function selectTherapist(therapistId) {
+            const therapist = state.therapists.find(t => t.id === therapistId);
+            if (therapist) {
+                localStorage.setItem('selectedTherapist', JSON.stringify(therapist));
+                window.location.href = 'contact.html?therapist=' + therapistId;
+            }
+        }
+
+        // Restart matching
+        function restartMatching() {
+            if (confirm('Start over with new answers?')) {
+                state.answers = {};
+                state.currentQuestion = 1;
+                
+                // Clear selections
+                document.querySelectorAll('.option-card, .multi-option').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                communicationSlider.value = 3;
+                communicationSlider.dispatchEvent(new Event('input'));
+                
+                // Reset display
+                document.querySelectorAll('.question').forEach((q, i) => {
+                    q.classList.toggle('active', i === 0);
+                });
+                resultsSection.style.display = 'none';
+                document.querySelector('.questions-container').style.display = 'block';
+                
+                // Reset progress steps
+                updateProgressSteps();
+                updateNavigation();
+                
+                // Clear saved progress
+                localStorage.removeItem('therapistMatchProgress');
+            }
+        }
+
+        // Auto-save progress
+        setInterval(() => {
+            const progress = {
+                answers: state.answers,
+                currentQuestion: state.currentQuestion
+            };
+            localStorage.setItem('therapistMatchProgress', JSON.stringify(progress));
+        }, 5000);
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
