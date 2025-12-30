@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard | Psychezone International</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-soul: #5D3FD3;
+            --calm-mind: #6AC0C0;
+            --hope-glow: #FF9A76;
+            --dark-sanctuary: #0A0A1A;
+            --light-bg: #F8F9FF;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-sanctuary);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .dashboard-sidebar {
+            width: 250px;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            color: var(--primary-soul);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(93, 63, 211, 0.2);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .dashboard-main {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .welcome-message h1 {
+            font-size: 2rem;
+            background: linear-gradient(to right, white, var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .welcome-message p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-soul), var(--calm-mind));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-soul);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(93, 63, 211, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-soul);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Progress Chart */
+        .progress-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-soul), var(--calm-mind));
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+
+        /* Sessions List */
+        .sessions-list {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .session-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .session-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .session-status {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-upcoming { background: rgba(106, 192, 192, 0.2); color: var(--calm-mind); }
+        .status-completed { background: rgba(93, 63, 211, 0.2); color: #b19eff; }
+
+        /* AI Recommendations */
+        .ai-recommendations {
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(106, 192, 192, 0.1));
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mood Tracker */
+        .mood-tracker {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .mood-option {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mood-option:hover {
+            background: rgba(93, 63, 211, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .mood-option.selected {
+            background: rgba(93, 63, 211, 0.3);
+            border: 2px solid var(--primary-soul);
+        }
+
+        .mood-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-sidebar {
+                width: 70px;
+                padding: 1rem 0.5rem;
+            }
+            
+            .sidebar-link span {
+                display: none;
+            }
+            
+            .dashboard-main {
+                margin-left: 70px;
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-brain sidebar-logo"></i>
+                <span style="font-weight: bold; color: white;">DASHBOARD</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="sidebar-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="dashboard-progress.html" class="sidebar-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="dashboard-sessions.html" class="sidebar-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Sessions</span>
+                </a>
+                <a href="dashboard-goals.html" class="sidebar-link">
+                    <i class="fas fa-bullseye"></i>
+                    <span>Goals</span>
+                </a>
+                <a href="dashboard-resources.html" class="sidebar-link">
+                    <i class="fas fa-book"></i>
+                    <span>Resources</span>
+                </a>
+                <a href="dashboard-ai.html" class="sidebar-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <a href="index.html" class="sidebar-link">
+                        <i class="fas fa-globe"></i>
+                        <span>Main Site</span>
+                    </a>
+                    <a href="therapies.html" class="sidebar-link">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Therapies</span>
+                    </a>
+                    <a href="voice-tools.html" class="sidebar-link">
+                        <i class="fas fa-microphone-alt"></i>
+                        <span>Voice Tools</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h1>Welcome back, Sarah</h1>
+                    <p>Your mental wellness journey • Day 47 of therapy</p>
+                </div>
+                <div class="user-avatar">S</div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-value">12</div>
+                    </div>
+                    <div class="stat-label">Total Sessions</div>
+                    <div style="font-size: 0.9rem; color: var(--calm-mind); margin-top: 0.5rem;">
+                        Next: Tomorrow 3 PM
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-value">65%</div>
+                    </div>
+                    <div class="stat-label">Progress Score</div>
+                    <div class="progress-bar" style="margin-top: 0.5rem;">
+                        <div class="progress-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="stat-value">24</div>
+                    </div>
+                    <div class="stat-label">Mindfulness Minutes</div>
+                    <div style="font-size: 0.9rem; color: var(--calm-mind); margin-top: 0.5rem;">
+                        +12% from last week
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-value">7.8</div>
+                    </div>
+                    <div class="stat-label">Average Mood</div>
+                    <div style="font-size: 0.9rem; color: var(--hope-glow); margin-top: 0.5rem;">
+                        Good improvement
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Mood -->
+            <div class="progress-section">
+                <h3 style="margin-bottom: 1.5rem; color: var(--calm-mind);">
+                    <i class="fas fa-smile"></i> How are you feeling today?
+                </h3>
+                <div class="mood-tracker">
+                    <div class="mood-option" data-mood="1">
+                        <div class="mood-icon">😢</div>
+                        <div>Very Low</div>
+                    </div>
+                    <div class="mood-option" data-mood="2">
+                        <div class="mood-icon">😔</div>
+                        <div>Low</div>
+                    </div>
+                    <div class="mood-option" data-mood="3">
+                        <div class="mood-icon">😐</div>
+                        <div>Neutral</div>
+                    </div>
+                    <div class="mood-option" data-mood="4">
+                        <div class="mood-icon">🙂</div>
+                        <div>Good</div>
+                    </div>
+                    <div class="mood-option" data-mood="5">
+                        <div class="mood-icon">😊</div>
+                        <div>Great</div>
+                    </div>
+                </div>
+                <button id="logMoodBtn" style="margin-top: 1rem; background: var(--primary-soul); color: white; 
+                       border: none; padding: 0.8rem 1.5rem; border-radius: 25px; cursor: pointer;">
+                    Log Today's Mood
+                </button>
+            </div>
+
+            <!-- Upcoming Sessions -->
+            <div class="sessions-list">
+                <h3 style="margin-bottom: 1.5rem; color: var(--calm-mind);">
+                    <i class="fas fa-calendar-alt"></i> Upcoming Sessions
+                </h3>
+                
+                <div class="session-item">
+                    <div>
+                        <h4>CBT Session with Dr. Mwamba</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                            <i class="far fa-clock"></i> Tomorrow, 3:00 PM - 4:00 PM
+                        </p>
+                    </div>
+                    <div>
+                        <span class="session-status status-upcoming">Upcoming</span>
+                        <button onclick="window.location.href='voice-tools.html'" 
+                                style="margin-left: 1rem; background: rgba(106, 192, 192, 0.2); 
+                                color: var(--calm-mind); border: none; padding: 0.5rem 1rem; 
+                                border-radius: 15px; cursor: pointer;">
+                            Prepare
+                        </button>
+                    </div>
+                </div>
+
+                <div class="session-item">
+                    <div>
+                        <h4>Group Workshop: Anxiety Management</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                            <i class="far fa-clock"></i> Friday, 10:00 AM - 12:00 PM
+                        </p>
+                    </div>
+                    <div>
+                        <span class="session-status status-upcoming">Upcoming</span>
+                    </div>
+                </div>
+
+                <div class="session-item">
+                    <div>
+                        <h4>Completed: Weekly CBT Session</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                            <i class="far fa-clock"></i> December 12, 2024
+                        </p>
+                    </div>
+                    <div>
+                        <span class="session-status status-completed">Completed</span>
+                        <button onclick="window.location.href='dashboard-progress.html'" 
+                                style="margin-left: 1rem; background: transparent; 
+                                color: var(--primary-soul); border: 1px solid var(--primary-soul); 
+                                padding: 0.5rem 1rem; border-radius: 15px; cursor: pointer;">
+                            Notes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Recommendations -->
+            <div class="ai-recommendations">
+                <h3 style="margin-bottom: 1rem; color: var(--primary-soul);">
+                    <i class="fas fa-robot"></i> AI Recommendations for You
+                </h3>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                    Based on your recent mood logs and progress, I recommend:
+                </p>
+                <ul style="list-style: none; margin: 1rem 0;">
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <i class="fas fa-check-circle" style="color: var(--calm-mind);"></i>
+                        Try the 5-minute breathing exercise before bed
+                    </li>
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <i class="fas fa-check-circle" style="color: var(--calm-mind);"></i>
+                        Review your CBT thought records from last session
+                    </li>
+                    <li style="padding: 0.5rem 0;">
+                        <i class="fas fa-check-circle" style="color: var(--calm-mind);"></i>
+                        Consider discussing sleep patterns with Dr. Mwamba
+                    </li>
+                </ul>
+                <a href="ai-intake.html" style="color: var(--hope-glow); text-decoration: none; 
+                   display: inline-block; margin-top: 1rem;">
+                    Chat with AI Assistant →
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mood tracker
+        document.querySelectorAll('.mood-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        document.getElementById('logMoodBtn').addEventListener('click', function() {
+            const selectedMood = document.querySelector('.mood-option.selected');
+            if (selectedMood) {
+                const moodValue = selectedMood.getAttribute('data-mood');
+                const moods = ['Very Low', 'Low', 'Neutral', 'Good', 'Great'];
+                
+                // Save to localStorage
+                const today = new Date().toISOString().split('T')[0];
+                const moodData = JSON.parse(localStorage.getItem('moodData') || '{}');
+                moodData[today] = parseInt(moodValue);
+                localStorage.setItem('moodData', JSON.stringify(moodData));
+                
+                // Show confirmation
+                alert(`Mood logged: ${moods[moodValue-1]}. Thank you for checking in!`);
+                
+                // Update stats
+                updateMoodStats();
+            } else {
+                alert('Please select a mood first.');
+            }
+        });
+
+        function updateMoodStats() {
+            const moodData = JSON.parse(localStorage.getItem('moodData') || '{}');
+            const values = Object.values(moodData);
+            if (values.length > 0) {
+                const avg = values.reduce((a, b) => a + b, 0) / values.length;
+                const avgElement = document.querySelector('.stat-card:nth-child(4) .stat-value');
+                if (avgElement) {
+                    avgElement.textContent = avg.toFixed(1);
+                }
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateMoodStats();
+            
+            // Set random progress for demo
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) {
+                const targetWidth = 65 + Math.random() * 20;
+                progressFill.style.width = targetWidth + '%';
+            }
+        });
+    </script>
+</body>
+</html>
