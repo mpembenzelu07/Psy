@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="psychezone-html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
             --hope-glow: #FF9A76;
             --dark-sanctuary: #0A0A1A;
             --light-bg: #F8F9FF;
-            --transition: all 0.4s ease;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         * {
@@ -27,31 +27,28 @@
             background: var(--dark-sanctuary);
             color: white;
             overflow-x: hidden;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            min-height: 100vh;
         }
 
         /* ==== HEADER & NAVIGATION ==== */
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
             background: rgba(10, 10, 26, 0.95);
             backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 5%;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .logo {
@@ -62,8 +59,14 @@
         }
 
         .logo-icon {
-            color: var(--primary-soul);
             font-size: 2rem;
+            color: var(--primary-soul);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .logo-text {
@@ -75,51 +78,51 @@
             color: transparent;
         }
 
-        .main-nav {
+        .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-link {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 30px;
             transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-link:hover:before {
+            left: 100%;
         }
 
         .nav-link:hover, .nav-link.active {
             background: rgba(93, 63, 211, 0.2);
+            transform: translateY(-2px);
         }
 
-        .language-switcher {
-            display: flex;
-            gap: 10px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 5px 15px;
+        .tech-badge {
+            background: var(--hope-glow);
+            color: var(--dark-sanctuary);
+            padding: 0.2rem 0.8rem;
             border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .lang-btn.active {
-            background: var(--primary-soul);
-            border-color: var(--primary-soul);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+            animation: pulse 2s infinite;
         }
 
         /* ==== HERO SECTION ==== */
@@ -127,7 +130,8 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding-top: 100px;
+            padding: 0 5%;
+            padding-top: 120px;
             position: relative;
             overflow: hidden;
         }
@@ -138,17 +142,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(93, 63, 211, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(106, 192, 192, 0.1) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(93, 63, 211, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(106, 192, 192, 0.1) 0%, transparent 50%);
             z-index: -1;
         }
 
         .hero-content {
             max-width: 800px;
+            z-index: 1;
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
@@ -156,19 +162,109 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: textReveal 1s ease-out;
+        }
+
+        @keyframes textReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            color: #aaa;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 2rem;
-            max-width: 600px;
+            line-height: 1.6;
         }
 
+        /* ==== TECH FEATURES GRID ==== */
+        .tech-features {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: white;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-soul), var(--calm-mind));
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card:hover {
+            border-color: var(--primary-soul);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(93, 63, 211, 0.1);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            color: var(--primary-soul);
+            margin-bottom: 1.5rem;
+            background: rgba(93, 63, 211, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tech-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: rgba(106, 192, 192, 0.2);
+            color: var(--calm-mind);
+        }
+
+        .status-beta {
+            background: rgba(255, 154, 118, 0.2);
+            color: var(--hope-glow);
+        }
+
+        /* ==== CTA BUTTONS ==== */
         .cta-buttons {
             display: flex;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -180,17 +276,25 @@
             align-items: center;
             gap: 10px;
             transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
 
         .btn-primary {
             background: linear-gradient(45deg, var(--primary-soul), #7B5FE8);
             color: white;
-            border: none;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(93, 63, 211, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(93, 63, 211, 0.6); }
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(93, 63, 211, 0.3);
+            box-shadow: 0 15px 30px rgba(93, 63, 211, 0.4);
         }
 
         .btn-secondary {
@@ -201,134 +305,88 @@
 
         .btn-secondary:hover {
             background: rgba(106, 192, 192, 0.1);
+            transform: translateY(-3px);
         }
 
-        /* ==== FEATURES SECTION ==== */
-        .features {
-            padding: 6rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+        .btn-ai {
+            background: linear-gradient(45deg, #FF6B6B, var(--hope-glow));
             color: white;
+        }
+
+        /* ==== FEATURES SHOWCASE ==== */
+        .features-showcase {
+            padding: 6rem 5%;
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             padding: 2rem;
+            text-align: center;
             transition: var(--transition);
-            border: 1px solid transparent;
         }
 
         .feature-card:hover {
-            border-color: var(--primary-soul);
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary-soul);
-            margin-bottom: 1rem;
-        }
-
-        /* ==== TESTIMONIALS ==== */
-        .testimonials {
-            padding: 6rem 0;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-author {
-            color: var(--calm-mind);
-            font-weight: 600;
-        }
-
-        .rating {
-            color: #FFD700;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ==== QUICK LINKS ==== */
-        .quick-links {
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .link-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .link-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-decoration: none;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .link-card:hover {
-            background: rgba(93, 63, 211, 0.2);
+            background: rgba(255, 255, 255, 0.08);
             transform: translateY(-5px);
         }
 
         /* ==== FOOTER ==== */
         footer {
             background: rgba(0, 0, 0, 0.5);
-            padding: 3rem 0;
+            padding: 4rem 5% 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .footer-title {
             color: var(--calm-mind);
             margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary-soul);
+            transform: translateX(5px);
         }
 
         .social-links {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             display: flex;
@@ -349,257 +407,217 @@
             margin-top: 3rem;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        /* ==== RESPONSIVE ==== */
+        /* ==== RESPONSIVE DESIGN ==== */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .main-nav {
+            .nav-links {
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--dark-sanctuary);
-                flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
-
-            .main-nav.active {
-                display: flex;
-            }
-
+            
             .hero-title {
                 font-size: 2.5rem;
             }
-
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
             .cta-buttons {
                 flex-direction: column;
             }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==== ANIMATIONS ==== */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .ai-pulse {
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
 <body>
     <!-- HEADER -->
     <header>
-        <div class="container">
-            <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-brain logo-icon"></i>
-                    <div class="logo-text">PSYCHEZONE</div>
-                </a>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <div class="logo-text">PSYCHEZONE</div>
+            </a>
 
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <nav class="main-nav" id="mainNav">
-                    <a href="index.html" class="nav-link active">Home</a>
-                    <a href="therapies.html" class="nav-link">Therapies</a>
-                    <a href="workshops.html" class="nav-link">Workshops</a>
-                    <a href="confessional.html" class="nav-link">Confessional</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
-                </nav>
-
-                <div class="language-switcher">
-                    <button class="lang-btn active">EN</button>
-                    <button class="lang-btn">SW</button>
-                </div>
-            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="therapies.html" class="nav-link">Therapies</a>
+                <a href="workshops.html" class="nav-link">Workshops</a>
+                <a href="dashboard.html" class="nav-link">Dashboard <span class="tech-badge">AI</span></a>
+                <a href="ai-intake.html" class="nav-link">AI Assistant <span class="tech-badge">NEW</span></a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
         </div>
     </header>
 
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-bg"></div>
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">WHERE MINDS HEAL & SPIRITS SOAR</h1>
-                <p class="hero-subtitle">Dar es Salaam's premier mental health sanctuary, blending modern psychotherapy with culturally-aware healing practices in English and Swahili.</p>
-                
-                <div class="cta-buttons">
-                    <a href="contact.html" class="btn btn-primary">
-                        <i class="fas fa-calendar-check"></i> Book Your Session
-                    </a>
-                    <a href="therapies.html" class="btn btn-secondary">
-                        <i class="fas fa-compass"></i> Explore Therapies
-                    </a>
-                </div>
+        <div class="hero-content">
+            <h1 class="hero-title">HUMAN-CENTERED AI FOR MENTAL HEALTH</h1>
+            <p class="hero-subtitle">
+                Dar es Salaam's first intelligent mental health platform. We blend ethical AI with 
+                culturally-aware therapy to provide accessible, confidential support in English and Swahili.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="ai-intake.html" class="btn btn-primary">
+                    <i class="fas fa-robot ai-pulse"></i> Start with AI Assistant
+                </a>
+                <a href="therapist-match.html" class="btn btn-secondary">
+                    <i class="fas fa-handshake"></i> Match with Therapist
+                </a>
+                <a href="dashboard.html" class="btn btn-ai">
+                    <i class="fas fa-chart-line"></i> Track Progress
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- FEATURES -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">WHY PSYCHEZONE IS DIFFERENT</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-language feature-icon"></i>
-                    <h3>Bilingual Healing</h3>
-                    <p>Full therapy sessions in English & Swahili. Your healing journey in the language of your heart.</p>
+    <!-- TECH FEATURES -->
+    <section class="tech-features">
+        <h2 class="section-title">Our Intelligent Features</h2>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-status status-active">ACTIVE</div>
+                <div class="tech-icon">
+                    <i class="fas fa-robot"></i>
                 </div>
-                
-                <div class="feature-card">
-                    <i class="fas fa-hands-helping feature-icon"></i>
-                    <h3>Culturally-Rooted</h3>
-                    <p>Western psychotherapy meets Tanzanian wisdom for truly relevant healing.</p>
+                <h3>AI Intake Assistant</h3>
+                <p>Gentle conversational intake in English & Swahili. Routes you to the right specialist without overwhelming forms.</p>
+                <a href="ai-intake.html" class="btn" style="margin-top: 1rem; padding: 0.8rem 1.5rem; background: rgba(93, 63, 211, 0.2); color: white;">
+                    Try Now
+                </a>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-status status-active">ACTIVE</div>
+                <div class="tech-icon">
+                    <i class="fas fa-user-md"></i>
                 </div>
-                
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt feature-icon"></i>
-                    <h3>Safe & Confidential</h3>
-                    <p>Your privacy is sacred. Anonymous options available for complete confidentiality.</p>
+                <h3>Smart Therapist Match</h3>
+                <p>AI matches you with therapists based on language, specialty, cultural background, and availability.</p>
+                <a href="therapist-match.html" class="btn" style="margin-top: 1rem; padding: 0.8rem 1.5rem; background: rgba(93, 63, 211, 0.2); color: white;">
+                    Find Match
+                </a>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-status status-active">ACTIVE</div>
+                <div class="tech-icon">
+                    <i class="fas fa-microphone-alt"></i>
                 </div>
+                <h3>Voice Wellness Tools</h3>
+                <p>Guided breathing, anxiety grounding, and sleep meditations with culturally-sensitive voice AI.</p>
+                <a href="voice-tools.html" class="btn" style="margin-top: 1rem; padding: 0.8rem 1.5rem; background: rgba(93, 63, 211, 0.2); color: white;">
+                    Listen Now
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">HEALING VOICES</h2>
-            
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"After years of struggling alone, Psychezone gave me tools to heal in my own language. Revolutionary!"</p>
-                    <p class="testimonial-author">- Aisha M., Dar es Salaam</p>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"The bilingual approach made all the difference. Finally, therapy that understands my cultural context."</p>
-                    <p class="testimonial-author">- John P., Corporate Client</p>
-                </div>
+    <!-- FEATURES SHOWCASE -->
+    <section class="features-showcase">
+        <h2 class="section-title">Complete Care Platform</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--calm-mind); margin-bottom: 1rem;"></i>
+                <h3>Secure Dashboard</h3>
+                <p>Track your progress, view session history, and monitor wellness goals in complete privacy.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- QUICK LINKS -->
-    <section class="quick-links">
-        <div class="container">
-            <h2 class="section-title">YOUR HEALING JOURNEY STARTS HERE</h2>
-            
-            <div class="link-grid">
-                <a href="therapies.html" class="link-card">
-                    <i class="fas fa-brain" style="font-size: 2rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
-                    <h3>Therapy Sessions</h3>
-                    <p>One-on-one healing journeys</p>
-                </a>
-                
-                <a href="workshops.html" class="link-card">
-                    <i class="fas fa-users" style="font-size: 2rem; color: var(--calm-mind); margin-bottom: 1rem;"></i>
-                    <h3>Group Workshops</h3>
-                    <p>Community healing circles</p>
-                </a>
-                
-                <a href="confessional.html" class="link-card">
-                    <i class="fas fa-feather-alt" style="font-size: 2rem; color: var(--hope-glow); margin-bottom: 1rem;"></i>
-                    <h3>Anonymous Release</h3>
-                    <p>Release burdens safely</p>
-                </a>
-                
-                <a href="contact.html" class="link-card">
-                    <i class="fas fa-phone-alt" style="font-size: 2rem; color: var(--calm-mind); margin-bottom: 1rem;"></i>
-                    <h3>Contact Us</h3>
-                    <p>Begin your journey today</p>
-                </a>
+            <div class="feature-card">
+                <i class="fas fa-lock" style="font-size: 3rem; color: var(--primary-soul); margin-bottom: 1rem;"></i>
+                <h3>Confidential Release</h3>
+                <p>Anonymous sharing platform for releasing thoughts safely without identification.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-comments" style="font-size: 3rem; color: var(--hope-glow); margin-bottom: 1rem;"></i>
+                <h3>Bilingual Support</h3>
+                <p>Full therapy sessions and AI interactions available in both English and Swahili.</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3 class="footer-title">Psychezone International</h3>
-                    <p>Mabatini Rd, Dar es Salaam</p>
-                    <p>Mon-Sat: 8AM - 6PM</p>
-                    <p>⭐ 5.0 (12+ reviews)</p>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Quick Links</h3>
-                    <p><a href="index.html" style="color: white; text-decoration: none;">Home</a></p>
-                    <p><a href="therapies.html" style="color: white; text-decoration: none;">Services</a></p>
-                    <p><a href="contact.html" style="color: white; text-decoration: none;">Book Appointment</a></p>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                    </div>
+        <div class="footer-grid">
+            <div>
+                <h3 class="footer-title">Psychezone International</h3>
+                <p>Mabatini Rd, Dar es Salaam</p>
+                <p>Mon-Sat: 8AM - 6PM | Sun: Emergency Only</p>
+                <p>⭐ 5.0 (24+ reviews)</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>© 2023 Psychezone International. Mental health clinic & counseling services.</p>
-                <p>In Tanzania, mental health services are limited. We're changing that narrative.</p>
+            <div>
+                <h3 class="footer-title">Tech Features</h3>
+                <div class="footer-links">
+                    <a href="ai-intake.html" class="footer-link">AI Intake Assistant</a>
+                    <a href="therapist-match.html" class="footer-link">Therapist Matching</a>
+                    <a href="voice-tools.html" class="footer-link">Voice Wellness Tools</a>
+                    <a href="dashboard.html" class="footer-link">Progress Dashboard</a>
+                    <a href="compliance.html" class="footer-link">Ethics & Compliance</a>
+                </div>
             </div>
+            <div>
+                <h3 class="footer-title">Get Help Now</h3>
+                <p>Emergency: +255 789 456 123</p>
+                <p>AI Assistant: 24/7 Available</p>
+                <a href="contact.html" class="btn" style="background: var(--primary-soul); color: white; margin-top: 1rem; padding: 0.8rem 1.5rem; display: inline-block;">
+                    <i class="fas fa-phone-alt"></i> Crisis Support
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 Psychezone International | Ethical AI Mental Health Platform</p>
+            <p><a href="compliance.html" style="color: var(--calm-mind); text-decoration: none;">View Our AI Ethics & Compliance</a></p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+        // AI Feature Notification
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                showNotification('Our AI Assistant is available 24/7 for confidential support in English & Swahili.');
+            }, 2000);
         });
 
-        // Language Switcher
-        const langButtons = document.querySelectorAll('.lang-btn');
-        langButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                langButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                // In production, this would trigger language change
-            });
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="position: fixed; bottom: 20px; right: 20px; background: rgba(10, 10, 26, 0.95); 
+                backdrop-filter: blur(10px); color: var(--calm-mind); padding: 1rem 1.5rem; border-radius: 15px; 
+                border-left: 4px solid var(--primary-soul); z-index: 10000; max-width: 300px; 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: slideIn 0.3s ease;">
+                    <p style="margin: 0; font-size: 0.9rem;">${message}</p>
+                    <a href="ai-intake.html" style="color: var(--hope-glow); text-decoration: none; font-weight: bold; display: block; margin-top: 0.5rem;">
+                        Try AI Assistant →
+                    </a>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
     </script>
 </body>
 </html>
